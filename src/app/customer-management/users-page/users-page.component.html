@@ -1,0 +1,19 @@
+
+    <!-- <mat-icon>add_box</mat-icon> -->
+  <!-- <a (click)="openDialog($event)"></a> -->
+  <div class="page-title">
+    <div class="text-left">
+      <h2>Users Table</h2>
+      <!-- <span class="fa fa-arrow-circle-o-left"></span>  -->
+    </div>
+    <div class="text-right">
+      <button mat-mini-fab color="primary" matTooltip="Add User" class="theme-btn" (click)="openDialog(null)">
+      <i class="material-icons">person_add</i>
+    </button>
+    </div>
+  </div>
+ 
+  <div class="mat-container mb-5">
+    <app-mat-table *ngIf="gridRelaod" [dataUrl]="grid_url" [headerColumns]="Columns" (outData)="openBox($event)" ></app-mat-table>
+  </div>
+

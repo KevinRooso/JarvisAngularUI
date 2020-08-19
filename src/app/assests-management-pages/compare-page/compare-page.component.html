@@ -1,0 +1,146 @@
+<div>
+  <!-- <ul class="breadcrumb">
+    <li><a [routerLink]="['/home-dashboard']">Home</a></li>
+    <li><a [routerLink]="['/assets-dashbaord']">Assets Dashboard</a></li>
+<li><a (click)="Back()" >Assets Data Table</a></li>
+    <li><a (click)="Back()">Assets Details</a></li>
+    <li><a>Assets Compare Table</a></li>
+  </ul> -->
+  <ul class="breadcrumb">
+    <li><a [routerLink]="['/home-dashboard']">Home</a></li>
+    <li><a [routerLink]="['/assets-dashbaord']">Assets Dashboard</a></li>
+    <li><a [routerLink]="['/assests-data']" [queryParams]="{selectedItem: selectedItem, cname: cname}" >{{cname}} Data Table</a></li>
+    <li><a (click)="Back()">Assets Details</a></li>
+    <li><a style="cursor:auto;">Assets Compare Table</a></li>
+    <!-- <li><a style="cursor:auto;">Assets Visualization Graph</a></li> -->
+  </ul>
+</div>
+<!-- <div class="row my-3">
+  <div class="col-sm-12 text-right">
+    <a *ngIf="b1.imeiNo && b2.imeiNo" [routerLink]="['/compare-graph']" [queryParams]="{idBin1: b1.imeiNo, idBin2:b2.imeiNo}">
+      <button mat-raised-button color="primary" class="visulalize-button">
+        Visualize
+      </button>
+    </a>
+  </div>
+</div> -->
+<!-- Compare  table HTML -->
+<div class="row my-4">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-lg-2 col-md-0"></div>
+    <div class="col-lg-8 col-md-10">
+      <article>
+        <table>
+          <thead>
+            <tr>
+              <th class="sep">Parameters</th>
+              <th class="bg-purple">
+                <form class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="b1Control" [matAutocomplete]="autob1">
+                    <mat-autocomplete #autob1="matAutocomplete" (optionSelected)='getPosts("b1",$event.option.value)'>
+                      <mat-option *ngFor="let option of b1filteredOptions | async" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </form>
+              </th>
+              <th class="bg-blue">
+                <form class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="b2Control" [matAutocomplete]="autob2">
+                    <mat-autocomplete #autob2="matAutocomplete" (optionSelected)='getPosts("b2",$event.option.value)'>
+                      <mat-option *ngFor="let option of b2filteredOptions | async" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </form>
+              </th>
+              <!-- <th class="bg-purple default">
+              </th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ID</td>
+              <td class="nfo" data-spec="nettech">{{b1.id}}</td>
+              <td class="nfo" data-spec="nettech">{{b2.id}}</td>
+            </tr>
+            <tr>
+              <td>Org Id</td>
+              <td class="nfo" data-spec="nettech">{{b1.orgId}}</td>
+              <td class="nfo" data-spec="nettech">{{b2.orgId}}</td>
+            </tr>
+            <tr>
+              <td>Asset Category</td>
+              <td class="nfo" data-spec="nettech">{{b1.assetCatagory}}</td>
+              <td class="nfo" data-spec="nettech">{{b2.assetCatagory}}</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="sep">Category 1</td>
+            </tr>
+            <tr>
+              <td>IMEI</td>
+              <td><span class="tick">{{b1.imeiNo}}</span></td>
+              <td><span class="tick">{{b2.imeiNo}}</span></td>
+              <!-- <td class="default"><span class="tick">&#10004;</span></td> -->
+            </tr>
+            <tr>
+                <td>BIN</td>
+                <td><span class="tick">{{b1.bin}}</span></td>
+                <td><span class="tick">{{b2.bin}}</span></td>
+                <!-- <td class="default"><span class="tick">&#10004;</span></td> -->
+              </tr>
+            <tr>
+              <td>Asset Type</td>
+              <td><span class="tick">{{b1.assetType}}</span></td>
+              <td><span class="tick">{{b2.assetType}}</span></td>
+              <!-- <td class="default"><span class="tick">&#10004;</span></td> -->
+            </tr>
+            <tr>
+              <td>Asset Catagory</td>
+              <td><span class="tick">{{b1.assetCatagory}}</span></td>
+                <td><span class="tick">{{b2.assetCatagory}}</span></td>
+              <!-- <td class="default"><span class="tick">&#10004;</span></td> -->
+            </tr>
+
+            <tr>
+              <td colspan="3" class="sep">Category 2</td>
+            </tr>
+            <tr>
+              <td>TCU FW Version</td>
+              <td><span class="tick">{{b1.tcuFwversion}}</span></td>
+                <td><span class="tick">{{b2.tcuFwversion}}</span></td>
+            </tr>
+            <tr>
+              <td>BMS Build Number</td>
+              <td><span class="tick">{{b1.bmsBuildNumber}}</span></td>
+              <td><span class="tick">{{b2.bmsBuildNumber}}</span></td>
+            </tr>
+            <tr>
+              <td>BMS Config Version</td>
+              <td><span class="tick">{{b1.bmsConfigurationVersion}}</span></td>
+                <td><span class="tick">{{b2.bmsConfigurationVersion}}</span></td>
+            </tr>
+            <tr>
+              <td>Created Date</td>
+              <td><span class="tick">{{b1.createdDate}}</span></td>
+                <td><span class="tick">{{b2.createdDate}}</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+    </div>
+    <div class="col-lg-2 col-md-2 text-right">
+      <a *ngIf="b1.imeiNo && b2.imeiNo" [routerLink]="['/compare-graph']" [queryParams]="{idBin1: b1.imeiNo, idBin2:b2.imeiNo, cname: cname, selectedItem: selectedItem}">
+        <button mat-raised-button color="primary" class="visulalize-button">
+          Visualize
+        </button>
+      </a>
+    </div>
+    </div>
+  </div>
+</div>

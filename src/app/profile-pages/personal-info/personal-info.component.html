@@ -1,0 +1,59 @@
+
+  <div class="wrapper">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <mat-card class="org-mat-card">
+            <!-- <mat-card-header>Personal Information</mat-card-header> -->
+            <form [formGroup]="profileForm " (ngSubmit)="onSubmit(profileForm)">
+              <div class="row">
+                <div class="col-sm-4">
+                  <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+                  <img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'" class="logo-image">
+                </div>
+                <div class="col-sm-4 align-self-flex-end">
+                  <button mat-raised-button color="primary" type="button" (click)="fileInput.click()" class="theme-btn">Select
+                    File</button>
+                </div>
+              </div>
+
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" formControlName="profileName" placeholder="Name" />
+              </mat-form-field>
+
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" formControlName="profileAddress" placeholder="Address" />
+              </mat-form-field>
+
+              <mat-form-field class="input-full-width">
+                <input matInput type="email" formControlName="profileEmail" placeholder="Email Id" />
+              </mat-form-field>
+
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" formControlName="accPhone" placeholder="phone" />
+              </mat-form-field>
+
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" formControlName="profileCity" placeholder="City" />
+              </mat-form-field>
+
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" formControlName="profileState" placeholder="State" />
+              </mat-form-field>
+
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" formControlName="profilePin" placeholder="Pincode" />
+              </mat-form-field>
+
+              <div class="text-center">
+
+                <button mat-raised-button class="profilebtn" color="primary" type="button" (click)="closeDialog()" class="theme-btn mr-3">Close</button>
+                <button mat-raised-button class="profilebtn" color="primary" type="submit" class="text-left" class="theme-btn">Save
+                  Changes</button>
+              </div>
+            </form>
+          </mat-card>
+        </div>
+
+      </div>
+
+</div>

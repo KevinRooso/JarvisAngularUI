@@ -1,0 +1,83 @@
+<div class="page-container">
+
+  <div *ngIf="isLoggedIn | async" class="page-sidebar">
+    <div class="sidebar-container">
+      <ul class="sidenav-vertical">
+        <li class="profile" style="visibility: hidden;">
+          <a class="profile-mini" #tooltip="matTooltip" matTooltip="User Name" matTooltipPosition="right">
+            <img [src]="(url |async)" alt="Avatar" class="avatar" />
+          </a>
+        </li>
+        <li class="">
+          <a routerLink="/home-dashboard" routerLinkActive="active-link" #tooltip="matTooltip" matTooltip="Dashboard"
+            matTooltipPosition="right" class="icons">
+            <span class="fa fa-desktop"></span>
+          </a>
+        </li>
+        <li class="">
+          <a routerLink="/assets-dashbaord" routerLinkActive="active-link" #tooltip="matTooltip"
+            matTooltip="Asset Explorer" matTooltipPosition="right" class="icons">
+            <span class="fa fa-microchip"></span>
+          </a>
+        </li>
+        <!-- <li class="">
+          <a routerLink="/assets-dashbaord" [queryParams]="{map: 'true'}" routerLinkActive="active-link" #tooltip="matTooltip"
+            matTooltip="Trace Route" matTooltipPosition="right" class="icons">
+            <span class="fa fa-map"></span>
+          </a>
+        </li> -->
+        <li class="" *ngIf="flag | async">
+          <a routerLink="/customers-dashboard" routerLinkActive="active-link" #tooltip="matTooltip"
+            matTooltip="Customer Management" matTooltipPosition="right" class="icons">
+            <span class="fa fa-users"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-footer">
+      <ul class="sidenav-vertical">
+        <li class="">
+          <a routerLink="/setting" routerLinkActive="active-link" #tooltip="matTooltip" matTooltip="Profile Settings"
+            matTooltipPosition="right" class="icons">
+            <span class="fa fa-gears"></span>
+          </a>
+        </li>
+        <li class="">
+          <a class="icons" #tooltip="matTooltip" matTooltip="Sign Out" matTooltipPosition="right" role="button"
+            (click)="logout()">
+            <span class="fa fa-sign-out"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <ul *ngIf="isLoggedIn | async" class="x-navigation x-navigation-horizontal x-navigation-panel">
+      <!-- <li class="xn-button">
+         <form role="form">
+            <input type="text" name="search" placeholder="Search...">
+        </form>
+      </li> -->
+      <!-- <li class="xn-search">
+        <form role="form">
+            <input type="text" name="search" placeholder="Search...">
+        </form>
+    </li> -->
+    <li class="pull-left brand-div">
+      <img src="assets/jarvisNewLogo1.png" alt="Exicom logo"  class="left-logo-brand" />
+    </li>
+      <li class="pull-right brand-div">
+        <img src="assets/logo.png" alt="Exicom logo" class="logo-brand" />
+      </li>
+    </ul>
+
+    <div class="page-content-wrap">
+      <router-outlet></router-outlet>
+      <div style="height: 100px;"></div>
+      <footer class="main-footer">
+        <strong class="text-white">Powered by "Exicom Tele-Systems Limited"</strong>
+      </footer>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,182 @@
+/* You can add global styles to this file, and also import other style files */
+//@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$candy-app-primary: mat-palette($mat-gray,900);
+$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+// The warn palette is optional (defaults to red).
+$candy-app-warn:    mat-palette($mat-red);
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+
+
+.dark-theme{
+  @include angular-material-theme($candy-app-theme);
+}
+html,
+body {
+  overflow: hidden;
+  line-height: 1.42857143;
+  outline: none !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 12px;
+  color: #22262e;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-sizing: border-box;
+  // position:relative;
+  //overflow:auto;
+}
+.mycustomdate {
+  background-color: #ccc8c8 !important;
+  border-radius: 1px !important;
+  color: white !important;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+.example-full-width {
+  width: 100%;
+}
+.center-aligned {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sq-relative-backdrop{
+  opacity: 1;
+  background:rgba(70, 73, 73, 0.288);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity .4s cubic-bezier(.25,.8,.25,1);
+}
+.mat-tab-label-content{
+  opacity: 1 !important;
+}
+::-webkit-scrollbar {
+  background: #ddd;
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1d2127;
+  border-radius: 5px !important;
+}
+.mat-tab-label{
+  opacity: 1 !important;
+  color: #1b1e24 !important;
+}
+.mat-tab-labels{
+  opacity: 1 !important;
+  color: #1b1e24 !important;
+}
+.mat-dialog-container{
+  position: relative !important;
+  top: 50px !important;
+}
+.mat-raised-button.mat-primary {
+ background-color: #1d2127;
+}
+button:focus {
+  outline: 0px dotted;
+  outline: 0px auto -webkit-focus-ring-color;
+}
+
+// Dashboard Slider Css
+.slick-slider {
+  width: 96%;
+  margin: auto;
+  background: transparent;
+  float: left;
+  margin-left: 25px;
+  
+}
+.nav-btn {
+  height: 102px;
+  position: absolute;
+  width: 30px;
+  cursor: pointer;
+  z-index: 9999;
+  background: rgba(0,0,0,.2);
+  opacity: 0.1;
+  border-radius: 3px;
+}
+.prev-slide {
+  left: -27px;
+  top: 5px;
+  z-index: 99;
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  border: none;
+  outline: 0;
+  background: #1d2127;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0.5;
+}
+.next-slide {
+  right: -27px;;
+  top: 5px;
+  z-index: 99;
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  border: none;
+  outline: 0;
+  background: #1d2127;
+  -webkit-transition: opacity .5s ease-in-out;
+  transition: opacity .5s ease-in-out;
+  opacity: 0.5;
+}
+.arrow-icons{
+  font-size: 40px;
+  left: -4px;
+  position: absolute;
+  top: 35px;
+  color: #fff;
+}
+.prev-slide.slick-disabled,
+.next-slide.slick-disabled {
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+@media (max-width: 1024px) {
+  .slick-slider {
+    width: 94% !important;
+   }
+}
+@media (max-width: 768px) {
+  .slick-slider {
+    width: 92% !important;
+   }
+}
+input[type=text]::-ms-clear {
+  display: none;
+}
+// .slick-list{
+//   float: left;
+// }
+.slick-track{
+  margin-left: 0 !important;
+}

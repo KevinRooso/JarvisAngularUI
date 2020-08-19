@@ -1,0 +1,15 @@
+  <div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/home-dashboard">Home</a></li>
+      <li><a>Customer Management</a></li>
+      <!-- <li class="active">Data Tables</li> -->
+    </ul>
+    <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)" style="display: inline-block;width: 100%;">
+      <mat-tab label="Branding">
+          <app-brand-page *ngIf="activeTab==0"></app-brand-page>
+      </mat-tab>
+      <mat-tab label="Users"><app-users-page *ngIf="activeTab==1"></app-users-page></mat-tab>
+      <mat-tab label="Partners"> <app-partners-page *ngIf="activeTab==2"></app-partners-page> </mat-tab>
+  </mat-tab-group>
+  </div>
+

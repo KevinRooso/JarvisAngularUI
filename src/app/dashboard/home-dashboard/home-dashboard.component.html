@@ -1,0 +1,155 @@
+<section class="m-2">
+  <div class="row my-3">
+    <div class="col-md-12 col-lg-12 justify-content-left">
+      <ngx-slick-carousel
+        class="carousel justify-content-left"
+        #slickModal="slick-carousel"
+        [config]="slideConfig"
+        (init)="slickInit($event)"
+        (breakpoint)="breakpoint($event)"
+        (afterChange)="afterChange($event)"
+        (beforeChange)="beforeChange($event)">
+        <div ngxSlickItem *ngFor="let cd of cardCounter" (click)="viewDatails(cd.id,cd.org_name)" class="myCard slide text-left">
+          <div class="logo-info">
+            <div class="d-inline-flex" style="float: right; display: block;">
+              <img [src]="cd.image_url" style="height: 38px;" />
+            </div>
+            <div class="card-content">
+              <p>Total Assets :{{cd.total_asset== null ? '0' : cd.total_asset}}</p>
+              <p>Total Alive Assets : {{cd.active_asset== null ? '0' : cd.active_asset}}</p>
+              <!-- <p>Need To Be : Finalize</p> -->
+            </div>
+          </div>
+        </div>
+      </ngx-slick-carousel>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Map Tracking </h3>
+          </div>
+          <ul class="panel-controls" style="margin-top: 2px;">
+            <li style="padding-top: 6px;font-size: 12px;font-weight: bold;"><span>( Live Batteries Location )</span>
+            </li>
+          </ul>
+        </div>
+        <div class="panel-body padding-0">
+          <app-live-map></app-live-map>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-12 col-md-12" [class.fullscreen]="check1">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>{{dountChartTitle}}<span> ( {{millis}} ) </span></h3>
+          </div>
+          <ul class="panel-controls" style="margin-top: 2px;">
+            <li role="button" (click)="openFullView('check1')"><a class="panel-fullscreen" *ngIf="isMaximised"><span
+                  class="fa fa-expand"></span></a></li>
+            <li><a class="panel-refresh" *ngIf="isRefresh"><span class="fa fa-refresh"></span></a></li>
+            <li role="button" (click)="closeFullView('check1')"><a class="panel-refresh" *ngIf="isDisabled"><span
+                  class="fa fa-compress"></span></a> </li>
+          </ul>
+        </div>
+        <div class="panel-body padding-0">
+          <!-- <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12"> -->
+              <app-donut-chart [custHeight] = "custD" (info)="displayInfo($event)"></app-donut-chart>
+            <!-- </div>
+          </div> -->
+        </div>
+        <div class="panel-footer">
+          <p>(Summary of active % against the total Sales)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-lg-12 col-sm-12">
+      <mat-button-toggle-group [(value)] = "selectedValue" color="primary" #group="matButtonToggleGroup" (change)="onValChange(cd.id)">
+        <mat-button-toggle  (click)="onValChange(cd.id)" *ngFor="let cd of cardCounter" 
+          aria-label="Text align left" style="font-weight: 600;" [value]="cd">
+          {{ cd.org_name }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-sm-12 col-md-12" [class.fullscreen]="check2">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>{{barChartTitle}}<span class="break-point"> ( {{bmillis}} ) </span></h3>
+          </div>
+          <ul class="panel-controls" style="margin-top: 2px;">
+            <li role="button" (click)="openFullView('check2')"><a class="panel-fullscreen" *ngIf="isMaximised"><span
+                  class="fa fa-expand"></span></a></li>
+            <li><a class="panel-refresh" *ngIf="isRefresh"><span class="fa fa-refresh"></span></a></li>
+            <li role="button" (click)="closeFullView('check2')"><a class="panel-refresh" *ngIf="isDisabled"><span
+                  class="fa fa-compress"></span></a> </li>
+          </ul>
+        </div>
+        <div class="panel-body padding-0">
+          <app-bar-chart [custHeight]="custB" [orgId]="companyId" (binfo)="displayBarInfo($event)"></app-bar-chart>
+        </div>
+        <div class="panel-footer">
+          <p>(Summary of daily total asset ping count)</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12 col-md-12" [class.fullscreen]="check3">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>{{pingListTitle}}<span> ( {{bmillis}} ) </span></h3>
+          </div>
+          <ul class="panel-controls" style="margin-top: 2px;">
+            <li role="button" (click)="openFullView('check3')"><a class="panel-fullscreen" *ngIf="isMaximised"><span
+                  class="fa fa-expand"></span></a></li>
+            <li><a class="panel-refresh" *ngIf="isRefresh"><span class="fa fa-refresh"></span></a></li>
+            <li role="button" (click)="closeFullView('check3')"><a class="panel-refresh" *ngIf="isDisabled"><span
+                  class="fa fa-compress"></span></a> </li>
+          </ul>
+        </div>
+        <div class="panel-body padding-0">
+          <app-bar-chart-gainnner [custHeight]="custG" [orgId]="companyId" (ginfo)="displayGainerInfo($event)"></app-bar-chart-gainnner>
+        </div>
+        <div class="panel-footer">
+          <p>(Showing top asset ping count for the day)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-sm-12 col-md-12" [class.fullscreen]="check4">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>{{lineChartTitle}}<span> ( {{lmillis}} ) </span></h3>
+          </div>
+          <ul class="panel-controls" style="margin-top: 2px;">
+            <li role="button" (click)="openFullView('check4')"><a class="panel-fullscreen" *ngIf="isMaximised"><span
+                  class="fa fa-expand"></span></a></li>
+            <li><a class="panel-refresh" *ngIf="isRefresh"><span class="fa fa-refresh"></span></a></li>
+            <li role="button" (click)="closeFullView('check4')"><a class="panel-refresh" *ngIf="isDisabled"><span
+                  class="fa fa-compress"></span></a> </li>
+          </ul>
+        </div>
+        <div class="panel-body padding-0">
+          <app-common-line-chart *ngIf="!datashow" [custHeight]="custL" [graphData]="companyId" (linfo)="displayLineInfo($event)">
+          </app-common-line-chart>
+        </div>
+        <div class="panel-footer">
+          <p>(Number of asset at server on given Intervals - Data Consumption)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,160 @@
+<section class="m-4">
+  <div class="row">
+    <div class="col-md-12 col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Assets Specification</h3>
+          </div>
+          <ul class="panel-controls">
+            <li style="font-size: 12px;font-weight: bold;">
+              <!-- <button mat-raised-button color="primary" >Edit</button> -->
+              <button mat-mini-fab color="primary" matTooltip="Edit">
+                <i class="material-icons">create</i>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="panel-body padding-0">
+          <form [formGroup]="specificationForm" class="example-form">
+            <div class="">
+              <label class="new-label1">Battery Chemistry</label>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="" value="Xyz" formControlName="batChemistry">
+              </mat-form-field>
+              <label class="new-label">Unit</label>
+              <mat-form-field class="new-label-input">
+                <!-- <mat-label>Favorite food</mat-label> -->
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div><br>
+            <div class="">
+              <label class="new-label1">Current</label>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="" value="Xyz">
+              </mat-form-field>
+              <label class="new-label">Unit</label>
+              <mat-form-field class="new-label-input">
+                <!-- <mat-label>Favorite food</mat-label> -->
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div><br>
+            <div class="">
+              <label class="new-label1">Voltage </label>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="" value="Xyz">
+              </mat-form-field>
+              <label class="new-label">Unit</label>
+              <mat-form-field class="new-label-input">
+                <!-- <mat-label>Favorite food</mat-label> -->
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div><br>
+            <div class="">
+              <label class="new-label1">Equivalent Cycle</label>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="" value="Xyz">
+              </mat-form-field>
+              <label class="new-label">Unit</label>
+              <mat-form-field class="new-label-input">
+                <!-- <mat-label>Favorite food</mat-label> -->
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div><br>
+            <div class="">
+              <label class="new-label1">Cycle Capacity</label>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="" value="Xyz">
+              </mat-form-field>
+              <label class="new-label">Unit</label>
+              <mat-form-field class="new-label-input">
+                <!-- <mat-label>Favorite food</mat-label> -->
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="text-center my-3">
+              <button mat-raised-button color="primary">Save Changes</button>
+              <button mat-raised-button color="primary" class="ml-3">Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Assets Identification </h3>
+          </div>
+          <ul class="panel-controls">
+            <li style="font-size: 12px;font-weight: bold;">
+              <button mat-mini-fab color="primary" matTooltip="Edit">
+                <i class="material-icons">create</i>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="panel-body padding-0">
+          <form class="example-form" [formGroup]="identificationForm">
+            <div class="specForms">
+              <div class="">
+                <label class="new-label1">Name </label>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="" value="Xyz" formControlName="batteryName" style="width: 100px;">
+                </mat-form-field>
+              </div><br>
+              <div class="">
+                <label class="new-label1">Quantity</label>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="" value="Xyz">
+                </mat-form-field>
+              </div><br>
+              <div class="">
+                <label class="new-label1">Architecture </label>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="" value="Xyz">
+                </mat-form-field>
+              </div><br>
+              <div class="">
+                <label class="new-label1">BIN </label>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="" value="Xyz">
+                </mat-form-field>
+              </div><br>
+              <div class="">
+                <label class="new-label1">IMEI </label>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="" value="Xyz">
+                </mat-form-field>
+              </div>
+              <div class="text-center my-3">
+                <button mat-raised-button color="primary">Save Changes</button>
+                <button mat-raised-button color="primary" class="ml-3">Add</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

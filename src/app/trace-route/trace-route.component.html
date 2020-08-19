@@ -1,0 +1,53 @@
+<div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/home-dashboard">Home</a></li>
+      <li><a routerLink="/assets-dashbaord" [queryParams]="{map: 'true'}">Assets Dashboard</a></li>
+      <!-- <li>Customer Name Come here</li> -->
+      <li> {{param1}} Trace Route Table</li>
+    </ul>
+  </div>
+  <section class="m-4">  
+ <div class="row">
+   <div class="col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>List of assets for trace route </h3>
+        </div>
+    </div>
+    <div class="panel-body padding-0">
+    <div class="mat-container">
+        <app-mat-table
+        [dataUrl]="grid_url"
+        [headerColumns]="Columns"
+        [search]=true
+        (outData)="openBox($event)"
+        [companyName]="param1"
+      ></app-mat-table>
+    </div> 
+    </div>   
+   </div>
+   </div>
+   <div class="col-md-4"  *ngIf="traceFlag">
+    <div class="panel panel-default">
+      <div class="panel-heading ui-draggable-handle">
+        <div class="panel-title-box">
+          <h3>Trace Route </h3>
+        </div>
+        <ul class="panel-controls" style="margin-top: 2px;">
+          <li style="padding-top: 6px;font-size: 12px;font-weight: bold;"><span>( Last 6 Hours )</span>
+          </li>
+        </ul>        
+      </div>
+      <div class="panel-body padding-0">
+        <app-trace-map [assetId]="assetId" [pingDate]="latestRecord.created_date"></app-trace-map>
+        <!-- <app-battery-locate-map [cname]="cname"  [bin]="assetId"></app-battery-locate-map> -->
+        <button (click)="traceOverview()" mat-raised-button class="profilebtn" color="primary" type="submit" class="theme-btn mt-4">Trace Route Overview</button>
+      </div>
+    </div>
+  </div> 
+ </div>
+  
+  </section>
+  
+  

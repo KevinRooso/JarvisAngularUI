@@ -1,0 +1,74 @@
+<!-- <app-add-organisation [id]= "orgId"></app-add-organisation> -->
+
+<div class="row justify-content-center m-3">
+  <div class="col-md-8">
+    <mat-card  style="border-radius:1px;">
+      <div class="row profile-header">
+        <div class="col-sm-12 text-right">
+          <img [src]='url' class="logo-image mx-3">
+        </div>
+      </div>
+       <div class="row">
+      <div class="col-sm-12">
+        <div style="display: grid;">
+          <table>
+            <tr>
+              <td width="40%"><label>Company Name :</label></td>
+              <td>{{userData.orgName | uppercase}}</td>
+            </tr>
+            <tr>
+              <td><label>Contact :</label></td>
+              <td>{{userData.contactNo}}</td>
+            </tr>
+            <!-- <tr>
+                                      <td>Email :</td>
+                                      <td>{{userData.email}}</td>
+                                    </tr> -->
+
+            <tr>
+              <td><label>Email :</label></td>
+              <td>{{userData.email}}</td>
+            </tr>
+            <tr>
+              <td><label>Company category :</label></td>
+              <td>{{userData.orgType}}</td>
+            </tr>
+
+            <tr>
+              <td><label>City :</label></td>
+              <td>{{userData.city}}</td>
+            </tr>
+            <tr>
+              <td><label>Country :</label></td>
+              <td>{{userData.country}}</td>
+            </tr>
+            <tr>
+              <td><label>Fota :</label></td>
+              <td>{{userData.fota  == true ? 'Active' : 'Disable'}} </td>
+            </tr>
+            <tr>
+              <td><label>Anonymous :</label></td>
+              <td>{{userData.anonymous  == true ? 'Active' : 'Disable'}}</td>
+            </tr>
+            <tr>
+              <td><label>Status :</label></td>
+              <td>{{userData.active == true ? 'Active' : 'Disable' }} </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+  </div>
+  <!-- <div class="col-sm-9">
+                      <div><br>
+                        <h3>{{userData.username | uppercase}}</h3>
+                        <h6>+91 - 7017697352</h6>
+                        <h6>Gurgaon</h6>
+                      </div>
+                  </div> -->
+<!-- </div> -->
+<!-- <div class="row">
+                  <div class="col-sm-3"></div>
+                </div> -->
+</mat-card>
+</div>
+</div>

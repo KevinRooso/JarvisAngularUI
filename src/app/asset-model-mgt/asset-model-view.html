@@ -1,0 +1,139 @@
+<!-- <mat-chip-list aria-label="Fish selection">
+  <a><mat-chip (click)="activeTab(1)">Tab One</mat-chip></a>
+  <a><mat-chip (click)="activeTab(2)">Two </mat-chip></a>
+  <a><mat-chip (click)="activeTab(3)">Three</mat-chip></a>
+  <a><mat-chip (click)="activeTab(4)">Four</mat-chip></a>
+  <a><mat-chip (click)="activeTab(5)">Five</mat-chip></a>
+</mat-chip-list>
+
+<form [formGroup]="orgForm" (ngSubmit)="onSubmit(orgForm)">
+  <section id="tab1" *ngIf="tab1==selectedTab">
+    <mat-card class="example-full-width">
+      <mat-form-field class="input-full-width">
+        <input
+          matInput
+          type="text"
+          formControlName="orgName"
+          placeholder="Name"
+        />
+      </mat-form-field>
+      <mat-form-field class="input-full-width">
+        <input
+          matInput
+          type="text"
+          formControlName="orgType"
+          placeholder="Organization Type"
+        />
+      </mat-form-field>
+    </mat-card>
+  </section>
+  <section id="tab2" *ngIf="tab2==selectedTab">
+    <mat-card class="example-full-width">
+      <mat-form-field class="input-full-width">
+        <input
+          matInput
+          type="text"
+          formControlName="organisationCode"
+          placeholder="Organization Code"
+        />
+      </mat-form-field>
+    </mat-card>
+  </section>
+
+  <section id="tab3" *ngIf="tab3==selectedTab">
+    <mat-card class="example-full-width">
+      <mat-form-field class="input-full-width">
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="Email Id"
+        />
+      </mat-form-field>
+    </mat-card>
+  </section>
+  <section id="tab4" *ngIf="tab4==selectedTab">
+    <mat-card class="example-full-width">
+      <mat-form-field class="input-full-width">
+        <input
+          matInput
+          type="text"
+          formControlName="contactNo"
+          placeholder="Phone Number"
+        />
+      </mat-form-field>
+    </mat-card>
+  </section>
+
+  <section id="tab5" *ngIf="tab5==selectedTab">
+    <mat-card class="example-card">
+      <mat-form-field class="input-full-width">
+        <input matInput type="text" formControlName="city" placeholder="City" />
+      </mat-form-field>
+      <mat-form-field class="input-full-width">
+        <input
+          matInput
+          type="text"
+          formControlName="country"
+          placeholder="Country"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="input-full-width">
+        <input
+          matInput
+          type="text"
+          formControlName="topic"
+          placeholder="topic"
+        />
+        <mat-icon
+          matSuffix
+          matTooltip="Announcement to be made"
+          matTooltipPosition="after"
+          >announcement</mat-icon
+        >
+      </mat-form-field>
+
+      <mat-slide-toggle class="input-full-width" formControlName="isAnonymous"
+        >isAnonymous!</mat-slide-toggle
+      >
+      <mat-slide-toggle class="input-full-width" formControlName="fota"
+        >FOTA</mat-slide-toggle
+      ><br />
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        [mat-dialog-close]="true"
+        class="text-left mr-2"
+      >
+        Close
+      </button>
+      <button mat-raised-button color="primary" type="submit" class="text-left">
+        Save Changes
+      </button>
+    </mat-card>
+  </section>
+</form>
+
+ -->
+
+ <form >
+  <section id="tab1" >
+    <mat-card style="width: 400px;">
+      <mat-form-field style="width: 100%;" appearance="outline" *ngFor="let battery of batteries;index as index">
+        <mat-label>
+          {{battery.variableName}}
+        </mat-label>
+        <input
+          matInput
+          type="text"
+          [placeholder]="battery.variableName"
+          [value]=battery.variableValue
+          (blur)="getOldV(index)"
+        />
+        <button mat-fab color="primary">Edit</button>
+        </mat-form-field>
+        </mat-card>
+        </section>
+        </form>

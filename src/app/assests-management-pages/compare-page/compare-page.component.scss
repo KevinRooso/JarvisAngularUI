@@ -1,0 +1,131 @@
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.row [class^='col-xs-'], .row [class^='col-sm-'], .row [class^='col-md-'], .row [class^='col-lg-']{
+  min-height: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+article {
+  background: #fff;
+}
+button {
+  width:100%;
+  border: 1px solid #DDD;
+  border-right:0;
+  border-top:0;
+  padding: 10px;
+  background:#FFF;
+  font-size:14px;
+  font-weight:bold;
+  height:60px;
+  color:#999
+}
+table { border-collapse:collapse; table-layout:fixed; width:100%; }
+th { background: #5d59591f;
+  display:none; }
+td, th {
+  height:53px
+
+}
+td,th { border:1px solid #DDD; padding:10px; empty-cells:show; }
+td,th {
+  text-align:left;
+}
+td+td, th+th {
+  text-align:center;
+  display:none;
+}
+td.default {
+  display:table-cell;
+}
+.bg-purple {
+  padding: 10px 10px 0px 10px;
+  background: #5d59591f;
+  color: rgba(0,0,0,.87);
+}
+.bg-blue {
+  padding: 10px 10px 0px 10px;
+  background: #5d59591f;
+  color: rgba(0,0,0,.87);
+}
+.sep {
+  font-weight:bold;
+  background: #5d59591f;
+  color: rgba(0,0,0,.87);
+  border-bottom: 1px solid #ddd !important;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+.txt-l { font-size:28px; font-weight:bold; }
+.txt-top { position:relative; top:-9px; left:-2px; }
+.tick {color:#22262e;font-size: 12px; }
+.hide {
+  border:0;
+  background:none;
+}
+table tr td{
+  height: 35px;
+  border-bottom: 1px solid #f1eaea;
+}
+table thead th{
+  height: 35px;
+  border-bottom: 1px solid #f1eaea;
+}
+@media (min-width: 640px) {
+  td,th {
+    display:table-cell !important;
+  }
+  td+td, th+th {
+    width: auto;
+  }
+}
+tbody tr td:first-child{
+  font-weight: 600;
+  background: #ebebeb;
+  border: 1px solid #ddd;
+}
+.visulalize-button{
+  width: 110px !important;
+  height: 45px;
+  text-decoration: none;
+  border: none;
+  padding: 0px;
+}
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 10px !important;
+}
+.breadcrumb {
+  width: 100%;
+  background: #e8e8e8;
+  margin-bottom: 0px;
+  padding: 12px 15px 12px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+
+.breadcrumb li, .breadcrumb li a {
+  font-size: 12px;
+  line-height: 12px;
+  color: #4d5669;
+  text-decoration: none;
+}
+.breadcrumb>li {
+  display: inline-block;
+}
+
+.breadcrumb > li + li:before {
+  font-family: "FontAwesome";
+  content: "\f105";
+  color: #4d5669;
+  padding: 0px 8px;
+}
+.breadcrumb li:last-child {
+  color: #22262e;
+  font-weight: bold ;
+}
+article{
+  box-shadow: 0 0 10px 0px;
+}

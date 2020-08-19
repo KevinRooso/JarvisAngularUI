@@ -1,0 +1,47 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a routerLink="/home-dashboard">Home</a></li>
+    <li><a routerLink="/assets-dashbaord">Assets Dashboard</a></li>
+    <!-- <li>Customer Name Come here</li> -->
+    <li>{{param1}} Data Table</li>
+  </ul>
+</div>
+<section>
+  <!-- <a (click)="openDialog($event)" ><mat-icon>add_box</mat-icon></a> -->
+  <!-- <button class="btn mb-3" color="primary" (click)="openDialog($event)">Add New User</button> -->
+  <!-- <div class="text-right">
+    <button mat-raised-button color="primary" (click)="openDialog($event)" class="my-3">Add Asset</button>
+  </div> -->
+  <!-- <div class="mainDiv">
+  </div> -->
+   <!--  <button mat-mini-fab color="primary" id="add-button" matTooltip="Add customer">
+      <i class="material-icons">group_add</i>
+    </button> -->
+
+    <div class="page-title">
+      <div class="text-left">
+
+        <!-- <h2>{{param1}} Assets Table</h2> -->
+
+        <!-- <span class="fa fa-arrow-circle-o-left"></span>  -->
+      </div>
+      <!-- <div class="text-right">
+        <button mat-mini-fab color="primary" id="add-button" matTooltip="Add Partner" class="theme-btn" (click)="openDialog(null)">
+          <i class="material-icons">group_add</i>
+        </button>
+      </div> -->
+    </div>
+
+
+<div class="mat-container">
+  <app-mat-table
+  [dataUrl]="grid_url"
+  [headerColumns]="Columns"
+  [search]=true
+  (outData)="openBox($event)"
+  [companyName]="param1"
+></app-mat-table>
+</div>
+
+</section>
+

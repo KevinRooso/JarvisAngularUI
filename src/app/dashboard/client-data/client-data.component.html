@@ -1,0 +1,59 @@
+<section class="m-4">
+
+  <div class="row">
+    <div class="col-10">
+
+      <div class="text-left">
+        <label class="mr-4">Choose Organization : </label>
+        <mat-form-field>
+          <mat-label>Select</mat-label>
+          <mat-select [(value)]="orgid">
+            <mat-option *ngFor="let elem of orgData" [value]="elem.id">
+              {{elem.orgName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div class="col-2 text-right"><button mat-raised-button color="primary" (click)="saveData()">Save</button></div>
+  </div>
+
+  <!-- <div class="container-fluid"> -->
+  <div class="row">
+
+    <div class="col-sm-6">
+      <h6>Client Payload List</h6>
+      <mat-card class="drag_section">
+
+
+        <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]"
+          class="example-list" (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of todo ; let i = index" cdkDrag>{{item.description}}<span
+              class="text-right badge">{{i+1}}</span></div>
+        </div>
+      </mat-card>
+    </div>
+
+
+    <div class="col-sm-6">
+
+      <h6>Drag here for selection</h6>
+      <mat-card class="drag_section">
+
+
+
+
+        <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]"
+          class="example-list" (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of done ; let i = index" cdkDrag>
+
+            {{item.description}}<span class="text-right badge">{{i+1}}</span></div>
+        </div>
+
+      </mat-card>
+    </div>
+  </div>
+  <!-- </div> -->
+
+</section>

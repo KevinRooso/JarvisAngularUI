@@ -1,0 +1,12 @@
+<div *ngIf="data" data-step="2" data-intro="Data analysis graphs">
+    <plotly-plot
+      [data]="data"
+      [layout]="layout"
+      [revision]="0"
+      [debug]="debug"
+      [useResizeHandler]="true"
+      [config]="config"
+      (plotly_click)="compareClickEvent($event)"
+      (selected)="zoomEvent($event)"
+    ></plotly-plot>
+  </div>

@@ -1,0 +1,28 @@
+
+        <!-- <a (click)="openDialog($event)" ><mat-icon>add_box</mat-icon></a> -->
+        <!-- <button class="btn mb-3" color="primary" (click)="openDialog($event)">Add New User</button> -->
+
+        <div class="page-title">
+          <div class="text-left">
+            <h2>Partners Table</h2>
+            <!-- <span class="fa fa-arrow-circle-o-left"></span>  -->
+          </div>
+          <div class="text-right">
+            <button mat-mini-fab color="primary" id="add-button" matTooltip="Add Partner" class="theme-btn" (click)="openDialog(null)">
+              <i class="material-icons">group_add</i>
+            </button>
+          </div>
+        </div>
+
+
+        <!-- <div class="mainDiv text-right m-3">
+            <button mat-mini-fab color="primary" id="add-button" matTooltip="Add Partner" class="theme-btn" (click)="openDialog(null)">
+              <i class="material-icons">group_add</i>
+            </button>
+        </div> -->
+        <div class="mat-container mb-5">
+          <app-mat-table *ngIf="gridRelaod" [dataUrl]="grid_url" [headerColumns]="Columns" (outData)="openBox($event)" ></app-mat-table>
+        </div>
+
+
+

@@ -1,0 +1,179 @@
+// .card {
+//   width: 400px;
+//   height: auto;
+//   margin: 0.5rem;
+// }
+// .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+//   display: block;
+//   height: 31px;
+//   -webkit-tap-highlight-color: transparent;
+//   width: 100%;
+//   padding: 0;
+// }
+// .mat-list-base .mat-list-item {
+//   font-size: 13px;
+// }
+// .mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+//   padding: 0 0px 0 055px;
+// }
+// .cards {
+//   display: flex;
+//   flex-wrap: wrap;
+// }
+// .centered {
+//   margin: 0 auto;
+//   padding: 0 1em;
+// }
+// .example-header-image {
+//   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+//   background-size: cover;
+// }
+
+
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.row [class^='col-xs-'], .row [class^='col-sm-'], .row [class^='col-md-'], .row [class^='col-lg-'] {
+  min-height: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.widget.widget-default {
+  color: #1b1e24;
+}
+.widget.widget-default {
+  background: #ffffff;
+}
+.widget.widget-padding-sm, .widget.widget-item-icon {
+  // padding: 25px 0px 5px;
+}
+.widget {
+  width: 100%;
+  float: left;
+  margin: 0px;
+  list-style: none;
+  text-decoration: none;
+  -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+  color: #FFF;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  padding: 15px 10px;
+  margin-bottom: 20px;
+  min-height: 120px;
+  position: relative;
+}
+.widget.widget-item-icon .widget-item-left {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  text-align: center;
+  // margin-right: 10px;
+  // padding-right: 10px;
+}
+.widget.widget-item-icon .widget-item-right {
+  text-align: center;
+    /* border: 1px solid; */
+    padding: 10px;
+    /* height: 45px; */
+    line-height: 70px;
+    background: #f9f7f7;
+}
+.widget .widget-item-left {
+  // margin-left: 10px;
+  float: left;
+  width: 100px;
+}
+.widget .widget-item-left img{
+  max-width: 100%;
+}
+
+.widget .widget-item-right {
+  // margin-left: 10px;
+  float: right;
+  // width: 100px;
+}
+.widget .widget-item-left .fa, .widget .widget-item-right .fa, .widget .widget-item-left .glyphicon, .widget .widget-item-right .glyphicon {
+  font-size: 28px;
+}
+.widget.widget-item-icon .widget-data {
+  padding: 10px;
+  width: 260px;
+}
+.widget .widget-int {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: bold;
+  font-family: arial;
+}
+.widget .widget-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+.widget.widget-default .widget-subtitle {
+  color: #1b1e24;
+  font-size: 13px;
+}
+.widget.widget-default .widget-controls a {
+  color: #1b1e24;
+  border-color: #1b1e24;
+}
+.widget .widget-controls a.widget-control-right {
+  right: 10px;
+  top: 10px;
+}
+.widget .widget-controls a {
+  position: absolute;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    line-height: 17px;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 50%;
+    transition: all 200ms ease;
+    opacity: 0.7;
+    padding: 2px;
+    cursor: pointer;
+}
+.fa{
+  line-height: 20px;
+  color: #8b91a0;
+  // float: left;
+  // margin-right: 10px;
+}
+.breadcrumb {
+  width: 100%;
+  background: #e8e8e8;
+  margin-bottom: 10px;
+  padding: 12px 15px 12px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+
+.breadcrumb li, .breadcrumb li a {
+  font-size: 12px;
+  line-height: 12px;
+  color: #4d5669;
+  text-decoration: none;
+}
+.breadcrumb>li {
+  display: inline-block;
+}
+
+.breadcrumb > li + li:before {
+  font-family: "FontAwesome";
+  content: "\f105";
+  color: #4d5669;
+  padding: 0px 8px;
+}
+.breadcrumb li:last-child {
+  color: #22262e;
+  font-weight: bold ;
+}

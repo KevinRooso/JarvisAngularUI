@@ -1,0 +1,90 @@
+
+  <div>
+    <ul class="breadcrumb">
+      <li><a [routerLink]="['/home-dashboard']">Home</a></li>
+      <li><a [routerLink]="['/assets-dashbaord']">Assets Dashboard</a></li>
+      <li><a [routerLink]="['/assests-data']" [queryParams]="{selectedItem: 1, cname: cname}" >{{cname}} Data Table</a></li>
+      <li><a (click)="Back()" style="cursor:pointer;">Assets Details</a></li>
+      <li><a style="cursor:auto;">Assets Visualization Graph</a></li>
+    </ul>
+    <!-- <ul class="breadcrumb">
+      <li><a [routerLink]="['/home-dashboard']">Home</a></li>
+      <li><a [routerLink]="['/assets-dashbaord']">Assets Dashboard</a></li>
+      <li><a>Assets Visualization Graph</a></li>
+    </ul> -->
+  </div>
+  <div class="p-3">
+  <!--  <button (click)="demoStart()">Demo</button> -->
+  <app-progress-spinner
+    color="accent"
+    [mode]="mode"
+    [value]="value"
+    *ngIf="displayProgressSpinnerInBlock"
+    [diameter]="50"
+    class="center-aligned sq-relative-backdrop"
+  >
+  </app-progress-spinner>
+  <div class="row">
+    <!-- <div class="col-sm-7"></div> -->
+    <div class="col-sm-2">
+      <mat-form-field style="display: block;">
+        <mat-label>Group By</mat-label>
+        <mat-select [(value)]="deflautTimeInterval">
+          <mat-option *ngFor="let group of groups" [value]="group.value">
+            {{ group.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-10">
+      <mat-form-field>
+        <input
+          data-step="1"
+          data-intro="Select Any Date!"
+          matInput
+          type="text"
+          ngxDaterangepickerMd
+          [(ngModel)]="selected"
+          [showCustomRangeLabel]="true"
+          [alwaysShowCalendars]="false"
+          [ranges]="ranges"
+          (datesUpdated)="datesUpdated($event)"
+          [linkedCalendars]="true"
+          [timePicker]="true"
+          [timePickerSeconds]="true"
+          [timePickerIncrement]="15"
+          [timePicker24Hour]="true"
+          [locale]="{ format: 'YYYY-MM-DD HH:mm:ss', firstDay: 1 }"
+          [showClearButton]="true"
+          placeholder="Select please..."
+          [minDate]="mindate"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div *ngIf="data" data-step="2" data-intro="Data analysis graphs">
+    <plotly-plot
+      [data]="data"
+      [layout]="layout"
+      [revision]="0"
+      [debug]="debug"
+      [useResizeHandler]="true"
+      [config]="config"
+      (plotly_click)="compareClickEvent($event)"
+      (selected)="zoomEvent($event)"
+    ></plotly-plot>
+  </div>
+
+  <!-- <div *ngIf="data"  data-step="2" data-intro="Data analysis graphs" >
+    <plotly-plot
+      [data]="data"
+      [layout]="layout"
+      [revision]="0"
+      [debug]="debug"
+      [useResizeHandler]="useResizeHandler"
+    ></plotly-plot>
+  </div> -->
+</div>
+
+<!-- <br/> {{selected | json  }} -->

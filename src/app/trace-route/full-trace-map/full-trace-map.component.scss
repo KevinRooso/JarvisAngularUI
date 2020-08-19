@@ -1,0 +1,173 @@
+// .mainDiv{
+//   position: relative;
+// }
+#add-button{
+    z-index: 9999;
+    right: 20px;
+    bottom: -65px;
+    left: auto;
+    position: absolute;
+  }
+  .mat-container{
+    padding-left: 10px;
+    padding-right: 10px;
+   }
+   .map-container{
+    padding: 5px;
+   }
+   .page-title {
+    float: left;
+    width: 100%;
+    padding: 5px 10px 5px 33px;
+    margin: 0px 0px;
+  }
+  .page-title h2 {
+    float: left;
+    line-height: 35px;
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: .3rem;
+    margin-bottom: 0rem;
+  }
+  .breadcrumb {
+    width: 100%;
+    background: #e8e8e8;
+    margin-bottom: 0px;
+    padding: 12px 15px 12px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+  }
+  
+  .breadcrumb li, .breadcrumb li a {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4d5669;
+    text-decoration: none;
+  }
+  .breadcrumb>li {
+    display: inline-block;
+  }
+  
+  .breadcrumb > li + li:before {
+    font-family: "FontAwesome";
+    content: "\f105";
+    color: #4d5669;
+    padding: 0px 8px;
+  }
+  .breadcrumb li:last-child {
+    color: #22262e;
+    font-weight: bold ;
+  }
+  .panel.panel-default {
+    border-top-color: #F5F5F5;
+    border-top-width: 1px;
+  }
+  .panel {
+    float: left;
+    width: 100%;
+    border-radius: 0px;
+    border: 0px;
+    border-top: 2px solid #E5E5E5;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+  }
+  .panel {
+    background-color: #fff;
+  }
+  .panel-default .panel-heading, .panel-primary .panel-heading, .panel-success .panel-heading, .panel-info .panel-heading, .panel-warning .panel-heading, .panel-danger .panel-heading {
+    background: #F5F5F5;
+    border-color: #E5E5E5;
+  }
+  .panel .panel-heading, .panel .panel-footer, .panel .panel-body {
+    float: left;
+    width: 100%;
+  }
+  .panel .panel-heading {
+    padding: 5px 10px;
+  }
+  .panel-default>.panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+  }
+  .panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+  .panel .panel-heading .panel-title-box {
+    float: left;
+  }
+  .panel .panel-heading .panel-title-box h3 {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 34px;
+    color: #1b1e24;
+    padding: 0px;
+    margin: 0px;
+  }
+  .panel .panel-heading .panel-title-box span {
+    font-size: 12px;
+    color: #333;
+    font-weight: 500;
+    line-height: 12px;
+  }
+  ul.panel-controls {
+    float: right;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    position: relative;
+  }
+  ul.panel-controls > li {
+    float: left;
+  }
+  ul.panel-controls > li > a {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 28px;
+    color: #22262e;
+    border: 1px solid #BBB;
+    -moz-border-radius: 20%;
+    -webkit-border-radius: 20%;
+    border-radius: 20%;
+    margin-left: 3px;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+    cursor: pointer;
+  }
+  .fa-expand:before {
+    content: "\f065";
+  }
+  .panel .panel-body {
+    padding: 15px;
+    position: relative;
+    float: left;
+    width: 100%;
+  }
+  .panel .panel-heading .panel-title-box {
+    float: left;
+  }
+  .panel .panel-heading .panel-title-box h3 {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 34px;
+    color: #1b1e24;
+    padding: 0px;
+    margin: 0px;
+  }
+  .panel .panel-heading .panel-title-box span {
+    font-size: 12px;
+    color: #586377;
+    font-weight: 400;
+    line-height: 12px;
+  }

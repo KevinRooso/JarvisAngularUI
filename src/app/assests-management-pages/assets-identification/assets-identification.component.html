@@ -1,0 +1,45 @@
+<section class="m-3" style="min-height: 680px;">
+    <mat-card>
+        <div class="text-right">
+            <button mat-raised-button color="primary" class="theme-btn">Edit</button>
+        </div>
+        <div class="" style="width: 60%; margin: 0rem auto;">
+          <form class="example-form" [formGroup]="identificationForm">
+            <div class="">
+              <label class="new-label1">Name </label>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="" value="Xyz" formControlName="batteryName">
+              </mat-form-field>
+            </div><br>
+            <div class="">
+                <label class="new-label1">Quantity</label>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="" value="Xyz">
+                </mat-form-field>
+              </div><br>
+              <div class="">
+                  <label class="new-label1">Architecture  </label>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="" value="Xyz">
+                  </mat-form-field>
+                </div><br>
+                <div class="">
+                    <label class="new-label1">BIN </label>
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="" value="Xyz">
+                    </mat-form-field>
+                  </div><br>
+                  <div class="">
+                      <label class="new-label1">IMEI </label>
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="" value="Xyz">
+                      </mat-form-field>
+                  </div>
+                    <div class="text-center my-3">
+                        <button mat-raised-button color="primary">Save Changes</button>
+                        <button mat-raised-button color="primary" class="ml-3">Add</button>
+                    </div>
+          </form>
+        </div>
+    </mat-card>
+  </section>

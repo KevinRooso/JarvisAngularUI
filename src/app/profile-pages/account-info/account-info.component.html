@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <div class="py-4">
+    <mat-card class="org-mat-card">
+      <form [formGroup]="accForm" (ngSubmit)="onSubmit(accForm)">
+
+        <mat-form-field class="input-full-width">
+          <input matInput type="text" formControlName="accPhone" placeholder="phone" />
+        </mat-form-field>
+
+        <mat-form-field class="input-full-width">
+          <mat-label>User Role/Access</mat-label>
+          <mat-select formControlName="accRole">
+            <mat-option value="R&D">R&D </mat-option>
+            <mat-option value="Admin">Admin </mat-option>
+            <mat-option value="Seivice">Seivice </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" class="text-left" class="theme-btn">Save Changes</button>
+      </form>
+    </mat-card>
+  </div>
+</div>

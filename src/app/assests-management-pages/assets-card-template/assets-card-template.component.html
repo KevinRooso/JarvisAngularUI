@@ -1,0 +1,77 @@
+
+<div class="wrapper">
+      <mat-card class="org-mat-card">
+        <!-- <mat-card-header>Indicators</mat-card-header> -->
+        <form [formGroup]="batteryParam" (ngSubmit)="onAdd()">
+          <div class="row">
+            <div class="col-sm-5">
+              <mat-form-field>
+                <mat-label>Battery Parameters</mat-label>
+                <mat-select formControlName="batparam">
+                  <mat-option *ngFor="let param of batparams" [value]="param">{{param.description}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-5">
+              <mat-form-field>
+                <mat-label>Plain Text</mat-label>
+                <mat-select>
+                  <mat-option value="option">Plain Text</mat-option>
+                  <mat-option value="option">Plain Text</mat-option>
+                  <mat-option value="option">Plain Text</mat-option>
+                  <mat-option value="option">Plain Text</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-2">
+              <button mat-raised-button class="profilebtn" color="primary" type="submit" class="theme-btn mr-3">Add</button>
+            </div>
+          </div>
+        </form>
+        <div class="list-template">
+            <table mat-table [dataSource]="dataSource1" class="template-table" #mytable>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="Sensor">
+                <th mat-header-cell *matHeaderCellDef> Sensor </th>
+                <td mat-cell *matCellDef="let element "> {{element.description}} </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="Indicator">
+                <th mat-header-cell *matHeaderCellDef> Indicator </th>
+                <td mat-cell *matCellDef="let element"> Plain Text </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element;let i = index">
+                  <mat-icon (click)="onDelete(i)">delete</mat-icon>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+          <div class="row d-inline-flex" style="width: 100%;">
+            <div class="col-sm-6 my-3">
+              <div class="text-left" style="text-align: left !important;">
+                <button mat-raised-button class="profilebtn" color="primary" type="button" class="theme-btn" (click)="SaveUserParam()">Save Changes</button>
+              </div>
+              
+            </div>
+            <div class="col-sm-6">
+              <div class="text-right" style="text-align: right !important;">
+                <button mat-raised-button class="profilebtn" color="primary" type="button" (click)="closeDialog()" class="theme-btn m-3">Close</button>
+              </div>
+            </div>
+          </div>
+
+      </mat-card>
+    </div>
+
+
+
+

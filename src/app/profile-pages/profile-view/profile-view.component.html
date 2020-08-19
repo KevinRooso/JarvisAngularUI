@@ -1,0 +1,80 @@
+<!-- <section class="">
+  <div class="wrapper">
+    <div class=""> -->
+
+      <div class="row mx-0 my-3">
+        <div class="col-sm-6 col-md-6 col-lg-3"><h3 class="title">Profile Settings</h3></div>
+        <div class="col-sm-6 col-md-6 col-lg-9 text-right">
+          <button mat-raised-button color="primary" type="button" (click)="openDialog(null)" class="theme-btn">Edit</button>
+        </div>
+      </div>
+      <div class="row justify-content-center m-0">
+        <div class="col-lg-9 col-md-12">
+          <mat-card>
+            <div class="">
+              <div class="row profile-header">
+                <div class="col-sm-3">
+                  <img src='https://www.w3schools.com/howto/img_avatar.png' class="logo-image">
+                  <div><br>
+                    <h3>{{userData.username | uppercase}}</h3>
+                    <h6>{{userData.phoneNumber}}</h6>
+                    <h6>{{userData.city}}</h6>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <div style="display: grid;">
+                    <table>
+                      <tr>
+                          <td>UserName :</td>
+                          <td>{{userData.username | uppercase}}</td>
+                        </tr>
+                        <tr>
+                            <td>Contact :</td>
+                            <td>{{userData.phoneNumber}}</td>
+                          </tr>
+                          <!-- <tr>
+                              <td>Email :</td>
+                              <td>{{userData.email}}</td>
+                            </tr> -->
+
+                    <tr>
+                      <td>Email :</td>
+                      <td>{{userData.email}}</td>
+                    </tr>
+                    <tr>
+                      <td>Role :</td>
+                      <td>{{userData.userType}}</td>
+                    </tr>
+                    <tr>
+                      <td>Organization :</td>
+                      <td>{{userData.orgid}}</td>
+                    </tr>
+                    <tr>
+                      <td>City :</td>
+                      <td>{{userData.city}}</td>
+                    </tr>
+                    <tr>
+                      <td>Pincode :</td>
+                      <td>{{userData.pincode}} </td>
+                    </tr>
+                    <!-- <tr>
+                      <td>State :</td>
+                      <td>Haryana</td>
+                    </tr> -->
+                    <tr>
+                      <td>Country :</td>
+                      <td>{{userData.country}}</td>
+                    </tr>
+                  </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+
+      </div>
+    <!-- </div>
+  </div>
+</section> -->
+

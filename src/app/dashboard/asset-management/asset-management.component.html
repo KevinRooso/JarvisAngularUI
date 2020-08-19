@@ -1,0 +1,77 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a routerLink="/home-dashboard">Home</a></li>
+    <li><a>Assets Dashboard</a></li>
+    <!-- <li class="active">Data Tables</li> -->
+  </ul>
+</div>
+<div class="row">
+  <div class="col-md-6 col-lg-4" *ngFor="let image of ImageList">
+    <div class="widget widget-default widget-item-icon d-flex" style="align-items: center;">
+        <div class="widget-item-left">
+            <!-- <span class="fa fa-user"></span> -->
+            <img style="height: 100%;width:100%;" [src]="image.image_url" alt=""/>
+        </div>
+        <div class="widget-data">
+            <!-- <div class="widget-int num-count">375</div>
+            <div class="widget-title">Registred users</div> -->
+            <div class="widget-subtitle">Total Assets : <strong color="primary"> {{image.total_asset == null ? '0' : image.total_asset}} </strong></div>
+            <div class="widget-subtitle">Alive Assets : <strong>{{image.active_asset == null ? '0' : image.active_asset}} </strong></div>
+            <!-- <div class="widget-subtitle">Cell Nbr (Parallel) :<strong>14 </strong></div>
+            <div class="widget-subtitle">Cycle Life (80% DoD) : <strong>1200 </strong></div> -->
+        </div>
+
+          <a class="widget-control-right widget-remove" #tooltip="matTooltip" matTooltip="View Details" matTooltipPosition="right" role="button" (click)="viewDatails(image.id,image.org_name)" style="cursor: pointer;">
+            <div class="widget-item-right">
+            <span class="fa fa-angle-double-right"></span>
+          </div>
+          </a>
+
+        <!-- <div class="widget-controls">
+            <a class="widget-control-right widget-remove" #tooltip="matTooltip" matTooltip="View Details" matTooltipPosition="right" role="button" (click)="viewDatails(image.id)">
+              <span class="fa fa-angle-double-right"></span></a>
+        </div> -->
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="centered">
+  <section class="cards">
+    <article class="card" *ngFor="let image of ImageList">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <img style="height: 30px;" [src]="image.image_url" alt="" />
+        </mat-card-header>
+        <mat-card-content style="padding-left: 50px;">
+          <mat-list>
+            <mat-list-item
+              >Battery Chemistry :
+              <strong color="primary">NMC </strong></mat-list-item
+            >
+            <mat-divider></mat-divider>
+            <mat-list-item
+              >Cell Nbr (Series) : <strong>10 </strong></mat-list-item
+            >
+            <mat-divider></mat-divider>
+            <mat-list-item
+              >Cell Nbr (Parallel) :<strong>14 </strong>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item
+              >Cycle Life (80% DoD) : <strong>1200 </strong></mat-list-item
+            >
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-stroked-button color="primary" (click)="viewDatails(image.id)">View Details</button>
+        </mat-card-actions>
+      </mat-card>
+    </article>
+
+  </section>
+</div> -->
+
+
+
+

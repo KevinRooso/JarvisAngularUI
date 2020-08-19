@@ -1,0 +1,108 @@
+<section class="m-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <mat-card>
+          <h4 class="text-center">Line Type</h4>
+          <p>Description : Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore quam tempora error, facere
+            aliquam reprehenderit corporis sed impedit provident dignissimos ipsa voluptatem quas numquam ducimus
+            debitis illo, itaque tenetur sunt.</p>
+          <div class="row">
+            <div class="col-sm-6 text-left"><button mat-raised-button color="primary" class=""
+                (click)="toggleDisplay()" class="theme-btn">Single</button></div>
+            <div class="col-sm-6 text-right"><button mat-raised-button color="primary" class=""
+                (click)="toggleMultiDisplay()" class="theme-btn">Multiple</button></div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-8">
+        <mat-card class="mt-3" *ngIf="isSingleShow">
+
+          <div class="text-right">
+            <button mat-mini-fab color="primary" (click)="closeMe()" class="theme-btn">x</button>
+            <h5 class="text-center">Single Select</h5>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <mat-form-field>
+                <mat-label>X-cordinates</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let typeParam of typeParams" [value]="typeParam.value">
+                    {{typeParam.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field>
+                <mat-label>Y - Cordinates</mat-label>
+                <!-- [formControl]="toppings" -->
+                <mat-select>
+                  <mat-option *ngFor="let typeParam of typeParams" [value]="typeParam.value">
+                    {{typeParam.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field>
+                <mat-label>Time Range</mat-label>
+                <!-- [formControl]="toppings" -->
+                <mat-select>
+                  <mat-option *ngFor="let typeParam of typeParams" [value]="typeParam.value">
+                    {{typeParam.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-8">
+        <mat-card class="mt-3" *ngIf="isMultiShow">
+          <div class="text-right">
+            <button mat-mini-fab color="primary" (click)="closeMe()" class="theme-btn">x</button>
+            <h5 class="text-center">Multi Select</h5>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <mat-form-field>
+                <mat-label>X - Cordinates</mat-label>
+                <!-- [formControl]="toppings" -->
+                <mat-select>
+                  <mat-option *ngFor="let typeParam of typeParams" [value]="typeParam.value">
+                    {{typeParam.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field>
+                <mat-label>Y - Cordinates</mat-label>
+                <!-- [formControl]="toppings" -->
+                <mat-select multiple>
+                  <mat-option *ngFor="let param of params" [value]="param">{{param}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field>
+                <mat-label>Time Range</mat-label>
+                <!-- [formControl]="toppings" -->
+                <mat-select>
+                  <mat-option *ngFor="let typeParam of typeParams" [value]="typeParam.value">
+                    {{typeParam.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>

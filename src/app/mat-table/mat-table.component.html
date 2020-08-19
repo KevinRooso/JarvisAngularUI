@@ -1,0 +1,171 @@
+<!-- <mat-card> -->
+<!-- <button><mat-icon>add_box</mat-icon> </button> -->
+<!-- <mat-icon>settings_applications</mat-icon> -->
+<!-- <mat-form-field>
+          <mat-label>Add New Column</mat-label>
+          <mat-select [formControl]="datacolumns" (selectionChange)="updateColumn($event)" multiple>
+            <mat-option *ngFor="let header of headerColumns" [value]="header.displayName" >{{header.displayName}}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+
+<!-- <mat-select [formControl]="datacolumns" (selectionChange)="updateColumn($event)" multiple >
+            <mat-option *ngFor="let header of headerColumns"  [value]="header.displayName">{{header.displayName}}</mat-option>
+       </mat-select> -->
+
+<!-- <div class="my-3 col-sm-1">
+    <mat-form-field *ngIf="searchEnable">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+  </div> -->
+
+<div class="example-container mat-elevation-z8">
+  <div
+    class="example-loading-shade"
+    *ngIf="isLoadingResults || isRateLimitReached"
+  >
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      This API might be down. It will be reset in one minute.
+    </div>
+  </div>
+
+  <div class="example-table-container">
+  <div style="display: inline-block;padding: 8px 0px;" *ngIf="searchEnable">
+    <span style="font-size: 20px;font-weight: 400;">{{companyName}} Assets Table</span>
+  </div>
+
+    <div class="panel" *ngIf="searchEnable">
+      <div class="xn-search">
+        <form role="form">
+          <input
+            type="text"
+            (keyup)="applyFilter($event.target.value)"
+            name="search"
+            placeholder="Enter BIN"
+          />
+        </form>
+      </div>
+      <!-- <label>Search:<input type="search" class="form-control" placeholder="Filter" (keyup)="applyFilter($event.target.value)"></label> -->
+    </div>
+    <table
+      *ngIf="displayedColumns != null"
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      matSort
+      matSortActive=""
+      matSortDisableClear
+      multiTemplateDataRows
+      matSortDirection="desc"
+    >
+      <!-- <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                  [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                  (change)="$event ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)"
+                                  [aria-label]="checkboxLabel(row)">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>   -->
+      <ng-container
+        matColumnDef="{{ column.columnName }}"
+        *ngFor="let column of headerColumns"
+      >
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          [disabled]="column.sortDisabled"
+        >
+          {{ column.displayName }}
+        </th>
+
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="!column.action; else elseBlock">            
+            <a
+              (click)="
+                getColumnValue(element[column.columnName], column.columnName,element)
+              "
+              *ngIf="column.hyperlink; else elseblock"
+            >
+              <span class="link-tag"> {{ element[column.columnName] }} </span>
+            </a>
+            <ng-template #elseblock>              
+              <span *ngIf="!column.dateFormat">
+                {{ element[column.columnName] }}
+              </span>              
+              <span *ngIf="column.dateFormat">
+                {{ element[column.columnName] | date: 'dd-MM-yyyy HH:mm:ss'}}
+              </span>
+              
+          </ng-template>
+          </span>
+          <ng-template #elseBlock>
+            <button
+              *ngIf="column.displayName == 'Action'"
+              mat-icon-button
+              (click)="getColumnValue(element.id, 'edit',element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              *ngIf="column.columnName == 'location'"
+              mat-icon-button
+              (click)="getColumnValue(element.imeiNo, 'location',element)"
+              matTooltip="Lat : {{ element.latitude }} , Long : {{ element.longitude }}"
+            >
+              <!--  <mat-icon>public</mat-icon> -->
+              <img
+                src="https://developers.google.com/maps/images/lhimages/api/icon_placesapi.svg"
+                alt=""
+                width="30"
+              />
+            </button>
+
+            <!-- <button mat-icon-button mat-button (click)="getColumnValue(element.id,'view')"><mat-icon>visibility</mat-icon></button>
+                         <button mat-icon-button mat-button (click)="getColumnValue(element.id,'delete')"><mat-icon>delete</mat-icon></button> -->
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: displayedColumns"
+        class="example-element-row"
+      ></tr>
+    </table>
+
+    <div class="page-select mb-4">
+      <div class="label">Go to page:</div>
+      <mat-form-field style="width: 60px;margin-left: 10px;">
+        <mat-select
+          [ngModel]="manualPage"
+          (ngModelChange)="updateManualPage($event)"
+        >
+          <mat-option
+            *ngFor="let in of counter(totalPagesNumber); let i = index"
+            [value]="i"
+            >Page {{ i + 1 }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-paginator
+        [length]="resultsLength"
+        [pageSize]="10"
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        (page)="clearManualPage()"
+      ></mat-paginator>
+    </div>
+  </div>
+  <!-- <div style="height: 60px;"></div> -->
+</div>
+
+<!-- </mat-card> -->

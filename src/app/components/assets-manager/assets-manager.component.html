@@ -1,0 +1,89 @@
+<!-- <mat-toolbar></mat-toolbar>
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+    <mat-tab label="General Information"> Content 1 </mat-tab>
+    <mat-tab label="System"> Content 2 </mat-tab>
+    <mat-tab label="Change Component current state"> Content 3 </mat-tab>
+</mat-tab-group> -->
+
+
+<!-- <iframe
+    src="https://snapshot.raintank.io/dashboard-solo/snapshot/y7zwi2bZ7FcoTlB93WN7yWO4aMiz3pZb?from=1493369923321&to=1493377123321&panelId=4"
+    width="650" height="300" frameborder="0"></iframe> -->
+
+
+<mat-card>
+
+    <div class="example-container mat-elevation-z8">
+        <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+            <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+                GitHub's API rate limit has been reached. It will be reset in one minute.
+            </div>
+        </div>
+
+        <div class="example-table-container">
+
+            <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="deviceId"
+                matSortDisableClear matSortDirection="desc">
+                <!-- Number Column -->
+                <ng-container matColumnDef="bin">
+                    <th mat-header-cell *matHeaderCellDef>bin</th>
+                    <td mat-cell *matCellDef="let row">{{row.bin}}</td>
+                </ng-container>
+
+                <!-- Title Column -->
+                <ng-container matColumnDef="deviceId">
+                    <th mat-header-cell *matHeaderCellDef>deviceId</th>
+                    <td mat-cell *matCellDef="let row">{{row.deviceId}}</td>
+                </ng-container>
+
+                <!-- State Column -->
+                <ng-container matColumnDef="minimumCellVolatage">
+                    <th mat-header-cell *matHeaderCellDef>minimumCellVolatage</th>
+                    <td mat-cell (click)="getRecord(row.bin)" *matCellDef="let row">{{row.minimumCellVolatage}}</td>
+                </ng-container>
+
+                <!-- Created Column -->
+                <ng-container matColumnDef="maximumCallVolatage">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+                        maximumCallVolatage
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{row.maximumCallVolatage}}</td>
+                </ng-container>
+                <!-- Created Column -->
+                <ng-container matColumnDef="cellVoltages">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+                        cellVoltages
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{row.cellVoltages}}</td>
+                </ng-container>
+                <!-- Created Column -->
+                <ng-container matColumnDef="cellTemperature">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+                        cellTemperature
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{row.cellTemperature}}</td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+                        Action
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-mini-fab >
+                            <mat-icon inline=true color="primary">edit</mat-icon>
+                        </button>
+                        <button mat-mini-fab>
+                            <mat-icon inline=true color="primary">delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+
+        <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>
+    </div>
+
+</mat-card>

@@ -1,0 +1,397 @@
+<section class="m-4">
+
+  <button
+  mat-mini-fab
+  color="primary"
+  id="add-button"
+  (click)="openComparePage()"
+  matTooltip="Compare"
+>
+  <i class="material-icons">compare</i>
+</button>
+<button
+  mat-mini-fab
+  color="primary"
+  id="chart-button"
+  (click)="openChartsPage()"
+  matTooltip="View Chart"
+>
+  <i class="material-icons">insert_chart_outlined</i>
+</button>
+
+<button
+mat-mini-fab
+color="primary"
+matTooltip="Template"
+id="temp-button"
+(click)="openDialog()"
+>
+<i class="material-icons">assessment</i>
+</button>
+  <div class="row">
+    <div class="col-md-12 col-lg-5">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Battery Location</h3>
+          </div>
+          <!-- <ul class="panel-controls" style="margin-top: 2px;">
+            <li style="padding-top: 6px;font-size: 12px;font-weight: bold;"><span>( Live Batteries Location )</span></li>
+          </ul> -->
+        </div>
+        <div class="panel-body padding-0">
+          <app-battery-locate-map *ngIf="batteryInfo.imeiNo" [cname]="cname"  [bin]="batteryInfo.imeiNo"></app-battery-locate-map>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 col-lg-7">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Asset Overview </h3>
+          </div>
+          <!-- <ul class="panel-controls" style="margin-top: 2px;">
+            <li style="padding-top: 6px;font-size: 12px;font-weight: bold;"><span>( Live Batteries Location )</span></li>
+          </ul> -->
+        </div>
+        <div class="panel-body padding-0" style="min-height: 344px;">
+
+            <div class="col-md-12 d-flex" >
+              <div class="col-md-5">
+                <div class="panel-title-box mt-3 mb-5">
+                  <h4>Model No : {{batteryInfo.modelName}}</h4>
+                  <h6>BIN : {{batteryInfo.bin}}</h6>
+                  <h6>Last Ping : {{pdate | date: 'dd-MM-yyyy HH:mm:ss'}}</h6>
+                </div>
+                <img [src]="batteryimage" class="img-responsive" alt="batteryImage" style="height: 150px;"/>
+                </div>
+                <!-- <div class="col-md-1"></div> -->
+                <div class="col-md-7"  *ngIf="isData;else noData">
+                  <div class="panel-title-box mt-3 mb-5 text-center">
+                    <h4>SubComponents</h4>
+                  </div>
+                  <span>
+                    <app-sub-component-tree [treeData]="TreeData"></app-sub-component-tree>
+                  </span>
+                </div>
+                <ng-template #noData>
+                  <div class="col-md-7">
+                    <div class="panel-title-box mt-3 mb-5 text-center">
+                      <h4>SubComponents</h4>
+                    </div>
+                    <span>
+                      <app-sub-component-tree [treeData]="nullTreeData"></app-sub-component-tree>
+                    </span>
+                  </div>
+                </ng-template>
+            </div>
+            <!-- <div class="row">
+              <div class="col-sm-12 d-flex" *ngFor="let batval of newData">
+                <div class="col-sm-3"  >
+                  <div class="myCard" style="box-shadow: none;border-radius:0px;padding:0px 10px;">
+                    <h5>SoC</h5>
+                    <h3>{{batval.soc}}%</h3>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="myCard" style="border-left:3px solid #DBDBDB;box-shadow: none;border-radius:0px;padding:0px 10px;">
+                    <h5>SoH</h5>
+                    <h3>{{batval.soh}}%</h3>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="myCard" style="border-left:3px solid #DBDBDB;box-shadow: none;border-radius:0px;padding:0px 10px;">
+                    <h5>Current</h5>
+                    <h3>{{batval.current}} A</h3>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="myCard" style="border-left:3px solid #DBDBDB;box-shadow: none;border-radius:0px;padding:0px 10px;">
+                    <h5>Board Temprature</h5>
+                    <h3>{{batval.board_temperature}} C</h3>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default" >
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Errors And Warnings</h3>
+          </div>
+          <div class="panel-body padding-10 bg-white" style="min-height: 200px;">
+            <app-gaugegraphs [recentVal]="uncount.errors" [gaugeType]="Bullet" [gaugeTitle]="Errors"></app-gaugegraphs>
+            <app-gaugegraphs [recentVal]="uncount.warnings" [gaugeType]="Bullet" [gaugeTitle]="Warnings"></app-gaugegraphs>
+            <app-gaugegraphs [recentVal]="graphFirstValue.events" [gaugeType]="Bullet" [gaugeTitle]="Events"></app-gaugegraphs>
+          </div>
+        </div>
+       </div> 
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading ui-draggable-handle bg-white">
+          <div class="row" style="min-height: 240px;">
+            <div class="col-md-6 col-lg-3">
+              <app-gaugegraphs [recentVal]="graphFirstValue.soc" [gaugeType]="Speed" [gaugeTitle]="Soc"></app-gaugegraphs>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <app-gaugegraphs [recentVal]="graphFirstValue.soh" [gaugeType]="Speed" [gaugeTitle]="Soh"></app-gaugegraphs>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <app-gaugegraphs [recentVal]="graphFirstValue.current" [gaugeType]="Speed" [gaugeTitle]="Current"></app-gaugegraphs> 
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <app-gaugegraphs [recentVal]="graphFirstValue.board_temperature" [gaugeType]="Speed" [gaugeTitle]="bTemperature"></app-gaugegraphs> 
+            </div>
+         
+       
+        
+        </div>
+   </div>
+     </div> 
+  </div>
+  
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading ui-draggable-handle">
+        <div class="panel-title-box">
+          <h3>Trend of "Capacity Vs SOH Vs Eq.Cycle"</h3>
+        </div>
+      </div>
+      <div class="panel-body padding-0">
+        <app-overviewbargraphs [GraphRes]="graphData" [tparam1]="eqcycle" [tparam2]="soh"
+        [tparam3]="capacity" [gType]="scatter"></app-overviewbargraphs>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading ui-draggable-handle">
+        <div class="panel-title-box">
+          <h3>Trend of "Aging Debug Info(Advance) Vs SOH Vs Eq.Cycle"</h3>
+        </div>
+      </div>
+      <div class="panel-body padding-0">
+        <app-overviewbargraphs [GraphRes]="graphData" [tparam1]="eqcycle" [tparam2]="soh"
+        [tparam3]="agingadvance" [gType]="bar"></app-overviewbargraphs>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Trend of "Current Vs Max. Cell Temp"</h3>
+          </div>
+        </div>
+        <div class="panel-body padding-0">
+          <app-overview-graphs [graphRes]="graphData" [graphParams]="graph1"></app-overview-graphs>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Trends of "Max. Cell Voltage"</h3>
+          </div>
+        </div>
+        <div class="panel-body padding-0">
+          <app-overview-graphs [graphRes]="graphData" [graphParams]="graph2"></app-overview-graphs>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Trend of "Current Vs SOC"</h3>
+          </div>
+        </div>
+        <div class="panel-body padding-0">
+          <app-overview-graphs [graphRes]="graphData" [graphParams]="graph3"></app-overview-graphs>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Trend of "Cell Voltage - Min. Vs Max"</h3>
+          </div>
+        </div>
+        <div class="panel-body padding-0">         
+          <app-overview-graphs [graphRes]="graphData" [graphParams]="graph4"></app-overview-graphs>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+          <div class="panel-title-box">
+            <h3>Cell Voltage - Rate of Discharge</h3>
+          </div>
+        </div>
+        <div class="panel-body padding-0">         
+          <app-overview-graphs [graphRes]="graphData" [graphParams]="graph5"></app-overview-graphs>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 p-0" style="display: contents !important;">
+      <div class="col-md-3 my-3" *ngFor="let cd of cardData">
+        <div class="myCard">
+          <h5>{{cd.description}}</h5>
+          <h3>{{cd.value}}</h3>
+         <!--  <h6>{{cd.timeline}}</h6> -->
+        </div>
+      </div>
+      <!-- <div class="col-md-3">
+        <div class="myCard">
+          <h3>SoC</h3>
+          <h2>100%</h2>
+          <h5>5 Days Ago</h5>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="myCard">
+          <h3>SoC</h3>
+          <h2>100%</h2>
+          <h5>5 Days Ago</h5>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="myCard">
+          <h3>SoC</h3>
+          <h2>100%</h2>
+          <h5>5 Days Ago</h5>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <!-- <div class="text-right mb-3"></div>
+  <div class="row mb-4">
+    <div class="col-sm-12 d-flex px-1">
+      <div class="col-sm-3" style="padding: 5px; height: 350px;">
+        <mat-card style="padding: 30px; height: 350px; text-align: center;">
+          <img
+            src="assets/advanced-bms.png"
+            class="img-responsive"
+            alt="Visa"
+            style="width:auto"
+          />
+        </mat-card>
+      </div>
+      <div class="col-sm-4">
+        <mat-card class="mainDiv" style="padding: 30px; height: 350px;">
+          <button
+            mat-mini-fab
+            color="primary"
+            id="add-button"
+            (click)="openComparePage()"
+            matTooltip="Compare"
+          >
+            <i class="material-icons">compare</i>
+          </button>
+          <button
+            mat-mini-fab
+            color="primary"
+            id="chart-button"
+            (click)="openChartsPage()"
+            matTooltip="View Chart"
+          >
+            <i class="material-icons">insert_chart_outlined</i>
+          </button>
+          <h5>Subcomponents</h5>
+          <app-sub-component-tree></app-sub-component-tree>
+        </mat-card>
+      </div>
+      <div class="col-sm-5">
+       <mat-card>
+        <app-live-map></app-live-map>
+       </mat-card>
+      </div>
+Sender ID/IMEI
+357897100851847
+TCU-FW Version
+I.05
+BIN-Battery Identification 
+    </div>
+  </div> -->
+  <!-- <div class="container-fluid">
+    <div class="row">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>Cell NBR series</th>
+          <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>External Temprature Series</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef>SoC</th>
+          <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+        </ng-container>
+        <ng-container matColumnDef="symbol">
+          <th mat-header-cell *matHeaderCellDef>SoH</th>
+          <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+        </ng-container>
+        <ng-container matColumnDef="voltage">
+          <th mat-header-cell *matHeaderCellDef>Voltage</th>
+          <td mat-cell *matCellDef="let element">{{ element.voltage }}</td>
+        </ng-container>
+        <ng-container matColumnDef="temprature">
+          <th mat-header-cell *matHeaderCellDef>Temprature</th>
+          <td mat-cell *matCellDef="let element">{{ element.temprature }}</td>
+        </ng-container>
+        <ng-container matColumnDef="thereshold">
+          <th mat-header-cell *matHeaderCellDef>Thereshold</th>
+          <td mat-cell *matCellDef="let element">{{ element.thereshold }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div> -->
+
+
+    <!-- <div class="row mb-3">
+      <div class="col-sm-2">
+        <div class="widget">
+          <app-carousel></app-carousel>
+        </div>
+      </div>
+      <div class="col-sm-10">
+        <app-slider-carousal></app-slider-carousal>
+      </div>
+    </div> -->
+
+
+
+
+  </section>

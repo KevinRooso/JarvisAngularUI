@@ -1,0 +1,12 @@
+<plotly-plot
+  [data]="data"
+  [layout]="layout"
+  [revision]="0"
+  [debug]=""
+  [useResizeHandler]=true
+  [config]="config"
+></plotly-plot>
+
+<app-progress-spinner color="accent" [mode]="mode" [value]="value" *ngIf="displayProgressSpinnerInBlock" [diameter]="50"
+  class="center-aligned sq-relative-backdrop">
+</app-progress-spinner>

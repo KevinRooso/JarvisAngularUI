@@ -1,0 +1,92 @@
+<!-- <ul class="tree">
+  <li>
+      <a style="margin-left:-18px;">Bounce_v4.75-123456789</a>
+      <ul>
+          <li><a>FSL-LT-70-HE316153#123456789</a></li>
+          <li><a>TCU-LT-70-HE316153#123456789</a></li>
+          <li><a>BMS-LT-70-HE316153#123456789</a></li>
+         
+      </ul>
+  </li>
+</ul> -->
+    <!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-nested-tree-node *matTreeNodeDef="let node">
+        <li>
+
+          <div class="mat-tree-node"> <mat-icon>{{node.icon}}</mat-icon> {{node.item}}</div>
+        </li>
+      </mat-nested-tree-node>
+      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChildren">
+          <li class="example-tree-container">
+            <div class="mat-tree-node">
+              <button mat-icon-button matTreeNodeToggle
+                      [matTreeNodeToggleRecursive]="recursive"
+                    [attr.aria-label]="'toggle ' + node.filename">
+                <mat-icon>
+                  {{treeControl.isExpanded(node) ? 'remove_circle_outline' : 'add_box'}}
+                </mat-icon>
+              </button>
+              <mat-icon>{{node.icon}}</mat-icon>
+              {{node.item}}
+          </div>
+          <ul class="example-tree-nested-node">
+            <div  *ngIf="treeControl.isExpanded(node)">
+            <ng-container matTreeNodeOutlet></ng-container>
+            </div>
+          </ul>
+        </li>
+
+      </mat-nested-tree-node>
+    </mat-tree> -->
+    <!-- <div class="hv-wrapper">
+      <div class="hv-item">
+          <div class="hv-item-parent">
+              <p class="simple-card px-3"> Bounce_v4.75-123456789 </p>
+          </div>
+          <div class="hv-item-children">
+              <div class="hv-item-child">
+                  <p class="simple-card"> <i class="material-icons">
+                    network_check
+                    </i><span>FSL-LT-70-HE316153#123456789</span></p>
+              </div>
+              <div class="hv-item-child">
+                  <p class="simple-card"> 
+                    <i class="material-icons">
+                      flash_on
+                      </i><span>TCU-LT-70-HE316153#123456789</span></p>
+              </div>
+              <div class="hv-item-child">
+                  <p class="simple-card"> 
+                    <i class="material-icons">
+                      memory
+                      </i><span>BMS-LT-70-HE316153#123456789</span></p>
+              </div>
+          </div>
+      </div>
+  </div> -->
+  <div class="hv-wrapper">
+    <div class="hv-item">
+      <div class="hv-item-parent">
+        <p class="simple-card px-3"> {{treeData.model_id}}</p>
+      </div>
+      <div class="hv-item-children">
+        <div class="hv-item-child">
+            <p class="simple-card"> <i class="material-icons">
+              network_check
+              </i><span class="break-word">BMS-{{treeData.bms}}</span></p>
+        </div>
+        <div class="hv-item-child">
+            <p class="simple-card"> 
+              <i class="material-icons">
+                flash_on
+                </i><span class="break-word">TCU-{{treeData.tcu}}</span></p>
+        </div>
+        <div class="hv-item-child">
+            <p class="simple-card"> 
+              <i class="material-icons">
+                memory
+                </i><span class="break-word">PDU-{{treeData.pdu}}</span></p>
+        </div>
+    </div>
+    </div>
+  </div>

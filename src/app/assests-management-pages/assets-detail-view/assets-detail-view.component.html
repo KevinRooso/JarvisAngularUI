@@ -1,0 +1,16 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a (click)="Back()">Home</a></li>
+    <li><a routerLink="/assets-dashbaord">Assets Dashboard</a></li>
+    <li><a (click)="Back()" >{{param1}} Data Table</a></li>
+    <li><a style="cursor:auto;">Assets Details</a></li>
+  </ul>
+</div>
+<mat-tab-group #tabGroup >
+    <mat-tab label="Overview"><app-assets-overview [assetId]=assestId [cname]="param1" [selectedItem]="param2" [pdate]="pdate"></app-assets-overview></mat-tab>
+    <!-- <mat-tab label="Specifications"><app-assets-specification></app-assets-specification></mat-tab>
+    <mat-tab label="Identifications"><app-assets-identification></app-assets-identification></mat-tab> -->
+    <!-- <mat-tab label="Sensors"><app-assets-sensors></app-assets-sensors></mat-tab> -->
+    <mat-tab label="Configurations"><app-assets-configuration></app-assets-configuration></mat-tab>
+    <!-- <mat-tab label="Error Logs"><app-error-logs></app-error-logs></mat-tab> -->
+</mat-tab-group>

@@ -1,0 +1,42 @@
+.org-mat-card {
+  max-width: 550px;
+}
+
+.input-full-width{
+  width: 100%;
+}
+
+#file-label {
+  display: inline-flex;
+  vertical-align: middle;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+#file-label mat-icon {
+  font-size: 18px;
+  text-align: center;
+}
+
+#file-label a {
+  cursor: pointer;
+}
+.align-self-flex-end{
+  align-self: flex-end;
+  text-align:left;
+}
+.wrapper{
+  background: #fff;
+  text-align: -webkit-center;
+  height: auto;
+  margin-bottom: 5rem;
+  border-radius: 5px;
+}
+.logo-image{
+  width: 100%;
+    max-height: 150px;
+    border-radius: 3px;
+}
+.input-full-width{
+  margin-top: 0.5rem;
+}

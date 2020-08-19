@@ -1,0 +1,138 @@
+<div class="container mt-5">
+    <section class="section-tours">
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="seq">
+            <th mat-header-cell *matHeaderCellDef width="10%" mat-sort-header disabled><b>S.No.</b></th>
+            <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="18%"><b>Customer</b></th>
+            <td mat-cell *matCellDef="let row">{{ row.customer }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="tcu">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="18%"><b>TCU</b></th>
+            <td mat-cell *matCellDef="let row">{{ row.tcu }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="bms">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="18%"><b>BMS</b></th>
+            <td mat-cell *matCellDef="let row">{{ row.bms }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="cfg">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="18%"><b>CFG</b></th>
+            <td mat-cell *matCellDef="let row">{{ row.cfg }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="18%"><b>Action</b></th>
+            <td mat-cell *matCellDef="let row">
+              <button class="btn btn-outline-dark" data-toggle="modal" data-target="#detailsModal">
+                PUSH FOTA
+              </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+  
+        <mat-paginator [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </section>
+  </div>
+  <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="top:80px">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: none; padding: 0;">
+          <div class="heading-shadow pt-1 mt-3 ml-2">
+            <h3>DETAILS</h3>
+          </div>  
+          <button type="button" #closeModel class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row m-2">
+             <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">CUSTOMER</div>
+                    <div class="card-body">
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                      <span class="float-right">Bounce</span>
+                    </div>
+                </div>
+             </div>
+             <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">TCU</div>
+                    <div class="card-body w-100">
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                      <span class="float-right">i.06</span>
+                    </div>
+                </div>
+             </div>
+             <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">BMS</div>
+                    <div class="card-body">
+                       <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                       <span class="float-right">1.03</span>
+                    </div>
+                </div>
+             </div>             
+            </div>
+            <div class="row m-2 mt-3">
+             <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">CFG</div>
+                    <div class="card-body">
+                        <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                        <span class="float-right">1.01</span>
+                    </div>
+                </div>
+             </div>
+             <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Date</div>
+                    <div class="card-body">
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                      <span class="float-right">21 December 2019</span>
+                    </div>
+                </div>
+             </div>
+             <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">User</div>
+                    <div class="card-body">
+                     <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                     <span class="float-right">Suresh</span>
+                    </div>
+                </div>
+             </div>             
+            </div>
+            <div class="border mt-3 p-2 w-100">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris quis laoreet elit. Nam sed ex eget massa sagittis aliquet a imperdiet nulla. Pellentesque sed mauris non turpis efficitur consectetur sed ut ante. Nulla congue, quam sed sollicitudin egestas, est est volutpat dui, nec lacinia velit tellus id est. Pellentesque imperdiet urna id risus fringilla, ac lobortis orci dictum. Suspendisse convallis hendrerit ex, nec elementum dolor faucibus nec. Morbi iaculis facilisis nisl, facilisis auctor nunc ornare vel. Aliquam pulvinar, orci eget fringilla semper, leo lacus ultricies nisl, non posuere augue tellus eget metus. Ut a justo ante. Proin efficitur volutpat tortor. Cras vitae laoreet lacus. Mauris varius lorem sit amet sapien mattis placerat. Aenean orci augue, bibendum ut nunc quis, volutpat consequat risus. Aliquam sagittis sem sit amet tortor consectetur imperdiet. Integer pretium eros vel sem volutpat elementum. Ut a risus viverra, vulputate nisi ac, iaculis ex.        
+            </div>
+            <div class="row mt-3"> 
+              <div class="col-md-8"></div>
+              <div class="col-md-2">
+                <button class="btn-size btn btn-dark w-100">
+                  RUN BATCH
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn-size btn btn-light w-100">
+                  DELETE BATCH
+                </button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
