@@ -1,0 +1,313 @@
+   <div class="row mt-4">
+    <div class="col-md-4">
+        <mat-checkbox #tcuCheckbox (change)="onCheckChange($event,'tcu')" [disabled]="compSelected | async" value="tcu">TCU</mat-checkbox>
+    </div>
+    <div class="col-md-4">
+        <mat-checkbox #bmsCheckbox value="bms" [disabled]="compSelected | async" (change)="toggleCfg($event)">BMS</mat-checkbox>
+    </div>
+    <div class="col-md-4">
+        <mat-checkbox #cfgCheckbox (change)="onCheckChange($event,'cfg')" value="cfg" [hidden]="isBms" [disabled]="(compSelected | async)">CFG</mat-checkbox>
+    </div>
+   </div>
+   <div class="row mt-4">
+       <div class="col-md-4">
+        <form [formGroup]="firstFormGroup" [ngClass]="(onlyImei)?'form-font-2':'form-font-1'">
+            <div class="form-row mt-3">              
+              <div class="col-md-3 col-form-label">
+                <label class="mt-3">Version</label>
+            </div>
+            <div class="col-md-9 col-form-label">
+            <mat-form-field appearance="fill">
+                <mat-label>Select Version</mat-label>
+                <mat-select formControlName="version" [disabled]="!tcuChe">
+                  <mat-option>--</mat-option>
+                  <mat-option *ngFor="let ver of versionArray"  [value]="ver">
+                    {{ver}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+          </div>        
+           </div>
+          <div class="form-row mt-3">              
+            <div class="col-md-3 col-form-label">
+              <label class="mt-3">Command</label>
+          </div>
+          <div class="col-md-9 col-form-label">
+          <mat-form-field appearance="fill">
+              <mat-label>Select Command</mat-label>
+              <mat-select formControlName="command" [disabled]="!tcuChe">
+                <mat-option *ngFor="let com of commandsArray" [value]="com.name">
+                  {{com.displayName}}
+                </mat-option>
+              </mat-select>
+          </mat-form-field>
+        </div>        
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4">
+        <form [formGroup]="secondFormGroup" [ngClass]="(onlyImei)?'form-font-2':'form-font-1'">
+            <div class="form-row mt-3">              
+              <div class="col-md-3 col-form-label">
+                <label class="mt-3">Version</label>
+            </div>
+            <div class="col-md-9 col-form-label">
+            <mat-form-field appearance="fill">
+                <mat-label>Select Version</mat-label>
+                <mat-select formControlName="version" [disabled]="!bmsChe">
+                  <mat-option>--</mat-option>
+                  <mat-option *ngFor="let ver of versionArray"  [value]="ver">
+                    {{ver}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>        
+           </div>
+          <div class="form-row mt-3">              
+            <div class="col-md-3 col-form-label">
+              <label class="mt-3">Command</label>
+          </div>
+          <div class="col-md-9 col-form-label">
+          <mat-form-field appearance="fill">
+              <mat-label>Select Command</mat-label>
+              <mat-select formControlName="command" [disabled]="!bmsChe">
+                <mat-option>--</mat-option>                     
+                <mat-option *ngFor="let com of commandsArray"  [value]="com.name">
+                  {{com.displayName}}
+                </mat-option>
+              </mat-select>
+          </mat-form-field> 
+          </div>       
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4" *ngIf="cfgSelected | async">
+        <form [formGroup]="thirdFormGroup" [ngClass]="(onlyImei)?'form-font-2':'form-font-1'">
+            <div class="form-row mt-3">              
+              <div class="col-md-3 col-form-label">
+                <label class="mt-3">Version</label>
+            </div>
+            <div class="col-md-9 col-form-label">
+            <mat-form-field appearance="fill">
+                <mat-label>Select Version</mat-label>
+                <mat-select formControlName="version" [disabled]="!cfgChe">
+                  <mat-option *ngFor="let ver of versionArray"  [value]="ver">
+                    {{ver}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field> 
+            </div>       
+           </div>
+          <div class="form-row mt-3">              
+            <div class="col-md-3 col-form-label">
+              <label class="mt-3">Command</label>
+          </div>
+          <div class="col-md-9 col-form-label">
+          <mat-form-field appearance="fill">
+              <mat-label>Select Command</mat-label>
+              <mat-select formControlName="command" [disabled]="!cfgChe">
+                <mat-option *ngFor="let com of commandsArray"  [value]="com.name">
+                  {{com.displayName}}
+                </mat-option>
+              </mat-select>
+          </mat-form-field>
+          </div>        
+          </div>
+        </form>
+      </div>
+   </div>
+   <div class="row mt-4">
+       <div class="col-md-5"></div>
+       <div class="col-md-7">
+        <button *ngIf="!onlyImei" class="text-center btn btn-dark btn-size w-25" (click)="submitBatch()">
+            Confirm and Proceed to Csv
+        </button>
+        <button *ngIf="onlyImei" class="text-center btn btn-dark btn-size w-25" (click)="submitBatch()">
+            Confirm
+        </button>
+       </div>
+   </div>
+   <!-- <div *ngIf="!(compSelected | async)" class="row ml-1 mt-4">
+    <button mat-button (click)="selectComponent()">Select Component</button>
+   </div>
+   <div *ngIf="compSelected | async" class="row mt-4">
+       <div class="col-md-4">
+        <div *ngIf="tcuSelected | async">
+        <form [formGroup]="firstFormGroup" class="row mat-elevation-z2 p-3">
+        <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="1.01"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                    1.01
+                </div>
+            </label>
+           </div>
+           <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="1.02"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                    1.02
+                </div>
+            </label>
+           </div>
+           <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="1.05"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                    1.05
+                </div>
+            </label>
+           </div>
+           <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="1.07"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                    1.07
+                </div>
+            </label>
+           </div>
+        </form>
+        </div>
+       </div>
+       <div class="col-md-4">
+        <div *ngIf="bmsSelected | async" >
+        <form [formGroup]="secondFormGroup" class="row mat-elevation-z2 p-3">
+         <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="v15123"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                    v15123
+                </div>
+            </label>
+           </div>
+           <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="v15125"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                    v15125
+                </div>
+            </label>
+           </div>
+           <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="v15127"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                   v15127
+                </div>
+            </label>
+           </div>           
+           <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="v15129"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                   v15129
+                </div>
+            </label>
+           </div>
+        </form>
+        </div>
+       </div>
+       <div class="col-md-4">
+        <div *ngIf="cfgSelected | async" >
+        <form [formGroup]="thirdFormGroup" class="row mat-elevation-z2 p-3">
+         <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="512"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                    512
+                </div>
+            </label>
+           </div>
+           <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="605"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                    605
+                </div>
+            </label>
+           </div>
+           <div class="col-md-3">
+            <label>
+                <input type="radio" class="card-input-element" formControlName="version" value="650"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                    650
+                </div>
+            </label>
+           </div>
+           <div class="col-md-3">
+            <label>
+                <input type="radio" id="myRadio" class="card-input-element" formControlName="version" value="701"/>            
+                <div class="example-ripple-container mat-elevation-z4" matRipple
+                   [matRippleCentered]="centered"
+                >
+                    701
+                </div>
+            </label>
+           </div>
+        </form>
+        </div>
+       </div>              
+   </div>
+   <div *ngIf="(compSelected | async) && !(verSelected | async)" class="row ml-1 mt-4">
+    <button mat-button (click)="selectVersion()">Select Version</button>
+   </div>
+   <div *ngIf="verSelected | async">
+       <div class="row mt-4">
+        <div class="col-md-4">
+            <div *ngIf="tcuSelected | async">
+            <form [formGroup]="firstFormGroup" class="row mat-elevation-z2 p-3">
+            <mat-form-field appearance="fill">
+                <mat-label>Select Command</mat-label>
+                <mat-select formControlName="command" name="food">
+                  <mat-option *ngFor="let com of commandsArray" [value]="com.name">
+                    {{com.displayName}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div *ngIf="bmsSelected | async" >
+            <form [formGroup]="secondFormGroup" class="row mat-elevation-z2 p-3">
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Command</mat-label>
+                    <mat-select formControlName="command" name="food">
+                      <mat-option *ngFor="let com of commandsArray" [value]="com.name">
+                        {{com.displayName}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+            </div>
+        </div>
+       </div>
+       <div class="row mt-4">
+        <button mat-button (click)="submitFota()">Proceed To Upload CSV</button>
+        <button mat-button (click)="resetParams()">Reset</button>
+       </div>
+   </div>   
+
+   -->

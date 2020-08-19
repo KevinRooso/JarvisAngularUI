@@ -1,7 +1,8 @@
 <div>
   <ul class="breadcrumb">
     <li><a routerLink="/home-dashboard">Home</a></li>
-    <li><a>Assets Dashboard</a></li>
+    <li *ngIf="param2"><a>Fota Dashboard</a></li>
+    <li *ngIf="!param2"><a>Assets Dashboard</a></li>
     <!-- <li class="active">Data Tables</li> -->
   </ul>
 </div>

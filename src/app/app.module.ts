@@ -22,6 +22,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
+import {MatRippleModule} from '@angular/material/core';
+import {MatStepperModule} from '@angular/material/stepper';
 
 import { AgmCoreModule } from '@agm/core';
 import { LoginComponent } from './login/login.component';
@@ -113,6 +115,7 @@ import { TraceMapComponent } from './trace-route/trace-map/trace-map.component';
 import { FullTraceMapComponent } from './trace-route/full-trace-map/full-trace-map.component';
 import { FotaComponent } from './fota/fota.component';
 import { FotaDetailComponent } from './fota/fota-detail/fota-detail.component';
+import { FotaChooseComponent } from './fota/fota-choose/fota-choose.component';
 
 
 
@@ -188,7 +191,9 @@ PlotlyViaCDNModule.plotlyVersion = '1.49.4';
     
     FotaComponent,
     
-    FotaDetailComponent
+    FotaDetailComponent,
+    
+    FotaChooseComponent
 
 
   ],
@@ -207,6 +212,7 @@ PlotlyViaCDNModule.plotlyVersion = '1.49.4';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
+    MatStepperModule,
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
@@ -218,6 +224,8 @@ PlotlyViaCDNModule.plotlyVersion = '1.49.4';
     MatProgressBarModule,
     MatCardModule,
     MatTreeModule,
+    MatRippleModule,
+    
     MatMenuModule,
     PlotlyViaCDNModule,
     MatDatepickerModule,

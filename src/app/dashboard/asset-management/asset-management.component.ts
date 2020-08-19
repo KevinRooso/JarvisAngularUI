@@ -10,12 +10,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AssetManagementComponent implements OnInit {
   public ImageList: any;
   param1 = false;
+  param2: any;
 
   constructor(private _service: ServiceService, private route:Router,private route1: ActivatedRoute) { }
 
   ngOnInit() {
     this.route1.queryParams.subscribe(params => {
       this.param1 = params.map;
+      this.param2 = params.fota;
     });
 
     if(localStorage.getItem("assetData")==null){
@@ -49,6 +51,9 @@ export class AssetManagementComponent implements OnInit {
     if(this.param1)
     {
       this.route.navigate(['/trace-route'], { queryParams: { selectedItem: id,cname:org_name} }); 
+    }
+    if(this.param2){
+      this.route.navigate(['/fota'],{ queryParams: {selectedItem: id,cname: org_name} });
     }
     else{
       this.route.navigate(['/assests-data'], { queryParams: { selectedItem: id,cname:org_name} });

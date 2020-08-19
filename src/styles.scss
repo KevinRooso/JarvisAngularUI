@@ -180,3 +180,5 @@ input[type=text]::-ms-clear {
 .slick-track{
   margin-left: 0 !important;
 }
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; } 

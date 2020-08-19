@@ -70,8 +70,7 @@ export class LoginComponent implements OnInit {
       }, error => {
         // Error Reposnse Messge Handling
         //Showing Response Message to user know password is Authentication field
-        console.log(error);
-        alert(error.error.message)
+        console.log(error);        
       })
   }
 

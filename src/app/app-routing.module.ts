@@ -70,8 +70,8 @@ const routes: Routes = [
   { path: 'asset-model', component: AssetModelComponent},
   { path: 'trace-route', component: TraceRouteComponent},
   { path: 'trace-route/:imei', component: FullTraceMapComponent},
-  { path: 'fota', component: FotaComponent},
-  { path: 'fota-detail', component: FotaDetailComponent},
+  { path: 'fota', component: FotaComponent, canActivate: [AuthguardGuard]},
+  { path: 'fota-detail', component: FotaDetailComponent, canActivate: [AuthguardGuard]},
   { path: '**', component: PageNotFoundComponent}
 
 ];

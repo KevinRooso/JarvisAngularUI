@@ -26,6 +26,12 @@
             <span class="fa fa-map"></span>
           </a>
         </li> -->
+        <li class="">
+          <a routerLink="/assets-dashbaord" [queryParams]="{fota: 'true'}" routerLinkActive="active-link" #tooltip="matTooltip"
+            matTooltip="Fota" matTooltipPosition="right" class="icons">
+            <span class="fa fa-database"></span>
+          </a>
+        </li>
         <li class="" *ngIf="flag | async">
           <a routerLink="/customers-dashboard" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Customer Management" matTooltipPosition="right" class="icons">

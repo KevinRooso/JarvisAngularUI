@@ -11,12 +11,18 @@ import { ServiceService } from 'src/app/service.service';
 export class FotaDetailComponent implements OnInit {
 
   fileUploaded: File;
-  displayedColumns: string[] = ['seq', 'batchName', 'count', 'date','user','status','detail','log'];
+  displayedColumns: string[] = ['seq', 'id' ,'batchName', 'count', 'date','status','detail','log'];
   logColumns: string[] = ['seq', 'imei', 'tcu', 'bms','cfg','status','date'];
   dataSource: any;
   logDataSource: any;
 
   batchForm: FormGroup;
+
+  //Spinner Variable
+  mode = 'indeterminate';
+  value = 50;
+  color = 'primary';
+  displayProgressSpinnerInBlock: boolean = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -63,7 +69,7 @@ export class FotaDetailComponent implements OnInit {
   }
 
   ngOnInit() {    
-    this.getBatches();    
+    this.getBatches();
     this.logDataSource = new MatTableDataSource(this.logData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -73,9 +79,10 @@ export class FotaDetailComponent implements OnInit {
     this.fileUploaded = event.target.files[0] as File;    
   }
 
-  getBatches(){
+  getBatches(){    
     this.service.getBatches().subscribe(
       res => {
+        this.fotaData = [];
         res.forEach((i, index)=>{          
           let obj:any = {
             seq: index + 1,
@@ -91,7 +98,13 @@ export class FotaDetailComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.fotaData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  });
+    this.displayProgressSpinnerInBlock = false;
+  },
+  err => {
+    this.displayProgressSpinnerInBlock = false;
+    console.log("batch api failed",err);
+  }
+  );
 
 }
 
@@ -99,9 +112,8 @@ export class FotaDetailComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.fileUploaded);
     this.service.uploadBatchDetails(formData,3).subscribe(
-      res => {
-        alert("Batch Updated");
-        console.log("Response",res);
+      res => {                
+        this.getBatches();
       }
     );  
   }

@@ -36,9 +36,10 @@ export class ServiceService {
 
   // Java Backend Deflaut URL
    api_user_url = 'http://119.252.208.14:8085';
- // api_user_url = 'http://stagingbn.bt.exicom.in:8085';
+  //api_user_url = 'http://stagingbn.bt.exicom.in:8085';
   api_user_url1 = 'http://192.168.1.128:8086';
-  api_user_url2 = 'http://localhost:8090';
+  //api_user_url2 = 'http://localhost:8090';
+  api_user_url2 = 'http://119.252.208.14:8090';
   //api_user_url = 'http://192.168.1.88:8085';
    //api_user_url = 'http://192.168.1.167:8085';
   // api_user_url = 'http://localhost:8085';
@@ -58,6 +59,13 @@ export class ServiceService {
   //   new BehaviorSubject(false);
   isLoginSubject = new BehaviorSubject<boolean>(false);
   isUserAdminSubject = new BehaviorSubject<boolean>(true);
+
+  //Fota Components
+  isCompSubject = new BehaviorSubject<boolean>(false);
+  isTcuSubject = new BehaviorSubject<boolean>(false);
+  isBmsSubject = new BehaviorSubject<boolean>(false);
+  isCfgSubject = new BehaviorSubject<boolean>(false);
+  isVerSubject = new BehaviorSubject<boolean>(false);
 
 
   isLoggedIn(): Observable<boolean> {
@@ -127,6 +135,47 @@ export class ServiceService {
     //const param = new HttpParams().append('token', "Bearer " + token)
     return this.http.get(this.api_user_url + '/IsTokenExpired');
 
+  }
+
+  //For fota button behaviour
+  isCompSelected(flag): void{
+    this.isCompSubject.next(flag);
+  }
+
+  isCompObservable(): Observable<boolean> {
+    return this.isCompSubject.asObservable();
+  }
+
+  isTcuSelected(flag): void{
+    this.isTcuSubject.next(flag);
+  }
+
+  isTcuObservable(): Observable<boolean> {
+    return this.isTcuSubject.asObservable();
+  }
+
+  isBmsSelected(flag): void{
+    this.isBmsSubject.next(flag);
+  }
+
+  isBmsObservable(): Observable<boolean> {
+    return this.isBmsSubject.asObservable();
+  }
+
+  isCfgSelected(flag): void{
+    this.isCfgSubject.next(flag);
+  }
+
+  isCfgObservable(): Observable<boolean> {
+    return this.isCfgSubject.asObservable();
+  }
+
+  isVerSelected(flag): void{
+    this.isVerSubject.next(flag);
+  }
+
+  isVerObservable(): Observable<boolean> {
+    return this.isVerSubject.asObservable();
   }
 
   //For Login User
@@ -271,6 +320,10 @@ export class ServiceService {
     return this.http.post<any>(this.api_user_url + `/asset/getAssetById?id=${assetId}`,{});
   }
 
+  getAllAssetByOrgId(orgId): Observable<any> {
+    return this.http.get<any>(this.api_user_url + `/asset/getAllActiveAssetByOrgWithFilter/${orgId}`);
+  }
+
   //FOTA API'S
 
   uploadBatchDetails(file,orgId): Observable<any> {
@@ -279,6 +332,14 @@ export class ServiceService {
 
   getBatches(): Observable<any> {
     return this.http.get<any>(this.api_user_url2 + '/getBatch');
+  }
+
+  getAllBatchDetails(): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + '/getBatchDetails');
+  }
+
+  getAssetListForFota(orgId): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + `/get_asset_data/${orgId}`);
   }
 
   /*  */
