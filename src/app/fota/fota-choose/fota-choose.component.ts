@@ -8,18 +8,18 @@ import { MatCheckbox } from '@angular/material';
 @Component({
   selector: 'app-fota-choose',
   templateUrl: './fota-choose.component.html',
-  styleUrls: ['./fota-choose.component.scss']  
+  styleUrls: ['./fota-choose.component.scss']
 })
 export class FotaChooseComponent implements OnInit {
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;  
+  secondFormGroup: FormGroup;
   isLinear = true;
   isEditable = false;
   thirdFormGroup: FormGroup;
-  isBms = true;  
-  
+  isBms = true;
+
   selectedParameter: any[] = [];
-  
+
   //Behaviours for buttons and divs
   verSelected: Observable<boolean>;
   compSelected: Observable<boolean>;
@@ -33,7 +33,7 @@ export class FotaChooseComponent implements OnInit {
   bmsChe = false;
   cfgChe = false;
 
-  //Checkbox 
+  //Checkbox
   @ViewChild('tcuCheckbox',{static:false}) private tcuCheck: MatCheckbox;
   @ViewChild('bmsCheckbox',{static:false}) private bmsCheck: MatCheckbox;
   @ViewChild('cfgCheckbox',{static:false}) private cfgCheck: MatCheckbox;
@@ -75,7 +75,7 @@ export class FotaChooseComponent implements OnInit {
   @Input() onlyImei?: boolean;
 
   @Output() batchInfo = new EventEmitter();
-  compArray: any[] = [];  
+  compArray: any[] = [];
 
   constructor(private _formBuilder: FormBuilder,private service: ServiceService) {
     //Setting subject false
@@ -108,7 +108,7 @@ export class FotaChooseComponent implements OnInit {
     this.tcuSelected = this.service.isTcuObservable();
     this.bmsSelected = this.service.isBmsObservable();
     this.cfgSelected = this.service.isCfgObservable();
-    this.verSelected = this.service.isVerObservable();    
+    this.verSelected = this.service.isVerObservable();
   }
 
   initialParameters(){
@@ -124,7 +124,7 @@ export class FotaChooseComponent implements OnInit {
     this.thirdFormGroup.controls['version'].setValue('');
     this.firstFormGroup.controls['command'].setValue('');
     this.secondFormGroup.controls['command'].setValue('');
-    this.thirdFormGroup.controls['command'].setValue('');      
+    this.thirdFormGroup.controls['command'].setValue('');
   }
 
   getVersions(){
@@ -136,11 +136,11 @@ export class FotaChooseComponent implements OnInit {
   toggleCfg(event){
     console.log(event);
     if(event.checked){
-      this.isBms = false;      
+      this.isBms = false;
       this.compArray.push(event.source.value);
       this.bmsChe = true;
       this.service.isCfgSelected(true);
-    }else{            
+    }else{
       this.isBms = true;
       this.bmsChe = false;
       this.cfgCheck.checked = false;
@@ -194,7 +194,7 @@ export class FotaChooseComponent implements OnInit {
     }
   }
 
-  selectVersion(){        
+  selectVersion(){
     let v1 = this.firstFormGroup.controls['version'].value;
     let v2 = this.secondFormGroup.controls['version'].value;
     let v3 = this.thirdFormGroup.controls['version'].value;
@@ -220,7 +220,7 @@ export class FotaChooseComponent implements OnInit {
         this.pushToParaArray('cfg',v3)
       }
     });
-    
+
     console.log(this.selectedParameter);
    }
   }
@@ -237,7 +237,10 @@ export class FotaChooseComponent implements OnInit {
     this.tcuCheck.checked = false;
     this.bmsCheck.checked = false;
     this.cfgCheck.checked = false;
-    this.isBms = true;    
+    this.isBms = true;
+  }
+  submitBatch(){
+
   }
 
 }

@@ -1,0 +1,97 @@
+<div class="container mt-5">
+  <section class="section-tours">
+    <div class="row my-3">
+      <div class="col-md-12 text-right">
+        <button class="btn btn-dark py-2" style="font-size: 15px;" data-toggle="modal" data-target="#detailsModal">
+         Generate Firmware
+        </button>
+      </div>
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="seq">
+          <th mat-header-cell *matHeaderCellDef width="10%" mat-sort-header disabled><b>S.No.</b></th>
+          <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="imei">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="20%"><b>Client Name</b></th>
+          <td mat-cell *matCellDef="let row">{{ row.imei }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="bin">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="20%"><b>Firmware Type</b></th>
+          <td mat-cell *matCellDef="let row">{{ row.bin }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="tcu">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="30%"><b>Version</b></th>
+          <td mat-cell *matCellDef="let row">{{ row.tcu }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="bms">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="20%"><b>Firmware Nomenclature</b></th>
+          <td mat-cell *matCellDef="let row">{{ row.bms }}</td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="cfg">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="18%"><b>CFG</b></th>
+          <td mat-cell *matCellDef="let row">{{ row.cfg }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="18%"><b>Action</b></th>
+          <td mat-cell *matCellDef="let row">
+            <button class="btn btn-outline-dark" (click)="getImeiDetail(row)" data-toggle="modal" data-target="#detailsModal">
+              PUSH FOTA
+            </button>
+          </td>
+        </ng-container> -->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </section>
+</div>
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="top:80px">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <!-- <div class="heading-shadow pt-1 mt-3 ml-2">
+          <h3>DETAILS</h3>
+        </div> -->
+        <button type="button" #closeModel class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row mt-3 m-2">
+            <div class="col-sm-12">
+                <div class="card">
+                  <!-- <div class="card-header">Update Fota</div> -->
+                  <div class="card-body">
+                  <app-create-firmware></app-create-firmware>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="row mt-3 m-2">
+            <div class="col-md-12 border-white">
+            <div class="row">
+              <div class="col-md-10"></div>
+              <div class="col-md-2">
+                <button class="btn-size btn btn-dark w-100">
+                  Create Firmware
+                </button>
+              </div>
+            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+

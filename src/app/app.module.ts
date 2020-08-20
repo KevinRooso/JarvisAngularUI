@@ -116,6 +116,10 @@ import { FullTraceMapComponent } from './trace-route/full-trace-map/full-trace-m
 import { FotaComponent } from './fota/fota.component';
 import { FotaDetailComponent } from './fota/fota-detail/fota-detail.component';
 import { FotaChooseComponent } from './fota/fota-choose/fota-choose.component';
+import { TopicManagementComponent } from './topic-management/topic-management.component';
+import { CreateTopicComponent } from './topic-management/create-topic/create-topic.component';
+import { FirmwareComponent } from './firmware/firmware.component';
+import { CreateFirmwareComponent } from './firmware/create-firmware/create-firmware.component';
 
 
 
@@ -180,20 +184,28 @@ PlotlyViaCDNModule.plotlyVersion = '1.49.4';
     AssetsCardTemplateComponent,
     OverviewGraphsComponent,
     GaugegraphsComponent,
-    
+
     OverviewbargraphsComponent,
-    
+
     TraceRouteComponent,
-    
+
     TraceMapComponent,
-    
+
     FullTraceMapComponent,
-    
+
     FotaComponent,
-    
+
     FotaDetailComponent,
-    
-    FotaChooseComponent
+
+    FotaChooseComponent,
+
+    TopicManagementComponent,
+
+    CreateTopicComponent,
+
+    FirmwareComponent,
+
+    CreateFirmwareComponent
 
 
   ],
@@ -225,7 +237,7 @@ PlotlyViaCDNModule.plotlyVersion = '1.49.4';
     MatCardModule,
     MatTreeModule,
     MatRippleModule,
-    
+
     MatMenuModule,
     PlotlyViaCDNModule,
     MatDatepickerModule,

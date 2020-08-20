@@ -36,6 +36,9 @@ import { TraceRouteComponent } from './trace-route/trace-route.component';
 import { FullTraceMapComponent } from './trace-route/full-trace-map/full-trace-map.component';
 import { FotaComponent } from './fota/fota.component';
 import { FotaDetailComponent } from './fota/fota-detail/fota-detail.component';
+import { TopicManagementComponent } from './topic-management/topic-management.component';
+import { CreateTopicComponent } from './topic-management/create-topic/create-topic.component';
+import { FirmwareComponent } from './firmware/firmware.component';
 
 
 const routes: Routes = [
@@ -72,6 +75,9 @@ const routes: Routes = [
   { path: 'trace-route/:imei', component: FullTraceMapComponent},
   { path: 'fota', component: FotaComponent, canActivate: [AuthguardGuard]},
   { path: 'fota-detail', component: FotaDetailComponent, canActivate: [AuthguardGuard]},
+  { path: 'topic-detail', component: TopicManagementComponent, canActivate: [AuthguardGuard]},
+  { path: 'create-topic', component: CreateTopicComponent, canActivate: [AuthguardGuard]},
+  { path: 'firmware', component: FirmwareComponent, canActivate: [AuthguardGuard]},
   { path: '**', component: PageNotFoundComponent}
 
 ];

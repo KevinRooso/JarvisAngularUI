@@ -1,0 +1,68 @@
+<div class="row mt-4">
+  <div class="col-sm-12">
+    <form [formGroup]="createFirmwareGroup">
+      <div class="form-row">
+        <div class="col-sm-3 col-form-label">
+          <label class="mt-3">Client Name</label>
+        </div>
+        <div class="col-sm-9 col-form-label">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Client</mat-label>
+            <mat-select formControlName="cName">
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let ver of nameArray">
+                {{ver}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-sm-3 col-form-label">
+          <label class="mt-3">Select Firmware Type</label>
+        </div>
+        <div class="col-sm-9 col-form-label">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Firmware</mat-label>
+            <mat-select formControlName="fType">
+              <mat-option *ngFor="let com of typeArray">
+                {{com}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-sm-3 col-form-label">
+          <label class="mt-3">Firmware Version</label>
+        </div>
+        <div class="col-sm-9 col-form-label">
+          <mat-form-field appearance="fill">
+            <mat-label>Select version</mat-label>
+            <mat-select formControlName="fVersion">
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let ver of versionArray">
+                {{ver}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-sm-3 col-form-label">
+          <label class="mt-3">Select Firmware Nomenclature</label>
+        </div>
+        <div class="col-sm-9 col-form-label">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Firmware</mat-label>
+            <mat-select formControlName="fclature">
+              <mat-option *ngFor="let com of clatureArray">
+                {{com}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
