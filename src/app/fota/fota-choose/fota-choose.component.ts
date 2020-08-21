@@ -32,6 +32,7 @@ export class FotaChooseComponent implements OnInit, OnChanges {
   tcuChe = false;
   bmsChe = false;
   cfgChe = false;
+  imeiConfirm = false;
 
   //Checkbox
   @ViewChild('tcuCheckbox',{static:false}) private tcuCheck: MatCheckbox;
@@ -74,9 +75,11 @@ export class FotaChooseComponent implements OnInit, OnChanges {
 
   @Input() onlyImei?: boolean;
   @Input() imei?: any;
+  @Input() batchDone?: any;
 
   @Output() batchInfo = new EventEmitter();
   compArray: any[] = [];
+  batchConfirm = false;
 
   constructor(private _formBuilder: FormBuilder,private service: ServiceService) {
     //Setting subject false
@@ -225,6 +228,8 @@ export class FotaChooseComponent implements OnInit, OnChanges {
     this.bmsCheck.checked = false;
     this.cfgCheck.checked = false;
     this.isBms = true;
+    this.imeiConfirm = false;
+    this.batchConfirm = false;
   }
   submitBatch(){
 
@@ -251,8 +256,8 @@ export class FotaChooseComponent implements OnInit, OnChanges {
         obj.cfg = 'cfg',
         obj.cfgVersion = this.thirdFormGroup.controls['version'].value
       }
-    });
-    console.log("OBJ",obj);
+    });    
+    this.batchConfirm = true;
     this.sendParams(obj);
   }
 
@@ -283,6 +288,7 @@ export class FotaChooseComponent implements OnInit, OnChanges {
         obj.cfgCommand = this.thirdFormGroup.controls['command'].value;
       }
     });
+    this.imeiConfirm = true;
     this.sendParams(obj);
   }
 

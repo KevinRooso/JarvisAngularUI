@@ -1,1 +1,77 @@
-<p>create-topic works!</p>
+<div class="row mt-4">
+    <div class="col-sm-12">
+      <form [formGroup]="createFirmwareGroup">
+        <div class="form-row">
+          <div class="col-sm-3 col-form-label">
+            <label class="mt-3">Client Name</label>
+          </div>
+          <div class="col-sm-9 col-form-label">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Client</mat-label>
+              <mat-select formControlName="cName">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let client of clientArray" [value]="client">
+                  {{client}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-sm-3 col-form-label">
+            <label class="mt-3">Select Component Type</label>
+          </div>
+          <div class="col-sm-9 col-form-label">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Component</mat-label>
+              <mat-select formControlName="cType">
+                <mat-option *ngFor="let com of compArray" [value]="com">
+                  {{com}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-sm-3 col-form-label">
+            <label class="mt-3">Select Messaging Type</label>
+          </div>
+          <div class="col-sm-9 col-form-label">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Message Type</mat-label>
+              <mat-select formControlName="fVersion">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let mess of messageArray" [value]="mess.name">
+                  {{mess.displayName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-sm-3 col-form-label">
+            <label class="mt-3">Select Imei</label>
+          </div>
+          <div class="col-sm-9 col-form-label">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Imei</mat-label>
+              <mat-select formControlName="fclature">
+                <mat-option *ngFor="let imei of imeiArray" [value]="imei">
+                  {{imei}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-9"></div>
+            <div class="col-sm-3 col-form-label">
+                <button class="float-right btn-size btn btn-dark w-75">
+                    Generate Topic
+                </button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

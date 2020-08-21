@@ -119,10 +119,10 @@
    <div class="row mt-4">
        <div class="col-md-5"></div>
        <div class="col-md-7">
-        <button *ngIf="!onlyImei" class="text-center btn btn-dark btn-size w-25" (click)="submitBatchParam()">
+        <button *ngIf="!onlyImei" [disabled]="batchConfirm" class="text-center btn btn-dark btn-size w-25" (click)="submitBatchParam()">
             Confirm and Proceed to Csv
         </button>
-        <button *ngIf="onlyImei" class="text-center btn btn-dark btn-size w-25" (click)="submitImeiParam()">
+        <button *ngIf="onlyImei" [disabled]="imeiConfirm" class="text-center btn btn-dark btn-size w-25" (click)="submitImeiParam()">
             Confirm
         </button>
        </div>

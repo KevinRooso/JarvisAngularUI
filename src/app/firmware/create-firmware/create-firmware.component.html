@@ -10,7 +10,7 @@
             <mat-label>Select Client</mat-label>
             <mat-select formControlName="cName">
               <mat-option>--</mat-option>
-              <mat-option *ngFor="let ver of nameArray">
+              <mat-option *ngFor="let ver of nameArray" [value]="ver">
                 {{ver}}
               </mat-option>
             </mat-select>
@@ -25,7 +25,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Select Firmware</mat-label>
             <mat-select formControlName="fType">
-              <mat-option *ngFor="let com of typeArray">
+              <mat-option *ngFor="let com of typeArray" [value]="com">
                 {{com}}
               </mat-option>
             </mat-select>
@@ -41,7 +41,7 @@
             <mat-label>Select version</mat-label>
             <mat-select formControlName="fVersion">
               <mat-option>--</mat-option>
-              <mat-option *ngFor="let ver of versionArray">
+              <mat-option *ngFor="let ver of versionArray" [value]="ver">
                 {{ver}}
               </mat-option>
             </mat-select>
@@ -56,11 +56,19 @@
           <mat-form-field appearance="fill">
             <mat-label>Select Firmware</mat-label>
             <mat-select formControlName="fclature">
-              <mat-option *ngFor="let com of clatureArray">
+              <mat-option *ngFor="let com of clatureArray" [value]="com">
                 {{com}}
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-9"></div>
+        <div class="col-sm-3 col-form-label">
+            <button class="float-right btn-size btn btn-dark w-75">
+                Create Firmware
+            </button>
         </div>
       </div>
     </form>

@@ -63,7 +63,8 @@ export class LoginComponent implements OnInit {
         //Update Subject As User is Login
         this._service.login();
         //Update Subject As User is Admin Check
-        this._service.isUserAdminSub();                
+        this._service.isUserAdminSub();
+        this.getOrgInfo();                          
         //After update local Storage, It will re-direct to User Dashboard
         this._router.navigate(['/home-dashboard'])
 
@@ -74,6 +75,15 @@ export class LoginComponent implements OnInit {
       })
   }
 
-
+  getOrgInfo(){
+    this._service.getOrgDetailsByToken().subscribe(res=> {
+      console.log("ORG-INFO!!!!",res);
+      if(res.id === 1){
+        this._service.isFotaSelected(true);
+      }else{
+        this._service.isFotaSelected(false);
+      }
+    });
+  }  
 
 }

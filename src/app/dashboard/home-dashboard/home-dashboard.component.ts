@@ -66,27 +66,7 @@ export class HomeDashboardComponent implements OnInit{
   }
 
   ngOnInit() {
-
-  //   $(document).ready(function(){
-
-  //      $('.slick-slide').on('afterChange', function (event, slick, currentSlide) {
-
-  //         if(currentSlide === 4) {
-  //             $('.next-slide').addClass('hidden');
-  //         }
-  //         else {
-  //             $('.next-slide').removeClass('hidden');
-  //         }
-
-  //         if(currentSlide === 0) {
-  //             $('.prev-slide').addClass('hidden');
-  //         }
-  //         else {
-  //             $('.prev-slide').removeClass('hidden');
-  //         }
-  //     })
-  // });
-
+    
     this._service.batteryDataCount()
       .subscribe(res => {
         if(!this._service.isUserExicom()){

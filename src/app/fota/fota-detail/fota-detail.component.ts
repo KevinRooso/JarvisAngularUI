@@ -15,6 +15,7 @@ export class FotaDetailComponent implements OnInit {
   logColumns: string[] = ['seq', 'imei', 'tcu', 'bms','cfg','status','date'];
   dataSource: any;
   logDataSource: any;
+  bDone = false;
 
   batchForm: FormGroup;
 
@@ -121,12 +122,13 @@ export class FotaDetailComponent implements OnInit {
     this.service.uploadBatchDetails(formData,3).subscribe(
       res => {                
         this.getBatches();
+        this.bDone = true;
       }
     );  
   }
 
   getParams(eventObj){  
-    this.paramObj = eventObj;
+    this.paramObj = eventObj;       
   }
 
 }

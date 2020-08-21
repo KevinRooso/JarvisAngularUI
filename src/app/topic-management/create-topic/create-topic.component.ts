@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-topic',
@@ -7,7 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateTopicComponent implements OnInit {
 
-  constructor() { }
+  createFirmwareGroup: FormGroup;
+  messageArray = [{
+    name: 'FWA',
+    displayName: 'Subscribe'
+  },{
+    name: 'FWP',
+    displayName: 'Publish'
+  }];
+  compArray = ['TCU','BMS','CONFIG'];
+  imeiArray = ['32941923921','32941923923','32941923925'];
+  
+  clientArray = ['Exicom','Bounce','OLA']; 
+
+  constructor(private _formBuilder: FormBuilder) {
+    this.createFirmwareGroup = this._formBuilder.group({
+      cName: ['', Validators.required],
+      cType: ['', Validators.required],
+      fVersion: ['', Validators.required],
+      fclature: ['', Validators.required]
+    });
+   }
 
   ngOnInit() {
   }

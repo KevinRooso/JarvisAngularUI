@@ -64,7 +64,7 @@ class="center-aligned sq-relative-backdrop">
         Choose Batch Parameters
       </div>
       <div class="card-body">
-        <app-fota-choose (batchInfo)="getParams($event)"></app-fota-choose>
+        <app-fota-choose (batchInfo)="getParams($event)" [batchDone]="bDone"></app-fota-choose>
       </div>
     </div>
   </div>

@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="col-md-3 text-right">
-        <button class="btn btn-dark py-2" style="font-size: 15px;" (click)="createBatch()">
+        <button class="btn btn-dark py-2" style="font-size: 15px;" data-toggle="modal" data-target="#topicModal">
          Generate MQTT Topics
         </button>
       </div>
@@ -69,78 +69,24 @@
     </div>
   </section>
 </div>
-<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="topicModal" tabindex="-1" role="dialog" aria-labelledby="topicModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="top:80px">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: none; padding: 0;">
-        <div class="heading-shadow pt-1 mt-3 ml-2">
+        <!-- <div class="heading-shadow pt-1 mt-3 ml-2">
           <h3>DETAILS</h3>
-        </div>
+        </div> -->
         <button type="button" #closeModel class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-          <div class="row m-2">
-           <div class="col-md-3">
-            <div class="card">
-                <div class="card-header">IMEI</div>
-                <div class="card-body">
-                  <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                  <span class="float-right">{{imeiDetail.imei}}</span>
-                </div>
-            </div>
-           </div>
-            <div class="col-md-3">
-              <div class="card">
-                  <div class="card-header">TCU</div>
-                  <div class="card-body w-100">
-                    <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                    <span class="float-right">{{imeiDetail.tcu}}</span>
-                  </div>
-              </div>
-           </div>
-           <div class="col-md-3">
-              <div class="card">
-                  <div class="card-header">BMS</div>
-                  <div class="card-body">
-                     <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                     <span class="float-right">{{imeiDetail.bms}}</span>
-                  </div>
-              </div>
-           </div>
-           <div class="col-md-3">
-              <div class="card">
-                  <div class="card-header">CFG</div>
-                  <div class="card-body">
-                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                      <span class="float-right">{{imeiDetail.cfg}}</span>
-                  </div>
-              </div>
-          </div>
-          </div>
           <div class="row mt-3 m-2">
-            <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">Update Fota</div>
-                  <div class="card-body">
-                  <app-fota-choose [onlyImei]="onlyImei"></app-fota-choose>
-                  </div>
-                </div>
+            <div class="col-sm-12">                
+                  <!-- <div class="card-header">Update Fota</div> -->                  
+                <app-create-topic></app-create-topic>
             </div>
-          </div>
-          <div class="row mt-3 m-2">
-            <div class="col-md-12 border-white">
-            <div class="row">
-              <div class="col-md-10"></div>
-              <div class="col-md-2">
-                <button class="btn-size btn btn-dark w-100">
-                  RUN
-                </button>
-              </div>
-            </div>
-            </div>
-          </div>
+          </div>          
       </div>
     </div>
   </div>
