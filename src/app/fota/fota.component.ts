@@ -12,6 +12,8 @@ export class FotaComponent implements OnInit {
   displayedColumns: string[] = ['seq', 'imei','bin','tcu', 'bms','cfg','action'];
   dataSource: any;
   param1:any;
+  paramObj:any;
+  modalImei:any;
 
   imeiDetail: any = {
     imei: '',
@@ -68,6 +70,23 @@ export class FotaComponent implements OnInit {
 
   getImeiDetail(row){
     this.imeiDetail = row;
+    this.modalImei = row.imei;
+  }
+
+  getImeiParam(eventObj){
+    this.paramObj = eventObj;
+  }
+
+  runImeiFota(){
+    console.log(this.imeiDetail);
+    console.log(this.paramObj);
+    const formData = new FormData();
+    formData.append('request',JSON.stringify(this.paramObj));
+    this.service.runFotaForSingleImei(this.param1,this.imeiDetail.imei,formData).subscribe(
+      res=> {
+        console.log("Fota run",res);
+      }
+    );
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Input, ViewEncapsulation, OnChanges } from '@angular/core';
 import {MatStepperModule} from '@angular/material/stepper';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServiceService } from 'src/app/service.service';
@@ -10,7 +10,7 @@ import { MatCheckbox } from '@angular/material';
   templateUrl: './fota-choose.component.html',
   styleUrls: ['./fota-choose.component.scss']
 })
-export class FotaChooseComponent implements OnInit {
+export class FotaChooseComponent implements OnInit, OnChanges {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   isLinear = true;
@@ -41,31 +41,31 @@ export class FotaChooseComponent implements OnInit {
   //Commands Array
   commandsArray = [
     {
-      name: 'reset',
+      name: '1',
       displayName: 'RESET'
     },
     {
-      name: 'show_config',
+      name: '2',
       displayName: 'SHOW CONFIG'
     },
     {
-      name: 'show_credential',
+      name: '3',
       displayName: 'SHOW CREDENTIAL'
     },
     {
-      name: 'show_ota',
+      name: '4',
       displayName: 'SHOW OTA'
     },
     {
-      name: 'show_pubtopics',
+      name: '5',
       displayName: 'SHOW PUBTOPICS'
     },
     {
-      name: 'show_subtopics',
+      name: '6',
       displayName: 'SHOW SUBTOPICS'
     },
     {
-      name: 'save_config',
+      name: '10',
       displayName: 'SAVE CONFIG'
     }
   ];
@@ -73,17 +73,18 @@ export class FotaChooseComponent implements OnInit {
   versionArray = ['1.01','1.03','1.04','1.08','1.10'];
 
   @Input() onlyImei?: boolean;
+  @Input() imei?: any;
 
   @Output() batchInfo = new EventEmitter();
   compArray: any[] = [];
 
   constructor(private _formBuilder: FormBuilder,private service: ServiceService) {
     //Setting subject false
-    this.service.isCompSelected(false);
-    this.service.isTcuSelected(false);
-    this.service.isBmsSelected(false);
+    // this.service.isCompSelected(false);
+    // this.service.isTcuSelected(false);
+    // this.service.isBmsSelected(false);
     this.service.isCfgSelected(false);
-    this.service.isVerSelected(false);
+    // this.service.isVerSelected(false);
 
     this.firstFormGroup = this._formBuilder.group({
       component: ['tcu'],
@@ -104,27 +105,37 @@ export class FotaChooseComponent implements OnInit {
 
   ngOnInit() {
     //Realtime Button hide and list show
-    this.compSelected = this.service.isCompObservable();
-    this.tcuSelected = this.service.isTcuObservable();
-    this.bmsSelected = this.service.isBmsObservable();
+    // this.compSelected = this.service.isCompObservable();
+    // this.tcuSelected = this.service.isTcuObservable();
+    // this.bmsSelected = this.service.isBmsObservable();
     this.cfgSelected = this.service.isCfgObservable();
-    this.verSelected = this.service.isVerObservable();
+    // this.verSelected = this.service.isVerObservable();    
+  }
+
+  ngOnChanges() {
+    this.resetParams();
   }
 
   initialParameters(){
-    this.service.isCompSelected(false);
-    this.service.isTcuSelected(false);
-    this.service.isBmsSelected(false);
+    // this.service.isCompSelected(false);
+    // this.service.isTcuSelected(false);
+    // this.service.isBmsSelected(false);
     this.service.isCfgSelected(false);
-    this.service.isVerSelected(false);
+    // this.service.isVerSelected(false);
     this.compArray = [];
     this.selectedParameter = [];
     this.firstFormGroup.controls['version'].setValue('');
+    this.firstFormGroup.controls['version'].setValidators(null);
     this.secondFormGroup.controls['version'].setValue('');
+    this.secondFormGroup.controls['version'].setValidators(null);
     this.thirdFormGroup.controls['version'].setValue('');
+    this.thirdFormGroup.controls['version'].setValidators(null);
     this.firstFormGroup.controls['command'].setValue('');
+    this.firstFormGroup.controls['command'].setValidators(null);
     this.secondFormGroup.controls['command'].setValue('');
-    this.thirdFormGroup.controls['command'].setValue('');
+    this.secondFormGroup.controls['command'].setValidators(null);
+    this.thirdFormGroup.controls['command'].setValue('');  
+    this.thirdFormGroup.controls['command'].setValidators(null);    
   }
 
   getVersions(){
@@ -171,13 +182,20 @@ export class FotaChooseComponent implements OnInit {
 
   onCheckChange(event,comp) {
     if (event.checked) {
-      // Add a new control in the arrayForm
+      // Deletes if already exists
+      this.compArray.forEach((item, index, object) => {
+        if (item === event.source.value) {
+          object.splice(index, 1);
+        }
+      });
+      // Pushes to array
       this.compArray.push(event.source.value);
       if(comp === 'tcu'){
         this.tcuChe = true;
       }
       if(comp === 'cfg'){
         this.cfgChe = true;
+        console.log(this.cfgChe);
       }
     } else {
       this.compArray.forEach((item, index, object) => {
@@ -185,44 +203,13 @@ export class FotaChooseComponent implements OnInit {
           if(comp === 'tcu'){
             this.tcuChe = false;
           }
-          if(comp === 'tcu'){
+          if(comp === 'cfg'){
             this.cfgChe = false;
           }
           object.splice(index, 1);
         }
       });
     }
-  }
-
-  selectVersion(){
-    let v1 = this.firstFormGroup.controls['version'].value;
-    let v2 = this.secondFormGroup.controls['version'].value;
-    let v3 = this.thirdFormGroup.controls['version'].value;
-    if(v1 === '' && v2 === '' && v3 === ''){
-      console.log("no version selected");
-    }else{
-    this.service.isVerSelected(true);
-    console.log(v1);
-    console.log(v2);
-    console.log(v3);
-
-    this.compArray.forEach(item=> {
-      if(item === 'tcu'){
-        this.selectedParameter.unshift({
-          component: 'tcu',
-          version: v1
-        });
-      }
-      else if(item === 'bms'){
-        this.pushToParaArray('bms',v2);
-      }
-      else if(item === 'cfg'){
-        this.pushToParaArray('cfg',v3)
-      }
-    });
-
-    console.log(this.selectedParameter);
-   }
   }
 
   pushToParaArray(c1,v1){
@@ -241,6 +228,66 @@ export class FotaChooseComponent implements OnInit {
   }
   submitBatch(){
 
+  }
+
+  submitBatchParam(){
+    console.log(this.compArray);
+    let obj = {
+      tcu: null,
+      tcuVersion: null,
+      bms: null,
+      bmsVersion: null,
+      cfg: null,
+      cfgVersion: null
+    };
+    this.compArray.forEach(item=>{
+      if(item === 'tcu'){
+        obj.tcu = 'tcu',
+        obj.tcuVersion = this.firstFormGroup.controls['version'].value;        
+      }else if(item === 'bms'){
+        obj.bms = 'bms',
+        obj.bmsVersion = this.secondFormGroup.controls['version'].value;        
+      }else if(item === 'cfg'){
+        obj.cfg = 'cfg',
+        obj.cfgVersion = this.thirdFormGroup.controls['version'].value
+      }
+    });
+    console.log("OBJ",obj);
+    this.sendParams(obj);
+  }
+
+  submitImeiParam(){
+    let obj = {
+      tcu: "null",
+      tcuVersion: "null",
+      bms: "null",
+      bmsVersion: "null",
+      cfg: "null",
+      cfgVersion: "null",
+      tcuCommand: "null",
+      bmsCommand: "null",
+      cfgCommand: "null"
+    };
+    this.compArray.forEach(item=>{
+      if(item === 'tcu'){
+        obj.tcu = 'tcu',
+        obj.tcuVersion = this.firstFormGroup.controls['version'].value;
+        obj.tcuCommand = this.firstFormGroup.controls['command'].value;        
+      }else if(item === 'bms'){
+        obj.bms = 'bms',
+        obj.bmsVersion = this.secondFormGroup.controls['version'].value;
+        obj.bmsCommand = this.secondFormGroup.controls['command'].value;        
+      }else if(item === 'cfg'){
+        obj.cfg = 'cfg',
+        obj.cfgVersion = this.thirdFormGroup.controls['version'].value;
+        obj.cfgCommand = this.thirdFormGroup.controls['command'].value;
+      }
+    });
+    this.sendParams(obj);
+  }
+
+  sendParams(obj){
+    this.batchInfo.emit(obj);
   }
 
 }

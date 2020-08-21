@@ -11,7 +11,7 @@ import { ServiceService } from 'src/app/service.service';
 export class FotaDetailComponent implements OnInit {
 
   fileUploaded: File;
-  displayedColumns: string[] = ['seq', 'id' ,'batchName', 'count', 'date','status','detail','log'];
+  displayedColumns: string[] = ['seq', 'id' ,'batchName', 'count', 'date','status','detail'];
   logColumns: string[] = ['seq', 'imei', 'tcu', 'bms','cfg','status','date'];
   dataSource: any;
   logDataSource: any;
@@ -62,6 +62,8 @@ export class FotaDetailComponent implements OnInit {
     status: 'done'
   }];
 
+  paramObj:any;
+
   constructor(private formbuilder:FormBuilder, private service: ServiceService) {
     this.batchForm = this.formbuilder.group({
       description: new FormControl(''),      
@@ -110,12 +112,21 @@ export class FotaDetailComponent implements OnInit {
 
   submitBatch(){
     const formData = new FormData();
+    // for ( let key in this.paramObj ) {
+    //   formData.append(key, this.paramObj[key]);
+    // } 
+    console.log(this.paramObj); 
     formData.append('file', this.fileUploaded);
+    formData.append('request',JSON.stringify(this.paramObj));
     this.service.uploadBatchDetails(formData,3).subscribe(
       res => {                
         this.getBatches();
       }
     );  
+  }
+
+  getParams(eventObj){  
+    this.paramObj = eventObj;
   }
 
 }

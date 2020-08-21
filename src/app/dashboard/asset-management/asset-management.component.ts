@@ -52,7 +52,7 @@ export class AssetManagementComponent implements OnInit {
     {
       this.route.navigate(['/trace-route'], { queryParams: { selectedItem: id,cname:org_name} }); 
     }
-    if(this.param2){
+    else if(this.param2){
       this.route.navigate(['/fota'],{ queryParams: {selectedItem: id,cname: org_name} });
     }
     else{

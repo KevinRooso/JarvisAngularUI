@@ -38,8 +38,8 @@ export class ServiceService {
    api_user_url = 'http://119.252.208.14:8085';
   //api_user_url = 'http://stagingbn.bt.exicom.in:8085';
   api_user_url1 = 'http://192.168.1.128:8086';
-  //api_user_url2 = 'http://localhost:8090';
-  api_user_url2 = 'http://119.252.208.14:8090';
+  api_user_url2 = 'http://localhost:8090';
+  //api_user_url2 = 'http://119.252.208.14:8090';
   //api_user_url = 'http://192.168.1.88:8085';
    //api_user_url = 'http://192.168.1.167:8085';
   // api_user_url = 'http://localhost:8085';
@@ -65,7 +65,7 @@ export class ServiceService {
   isTcuSubject = new BehaviorSubject<boolean>(false);
   isBmsSubject = new BehaviorSubject<boolean>(false);
   isCfgSubject = new BehaviorSubject<boolean>(false);
-  isVerSubject = new BehaviorSubject<boolean>(false);
+  isFotaSubject = new BehaviorSubject<boolean>(false);
 
 
   isLoggedIn(): Observable<boolean> {
@@ -170,12 +170,12 @@ export class ServiceService {
     return this.isCfgSubject.asObservable();
   }
 
-  isVerSelected(flag): void{
-    this.isVerSubject.next(flag);
+  isFotaSelected(flag): void{
+    this.isFotaSubject.next(flag);
   }
 
-  isVerObservable(): Observable<boolean> {
-    return this.isVerSubject.asObservable();
+  isFotaObservable(): Observable<boolean> {
+    return this.isFotaSubject.asObservable();
   }
 
   //For Login User
@@ -326,8 +326,8 @@ export class ServiceService {
 
   //FOTA API'S
 
-  uploadBatchDetails(file,orgId): Observable<any> {
-    return this.http.post<any>(this.api_user_url2 + `/upload-csv-file/${orgId}`,file);
+  uploadBatchDetails(formdata,orgId): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/upload-csv-file/${orgId}`,formdata);
   }
 
   getBatches(): Observable<any> {
@@ -340,6 +340,10 @@ export class ServiceService {
 
   getAssetListForFota(orgId): Observable<any> {
     return this.http.get<any>(this.api_user_url2 + `/get_asset_data/${orgId}`);
+  }
+
+  runFotaForSingleImei(orgId,imei,obj): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/single_imei_run/${orgId}/${imei}`,obj);
   }
 
   /*  */
