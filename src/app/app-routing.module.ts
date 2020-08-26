@@ -39,6 +39,8 @@ import { FotaDetailComponent } from './fota/fota-detail/fota-detail.component';
 import { TopicManagementComponent } from './topic-management/topic-management.component';
 import { CreateTopicComponent } from './topic-management/create-topic/create-topic.component';
 import { FirmwareComponent } from './firmware/firmware.component';
+import { BatchLogComponent } from './fota/batch-log/batch-log.component';
+import { BatchDetailsComponent } from './fota/batch-details/batch-details.component';
 
 
 const routes: Routes = [
@@ -75,6 +77,8 @@ const routes: Routes = [
   { path: 'trace-route/:imei', component: FullTraceMapComponent},
   { path: 'fota', component: FotaComponent, canActivate: [AuthguardGuard]},
   { path: 'fota-detail', component: FotaDetailComponent, canActivate: [AuthguardGuard]},
+  { path: 'fota-detail/batch', component: BatchDetailsComponent, canActivate: [AuthguardGuard]},
+  { path: 'fota-detail/log', component: BatchLogComponent, canActivate: [AuthguardGuard]},
   { path: 'topic-detail', component: TopicManagementComponent, canActivate: [AuthguardGuard]},
   { path: 'create-topic', component: CreateTopicComponent, canActivate: [AuthguardGuard]},
   { path: 'firmware', component: FirmwareComponent, canActivate: [AuthguardGuard]},

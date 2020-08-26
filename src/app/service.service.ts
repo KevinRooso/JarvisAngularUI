@@ -38,8 +38,8 @@ export class ServiceService {
    api_user_url = 'http://119.252.208.14:8085';
   //api_user_url = 'http://stagingbn.bt.exicom.in:8085';
   api_user_url1 = 'http://192.168.1.128:8086';
-  api_user_url2 = 'http://localhost:8090';
-  //api_user_url2 = 'http://119.252.208.14:8090';
+  //api_user_url2 = 'http://localhost:8090';
+  api_user_url2 = 'http://119.252.208.14:8090';
   //api_user_url = 'http://192.168.1.88:8085';
    //api_user_url = 'http://192.168.1.167:8085';
   // api_user_url = 'http://localhost:8085';
@@ -339,13 +339,36 @@ export class ServiceService {
   }
 
   getAssetListForFota(orgId): Observable<any> {
-    return this.http.get<any>(this.api_user_url2 + `/get_asset_data/${orgId}`);
+    return this.http.get<any>(this.api_user_url2 + `/get_asset_data_/${orgId}`);
   }
 
   runFotaForSingleImei(orgId,imei,obj): Observable<any> {
     return this.http.post<any>(this.api_user_url2 + `/single_imei_run/${orgId}/${imei}`,obj);
   }
 
+  deleteBatch(batchId: any) : Observable<any>{
+    return this.http.delete<any>(this.api_user_url2 + `/delete_batch_ByBatchId/${batchId}`); 
+  }
+
+  getImeiStatus(imei): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + `/status/${imei}`);
+  }
+
+  runBatchById(bid): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + `/batch_imei_run/${bid}`);
+  }
+
+  getBatchLogById(bid): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + `/get_t_batch_details_log_By_Batch_id_orderByDate/${bid}`);
+  }
+
+  getLogsByImeiAndId(imei,bid): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + `/get_t_batch_details_log_By_IMEI_AND_BATCH_orderByDate/${imei}/${bid}`);
+  }
+
+  getImeiListByBatch(bid): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + `/getBatchDetailsByBatchId/${bid}`);
+  }
   /*  */
   tranfromArray(columnName: any[], dataList: any, x: string, y: string) {
     let filterdata: any = {};

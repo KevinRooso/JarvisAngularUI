@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ServiceService } from 'src/app/service.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-fota-detail',
@@ -11,11 +12,17 @@ import { ServiceService } from 'src/app/service.service';
 export class FotaDetailComponent implements OnInit {
 
   fileUploaded: File;
-  displayedColumns: string[] = ['seq', 'id' ,'batchName', 'count', 'date','status','detail'];
-  logColumns: string[] = ['seq', 'imei', 'tcu', 'bms','cfg','status','date'];
+  displayedColumns: string[] = ['seq', 'id' ,'batchName', 'count', 'date','status','detail'];  
+  logColumns: string[] = ['seq', 'imei', 'batchid', 'orgName','type','topic','status','command','response','time'];
   dataSource: any;
   logDataSource: any;
   bDone = false;
+
+  batchRow = {
+    batchName: null,
+    id: null,
+    count: null
+  };
 
   batchForm: FormGroup;
 
@@ -27,6 +34,8 @@ export class FotaDetailComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('closeDetail', { static: true }) closeDetail;
+  @ViewChild('closeLog', { static: true }) closeLog;
   fotaData:any[] = [];
   // fotaData: any = [{
   //   seq: 1,
@@ -44,34 +53,26 @@ export class FotaDetailComponent implements OnInit {
   //   status: 'Executed'
   // }];
 
-  logData: any = [{
-    seq: 1,
-    imei: '357897100594736',
-    tcu: 'I.06',
-    bms: '1.03',
-    cfg: '1.01',
-    date: '2020-08-13 13:00:00',    
-    status: 'running'
-  },{
-    seq: 2,
-    imei: '357897100333283',
-    tcu: 'I.06',
-    bms: '1.03',
-    cfg: '1.01',
-    date: '2020-08-13 13:10:00',
-    user: 'Suresh',
-    status: 'done'
-  }];
+ logData: any[] = [];
 
   paramObj:any;
+  param1: any;
+  param2: any;
 
-  constructor(private formbuilder:FormBuilder, private service: ServiceService) {
+  constructor(private formbuilder:FormBuilder, private service: ServiceService, private router1: ActivatedRoute,
+    private router: Router) {
     this.batchForm = this.formbuilder.group({
       description: new FormControl(''),      
     });        
   }
 
-  ngOnInit() {    
+  ngOnInit() {
+    this.router1.queryParams.subscribe(
+      params => {
+        this.param1 = params.selectedItem;
+        this.param2 = params.cname;        
+      }
+    );    
     this.getBatches();
     this.logDataSource = new MatTableDataSource(this.logData);
     this.dataSource.paginator = this.paginator;
@@ -120,15 +121,57 @@ export class FotaDetailComponent implements OnInit {
     formData.append('file', this.fileUploaded);
     formData.append('request',JSON.stringify(this.paramObj));
     this.service.uploadBatchDetails(formData,3).subscribe(
-      res => {                
-        this.getBatches();
-        this.bDone = true;
+      res => {
+        if(res.status === 200){
+          this.getBatches();
+          this.bDone = true;
+        }
+        if(res.status === 203){
+          alert("DUPLICATE BATCH");          
+        }                        
       }
     );  
   }
 
   getParams(eventObj){  
     this.paramObj = eventObj;       
+  }
+
+  batchDetails(row){
+    this.batchRow = row;
+    console.log("row",this.batchRow);
+  }
+
+  deleteBatch(){
+    let bid = this.batchRow.id;    
+    this.service.deleteBatch(bid).subscribe(
+      res=> {
+        if(res.status === 200){
+        alert("BATCH DELETED");
+        this.getBatches();
+        this.closeDetail.nativeElement.click();
+        }
+        if(res.status === 203){
+          alert("BATCH CANT BE DELETED");
+          this.closeDetail.nativeElement.click();
+        }      
+      }
+    );
+  }
+
+  runBatch(){
+    let bid = this.batchRow.id;
+    this.service.runBatchById(bid).subscribe(
+      res=> {
+        alert("Batch Executed");
+        this.getBatches();
+        this.closeDetail.nativeElement.click();
+      }
+    );
+  }
+
+  logBatch(bid){
+    this.router.navigate(['/fota-detail/batch'],{ queryParams: {selectedItem: this.param1,cname: this.param2, bid: bid} });
   }
 
 }

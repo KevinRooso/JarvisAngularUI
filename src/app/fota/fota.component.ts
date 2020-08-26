@@ -22,10 +22,19 @@ export class FotaComponent implements OnInit {
     cfg: ''
   };
 
+  imeiStatus: any = {
+    imei: '',
+    tcuStatus: '',
+    bmStatus: '',
+    cfgStatus: ''
+  };
+
   onlyImei = true;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('closePush', { static: true }) closePush;
+  @ViewChild('closeStatus', { static: true }) closeStatus;
   fotaData:any[] = [];
   param2: any;
 
@@ -84,9 +93,20 @@ export class FotaComponent implements OnInit {
     formData.append('request',JSON.stringify(this.paramObj));
     this.service.runFotaForSingleImei(this.param1,this.imeiDetail.imei,formData).subscribe(
       res=> {
-        console.log("Fota run",res);
+        alert("Fota pushed");
+        this.closePush.nativeElement.click();
       }
     );
+  }
+
+  getImeiStatus(row){
+    // this.service.getImeiStatus(row.imei).subscribe(
+    //   res=> {
+    //     this.imeiStatus = res;
+    //     this.imeiStatus.imei = row.imei;
+    //   }
+    // )
+    this.router.navigate(['/fota-detail/log'],{ queryParams: {selectedItem: this.param1,cname: this.param2,imei: row.imei, bid: 0} });
   }
 
 }

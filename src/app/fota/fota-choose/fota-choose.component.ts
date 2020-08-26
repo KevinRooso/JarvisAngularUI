@@ -35,9 +35,9 @@ export class FotaChooseComponent implements OnInit, OnChanges {
   imeiConfirm = false;
 
   //Checkbox
-  @ViewChild('tcuCheckbox',{static:false}) private tcuCheck: MatCheckbox;
-  @ViewChild('bmsCheckbox',{static:false}) private bmsCheck: MatCheckbox;
-  @ViewChild('cfgCheckbox',{static:false}) private cfgCheck: MatCheckbox;
+  @ViewChild('tcuCheckbox',{static:true}) private tcuCheck: MatCheckbox;
+  @ViewChild('bmsCheckbox',{static:true}) private bmsCheck: MatCheckbox;
+  @ViewChild('cfgCheckbox',{static:true}) private cfgCheck: MatCheckbox;
 
   //Commands Array
   commandsArray = [
@@ -75,7 +75,7 @@ export class FotaChooseComponent implements OnInit, OnChanges {
 
   @Input() onlyImei?: boolean;
   @Input() imei?: any;
-  @Input() batchDone?: any;
+  @Input() batchDone?: any = false;
 
   @Output() batchInfo = new EventEmitter();
   compArray: any[] = [];
@@ -238,23 +238,29 @@ export class FotaChooseComponent implements OnInit, OnChanges {
   submitBatchParam(){
     console.log(this.compArray);
     let obj = {
-      tcu: null,
-      tcuVersion: null,
-      bms: null,
-      bmsVersion: null,
-      cfg: null,
-      cfgVersion: null
+      tcu: "null",
+      tcuVersion: "null",
+      bms: "null",
+      bmsVersion: "null",
+      cfg: "null",
+      cfgVersion: "null",
+      tcuCommand: "null",
+      bmsCommand: "null",
+      cfgCommand: "null"
     };
     this.compArray.forEach(item=>{
       if(item === 'tcu'){
-        obj.tcu = 'tcu',
-        obj.tcuVersion = this.firstFormGroup.controls['version'].value;        
+        obj.tcu = 'tcu';
+        obj.tcuVersion = this.firstFormGroup.controls['version'].value;
+        obj.tcuCommand = this.firstFormGroup.controls['command'].value;        
       }else if(item === 'bms'){
-        obj.bms = 'bms',
-        obj.bmsVersion = this.secondFormGroup.controls['version'].value;        
+        obj.bms = 'bms';
+        obj.bmsVersion = this.secondFormGroup.controls['version'].value;
+        obj.bmsCommand = this.secondFormGroup.controls['command'].value;        
       }else if(item === 'cfg'){
-        obj.cfg = 'cfg',
-        obj.cfgVersion = this.thirdFormGroup.controls['version'].value
+        obj.cfg = 'cfg';
+        obj.cfgVersion = this.thirdFormGroup.controls['version'].value;
+        obj.cfgCommand = this.thirdFormGroup.controls['command'].value;
       }
     });    
     this.batchConfirm = true;
