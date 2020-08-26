@@ -10,7 +10,7 @@ import { ServiceService } from '../service.service';
 })
 export class TopicManagementComponent implements OnInit {
 
-  displayedColumns: string[] = ['seq', 'imei','bin','tcu', 'bms'];
+  displayedColumns: string[] = ['seq', 'imei','bin','tcu'];
   dataSource: any;
   param1:any;
 

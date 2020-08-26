@@ -10,7 +10,7 @@ import { ServiceService } from '../service.service';
 })
 export class FirmwareComponent implements OnInit {
 
-  displayedColumns: string[] = ['seq', 'imei','bin','tcu', 'bms'];
+  displayedColumns: string[] = ['seq', 'imei','bin','tcu'];
   dataSource: any;
   param1:any;
 
@@ -51,7 +51,6 @@ export class FirmwareComponent implements OnInit {
             imei: i.imeiNo,
             bin: i.bin,
             tcu: i.tcu,
-            bms: i.bms
           };
           this.fotaData.push(obj);
         });
