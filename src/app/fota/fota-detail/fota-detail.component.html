@@ -99,7 +99,7 @@ class="center-aligned sq-relative-backdrop">
         <div class="form-row mt-5">
           <div class="col-md-5"></div>
           <div class="col-md-5">
-            <button class="btn btn-dark btn-size w-25" (click)="submitBatch()">
+            <button class="btn btn-dark btn-size w-25" [disabled]="!paramRecieved" (click)="submitBatch()">
                 Submit
             </button>
           </div>
@@ -233,7 +233,7 @@ class="center-aligned sq-relative-backdrop">
               </div>
            </div>             
           </div>
-          <div class="row m-2 mt-5"> 
+          <div class="row m-2 mt-5" *ngIf="isRunning()"> 
             <div class="col-md-6"></div>
             <div class="col-md-3">
               <button class="float-right btn-size btn btn-dark w-75" (click)="runBatch()">

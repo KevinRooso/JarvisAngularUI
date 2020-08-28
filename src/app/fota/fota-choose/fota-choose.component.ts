@@ -3,7 +3,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServiceService } from 'src/app/service.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { MatCheckbox } from '@angular/material';
+import { MatCheckbox, MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-fota-choose',
@@ -17,6 +17,8 @@ export class FotaChooseComponent implements OnInit, OnChanges {
   isEditable = false;
   thirdFormGroup: FormGroup;
   isBms = true;
+
+  validForm = true;
 
   selectedParameter: any[] = [];
 
@@ -81,7 +83,7 @@ export class FotaChooseComponent implements OnInit, OnChanges {
   compArray: any[] = [];
   batchConfirm = false;
 
-  constructor(private _formBuilder: FormBuilder,private service: ServiceService) {
+  constructor(private _formBuilder: FormBuilder,private service: ServiceService,public snackBar: MatSnackBar) {
     //Setting subject false
     // this.service.isCompSelected(false);
     // this.service.isTcuSelected(false);
@@ -127,18 +129,34 @@ export class FotaChooseComponent implements OnInit, OnChanges {
     // this.service.isVerSelected(false);
     this.compArray = [];
     this.selectedParameter = [];
+    this.firstFormGroup.reset();
+    this.secondFormGroup.reset();
+    this.thirdFormGroup.reset();
     this.firstFormGroup.controls['version'].setValue('');
-    this.firstFormGroup.controls['version'].setValidators(null);
+    this.firstFormGroup.controls['version'].clearValidators();
+    this.firstFormGroup.controls['version'].setValidators(Validators.required);
+    this.firstFormGroup.controls['version'].updateValueAndValidity();
     this.secondFormGroup.controls['version'].setValue('');
-    this.secondFormGroup.controls['version'].setValidators(null);
+    this.secondFormGroup.controls['version'].clearValidators();
+    this.secondFormGroup.controls['version'].setValidators(Validators.required);
+    this.secondFormGroup.controls['version'].updateValueAndValidity();
     this.thirdFormGroup.controls['version'].setValue('');
-    this.thirdFormGroup.controls['version'].setValidators(null);
+    this.thirdFormGroup.controls['version'].clearValidators();
+    this.thirdFormGroup.controls['version'].setValidators(Validators.required);
+    this.thirdFormGroup.controls['version'].updateValueAndValidity();
+    
     this.firstFormGroup.controls['command'].setValue('');
-    this.firstFormGroup.controls['command'].setValidators(null);
+    this.firstFormGroup.controls['command'].clearValidators();
+    this.firstFormGroup.controls['command'].setValidators(Validators.required);
+    this.firstFormGroup.controls['command'].updateValueAndValidity();
     this.secondFormGroup.controls['command'].setValue('');
-    this.secondFormGroup.controls['command'].setValidators(null);
-    this.thirdFormGroup.controls['command'].setValue('');  
-    this.thirdFormGroup.controls['command'].setValidators(null);    
+    this.secondFormGroup.controls['command'].clearValidators();
+    this.secondFormGroup.controls['command'].setValidators(Validators.required);
+    this.secondFormGroup.controls['command'].updateValueAndValidity();
+    this.thirdFormGroup.controls['command'].setValue(''); 
+    this.thirdFormGroup.controls['command'].clearValidators(); 
+    this.thirdFormGroup.controls['command'].setValidators(Validators.required);
+    this.thirdFormGroup.controls['command'].updateValueAndValidity();    
   }
 
   getVersions(){
@@ -236,7 +254,13 @@ export class FotaChooseComponent implements OnInit, OnChanges {
   }
 
   submitBatchParam(){
-    console.log(this.compArray);
+    this.validForm = true;
+    if(this.compArray.length === 0){
+      this.validForm = false;
+      alert("Choose atleast one component");
+    }
+    else
+    {   
     let obj = {
       tcu: "null",
       tcuVersion: "null",
@@ -251,23 +275,49 @@ export class FotaChooseComponent implements OnInit, OnChanges {
     this.compArray.forEach(item=>{
       if(item === 'tcu'){
         obj.tcu = 'tcu';
-        obj.tcuVersion = this.firstFormGroup.controls['version'].value;
-        obj.tcuCommand = this.firstFormGroup.controls['command'].value;        
+        if(this.firstFormGroup.valid){
+          obj.tcuVersion = this.firstFormGroup.controls['version'].value;
+          obj.tcuCommand = this.firstFormGroup.controls['command'].value;                            
+        }
+        else{
+          this.validForm = false;
+        }        
       }else if(item === 'bms'){
         obj.bms = 'bms';
+        if(this.secondFormGroup.valid){
         obj.bmsVersion = this.secondFormGroup.controls['version'].value;
         obj.bmsCommand = this.secondFormGroup.controls['command'].value;        
+        }else{
+          this.validForm = false;
+        }
       }else if(item === 'cfg'){
         obj.cfg = 'cfg';
+        if(this.thirdFormGroup.valid){
         obj.cfgVersion = this.thirdFormGroup.controls['version'].value;
         obj.cfgCommand = this.thirdFormGroup.controls['command'].value;
+        }else{
+          this.validForm = false;
+        }
       }
-    });    
-    this.batchConfirm = true;
-    this.sendParams(obj);
+    });
+    if(this.validForm){
+      console.log(this.validForm);
+      this.batchConfirm = true;
+      this.sendParams(obj);      
+    }else{
+      alert("Please Select Version and Command");
+      // this.snackBar.open('Please Select Version and Command', 'Close', { duration: 5000 });      
+    }
+  }
   }
 
   submitImeiParam(){
+    this.validForm = true;
+    if(this.compArray.length === 0){
+      this.validForm = false;
+      alert("Choose atleast one component");
+    }
+    else{  
     let obj = {
       tcu: "null",
       tcuVersion: "null",
@@ -281,21 +331,41 @@ export class FotaChooseComponent implements OnInit, OnChanges {
     };
     this.compArray.forEach(item=>{
       if(item === 'tcu'){
-        obj.tcu = 'tcu',
-        obj.tcuVersion = this.firstFormGroup.controls['version'].value;
-        obj.tcuCommand = this.firstFormGroup.controls['command'].value;        
+        obj.tcu = 'tcu';
+        if(this.firstFormGroup.valid){
+          obj.tcuVersion = this.firstFormGroup.controls['version'].value;
+          obj.tcuCommand = this.firstFormGroup.controls['command'].value;                            
+        }
+        else{
+          this.validForm = false;
+        }        
       }else if(item === 'bms'){
-        obj.bms = 'bms',
-        obj.bmsVersion = this.secondFormGroup.controls['version'].value;
-        obj.bmsCommand = this.secondFormGroup.controls['command'].value;        
+        obj.bms = 'bms';
+        if(this.secondFormGroup.valid){
+          obj.bmsVersion = this.secondFormGroup.controls['version'].value;
+          obj.bmsCommand = this.secondFormGroup.controls['command'].value;        
+        }else{
+          this.validForm = false;
+        }        
       }else if(item === 'cfg'){
-        obj.cfg = 'cfg',
-        obj.cfgVersion = this.thirdFormGroup.controls['version'].value;
-        obj.cfgCommand = this.thirdFormGroup.controls['command'].value;
+        obj.cfg = 'cfg';
+        if(this.thirdFormGroup.valid){
+          obj.cfgVersion = this.thirdFormGroup.controls['version'].value;
+          obj.cfgCommand = this.thirdFormGroup.controls['command'].value;
+        }else{
+          this.validForm = false;
+        }
       }
     });
-    this.imeiConfirm = true;
-    this.sendParams(obj);
+    if(this.validForm){
+      console.log(this.validForm);
+      this.imeiConfirm = true;
+      this.sendParams(obj);      
+    }else{
+      alert("Please Select Version and Command");
+      // this.snackBar.open('Please Select Version and Command', 'Close', { duration: 5000 });      
+    }        
+  }
   }
 
   sendParams(obj){

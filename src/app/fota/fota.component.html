@@ -124,7 +124,7 @@
               <div class="row">
                 <div class="col-md-10"></div>
                 <div class="col-md-2">
-                  <button class="btn-size btn btn-dark w-100" (click)="runImeiFota()">
+                  <button class="btn-size btn btn-dark w-100" [disabled]="!paramRecieved" (click)="runImeiFota()">
                     RUN
                   </button>
                 </div>

@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class FotaDetailComponent implements OnInit {
 
   fileUploaded: File;
+  uploaded = false;
   displayedColumns: string[] = ['seq', 'id' ,'batchName', 'count', 'date','status','detail'];  
   logColumns: string[] = ['seq', 'imei', 'batchid', 'orgName','type','topic','status','command','response','time'];
   dataSource: any;
@@ -21,7 +22,8 @@ export class FotaDetailComponent implements OnInit {
   batchRow = {
     batchName: null,
     id: null,
-    count: null
+    count: null,
+    status: null
   };
 
   batchForm: FormGroup;
@@ -55,9 +57,11 @@ export class FotaDetailComponent implements OnInit {
 
  logData: any[] = [];
 
-  paramObj:any;
+  paramObj:any=null;
   param1: any;
   param2: any;
+  fileValid = false;
+  paramRecieved = false;
 
   constructor(private formbuilder:FormBuilder, private service: ServiceService, private router1: ActivatedRoute,
     private router: Router) {
@@ -80,7 +84,13 @@ export class FotaDetailComponent implements OnInit {
   }
 
   uploadedFile(event) {
-    this.fileUploaded = event.target.files[0] as File;    
+    this.fileUploaded = event.target.files[0] as File;
+    this.uploaded = true; 
+    const fileType = this.fileUploaded.type;
+    console.log(fileType);
+    if (fileType === 'text/csv') {
+      this.fileValid = true;      
+    }   
   }
 
   getBatches(){    
@@ -113,6 +123,8 @@ export class FotaDetailComponent implements OnInit {
 }
 
   submitBatch(){
+    if(this.fileValid)
+    {
     const formData = new FormData();
     // for ( let key in this.paramObj ) {
     //   formData.append(key, this.paramObj[key]);
@@ -125,16 +137,21 @@ export class FotaDetailComponent implements OnInit {
         if(res.status === 200){
           this.getBatches();
           this.bDone = true;
+          this.paramRecieved = false;
         }
         if(res.status === 203){
           alert("DUPLICATE BATCH");          
         }                        
       }
-    );  
+    );
+    }else{
+      alert("Please Upload Valid CSV");
+    }  
   }
 
   getParams(eventObj){  
-    this.paramObj = eventObj;       
+    this.paramObj = eventObj;
+    this.paramRecieved = true;       
   }
 
   batchDetails(row){
@@ -172,6 +189,10 @@ export class FotaDetailComponent implements OnInit {
 
   logBatch(bid){
     this.router.navigate(['/fota-detail/batch'],{ queryParams: {selectedItem: this.param1,cname: this.param2, bid: bid} });
+  }
+
+  isRunning(){    
+    return !(this.batchRow.status === 'execute');
   }
 
 }

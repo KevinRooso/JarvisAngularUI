@@ -15,6 +15,8 @@ export class FotaComponent implements OnInit {
   paramObj:any;
   modalImei:any;
 
+  paramRecieved = false;
+
   imeiDetail: any = {
     imei: '',
     tcu: '',
@@ -84,6 +86,7 @@ export class FotaComponent implements OnInit {
 
   getImeiParam(eventObj){
     this.paramObj = eventObj;
+    this.paramRecieved = true;
   }
 
   runImeiFota(){
@@ -95,6 +98,7 @@ export class FotaComponent implements OnInit {
       res=> {
         alert("Fota pushed");
         this.closePush.nativeElement.click();
+        this.paramRecieved = false;
       }
     );
   }

@@ -38,8 +38,8 @@ export class ServiceService {
    api_user_url = 'http://119.252.208.14:8085';
   //api_user_url = 'http://stagingbn.bt.exicom.in:8085';
   api_user_url1 = 'http://192.168.1.128:8086';
-  //api_user_url2 = 'http://localhost:8090';
-  api_user_url2 = 'http://119.252.208.14:8090';
+  api_user_url2 = 'http://localhost:8090';
+  // api_user_url2 = 'http://119.252.208.14:8090';
   //api_user_url = 'http://192.168.1.88:8085';
    //api_user_url = 'http://192.168.1.167:8085';
   // api_user_url = 'http://localhost:8085';
