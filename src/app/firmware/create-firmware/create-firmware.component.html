@@ -48,29 +48,32 @@
           </mat-form-field>
         </div>
       </div>
-      <!-- <div class="form-row">
+
+      <div class="form-row">
         <div class="col-sm-3 col-form-label">
-          <label class="mt-3">Select Firmware Nomenclature</label>
+          <label class="mt-3">Batch CSV</label>
         </div>
         <div class="col-sm-9 col-form-label">
-          <mat-form-field appearance="fill">
-            <mat-label>Select Firmware</mat-label>
-            <mat-select formControlName="fclature">
-              <mat-option *ngFor="let com of clatureArray" [value]="com">
-                {{com}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div> -->
-      <div class="form-row">
-        <div class="col-md-9"></div>
-        <div class="col-sm-3 col-form-label">
-            <button class="float-right btn-size btn btn-dark w-75">
-                Create Firmware
-            </button>
+          <input type="file" class="form-control-file" placeholder="Upload file" accept=".bin">
         </div>
       </div>
+      <div class="form-row">
+        <div class="col-sm-9 col-form-label">
+
+        </div>
+        <div class="col-sm-3 col-form-label">
+          <button class="float-right btn-size btn btn-dark w-75">
+            Create Firmware
+        </button>
+        </div>
+      </div>
+      <!-- <div class="col-sm-9"></div>
+        <div class="col-sm-3 col-form-label text-right">
+          <button class="float-right btn-size btn btn-dark w-75">
+              Create Firmware
+          </button>
+      </div> -->
     </form>
   </div>
 </div>
+<!-- (change)="uploadedFile($event)"  -->

@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="example-table-container">
+  <div class="example-table-container mb-1">
   <div style="display: inline-block;padding: 8px 0px;" *ngIf="searchEnable">
     <span style="font-size: 20px;font-weight: 400;">{{companyName}} Assets Table</span>
   </div>
@@ -88,7 +88,7 @@
         </th>
 
         <td mat-cell *matCellDef="let element">
-          <span *ngIf="!column.action; else elseBlock">            
+          <span *ngIf="!column.action; else elseBlock">
             <a
               (click)="
                 getColumnValue(element[column.columnName], column.columnName,element)
@@ -97,14 +97,14 @@
             >
               <span class="link-tag"> {{ element[column.columnName] }} </span>
             </a>
-            <ng-template #elseblock>              
+            <ng-template #elseblock>
               <span *ngIf="!column.dateFormat">
                 {{ element[column.columnName] }}
-              </span>              
+              </span>
               <span *ngIf="column.dateFormat">
                 {{ element[column.columnName] | date: 'dd-MM-yyyy HH:mm:ss'}}
               </span>
-              
+
           </ng-template>
           </span>
           <ng-template #elseBlock>

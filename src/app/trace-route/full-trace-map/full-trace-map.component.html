@@ -6,9 +6,9 @@
       <li><a>Trace Route Overview</a></li>
       <!-- <li class="active">Data Tables</li> -->
     </ul>
-  <section class="m-4">
-      <div class="row">
-      <div class="col-md-1"></div>     
+  <section class="m-4 mt-5">
+      <!-- <div class="row">
+      <div class="col-md-1"></div>
       <div class="col-md-10">
        <div class="panel panel-default">
            <div class="panel-heading ui-draggable-handle">
@@ -19,12 +19,12 @@
        <div class="panel-body padding-0">
        <div class="mat-container">
         <div class="panel-title-box mt-3 mb-5">
-          <div class="row">          
+          <div class="row">
             <div class="col-md-6">
               <h4><b>IMEI : </b>{{batteryInfo.imeiNo}}</h4>
               <h4><b>BIN : </b>{{batteryInfo.bin}}</h4>
-            </div>            
-            <div class="col-md-6">              
+            </div>
+            <div class="col-md-6">
                 <mat-form-field class="w-100" style="font-size: 16px;">
                   <input
                     data-step="1"
@@ -48,30 +48,62 @@
                     [minDate]="mindate"
                     [maxDate]="maxdate"
                   />
-                </mat-form-field>              
+                </mat-form-field>
             </div>
           </div>
-          </div>        
-       </div> 
-       </div>   
+          </div>
+       </div>
+       </div>
       </div>
      </div>
-    </div>  
+    </div> -->
     <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
+      <!-- <div class="col-md-1"></div> -->
+      <div class="col-md-12">
        <div class="panel panel-default">
            <div class="panel-heading ui-draggable-handle">
-             <div class="panel-title-box">
-               <h3>Trace Map </h3>
+             <div class="panel-title-box" style="width: 100%;">
+              <div class="row">
+                <div class="col-sm-6 pt-4">
+                  <p style="font-size: 14px; margin-bottom: 5px;"><b>Battery IMEI : </b>{{batteryInfo.imeiNo}}</p>
+                  <p style="font-size: 14px; margin-bottom: 5px;"><b>Battery BIN  : </b>{{batteryInfo.bin}}</p>
+                </div>
+                <div class="col-sm-6 pt-4">
+                  <mat-form-field class="w-100" style="font-size: 16px;">
+                    <input
+                      data-step="1"
+                      data-intro="Select Any Date!"
+                      matInput
+                      type="text"
+                      ngxDaterangepickerMd
+                      [(ngModel)]="selected"
+                      [showCustomRangeLabel]="true"
+                      [alwaysShowCalendars]="false"
+                      [ranges]="ranges"
+                      (datesUpdated)="datesUpdated($event)"
+                      [linkedCalendars]="true"
+                      [timePicker]="true"
+                      [timePickerSeconds]="true"
+                      [timePickerIncrement]="15"
+                      [timePicker24Hour]="true"
+                      [locale]="{ format: 'DD-MM-YYYY HH:mm:ss', firstDay: 1 }"
+                      [showClearButton]="true"
+                      placeholder="Select Date..."
+                      [minDate]="mindate"
+                      [maxDate]="maxdate"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+
            </div>
        </div>
        <div class="panel-body" style="padding: 0px;">
        <div class="map-container">
            <app-trace-map [assetId]="assetId" [pingDate]="latestRecord.created_date"
            [sDate]="startDate" [eDate]="endDate"></app-trace-map>
-       </div> 
-       </div>   
+       </div>
+       </div>
       </div>
       </div>
       </div>
