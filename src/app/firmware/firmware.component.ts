@@ -68,5 +68,7 @@ export class FirmwareComponent implements OnInit {
   getImeiDetail(row){
     this.imeiDetail = row;
   }
-
+  generateFirmware(){
+    this.router.navigate(['./crearte-firmware']);
+  }
 }

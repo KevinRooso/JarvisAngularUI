@@ -5,8 +5,8 @@
          <button class="btn btn-dark w-50" style="font-size: 15px;" (click)="back()">
             Back
           </button>
-      </div>      
-    </div>  
+      </div>
+    </div>
     <div class="row mt-3">
       <div class="col-md-12">
         <div class="card">
@@ -33,7 +33,7 @@
                 <li><span class="mr-3">CFG: </span>FWA/exicom/{{param2}}/Config/imei</li>
                 <li><span class="mr-1">sysconfig: </span> FWA/exicom/{{param2}}/sysconfig/imei</li>
                 <!-- <li>FWP/exicom/sysconfig/imei</li> -->
-              </ul>            
+              </ul>
             </div>
            </div>
            <div class="row my-2 p-2">
@@ -42,32 +42,32 @@
                 <button class="btn btn-dark w-25 btn-style" style="font-size: 15px;" data-toggle="modal" data-target="#myModal">
                     Accept
                 </button>
-               </div>                           
+               </div>
            </div>
-           </div>                    
+           </div>
         </div>
       </div>
     </div>
   </section>
 </div>
 <div id="myModal" class="modal fade">
-    <div class="modal-dialog modal-confirm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="text-center" style="width: 100%;">
-            <h4 class="modal-title">Are you sure?</h4>
-          </div>
-          <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center" style="width: 100%;">
+          <h4 class="modal-title">Are you sure?</h4>
         </div>
-        <div class="modal-body">
-          <p>Do you really want to create these topics?</p>
-        </div>
-        <div class="modal-footer" style="justify-content: center; border: none;">
-          <button type="button" class="btn btn-info" data-dismiss="modal" #closeModal2>Cancel</button>
-          <button type="button" class="btn btn-dark" (click)="createTopic()">Create</button>
-        </div>
+        <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to create these topics?</p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; border: none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal" #closeModal2>Cancel</button>
+        <button type="button" class="btn btn-dark" (click)="createTopic()">Create</button>
       </div>
     </div>
   </div>
+</div>

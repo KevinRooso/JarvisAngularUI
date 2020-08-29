@@ -20,3 +20,99 @@
 // .cdk-global-overlay-wrapper, .cdk-overlay-container {
 //      z-index: 99999!important;
 //      position: absolute; }
+.card-header {
+  font-size: 16px;
+}
+
+.card-body {
+  font-size: 15.5px;
+}
+
+li {
+  list-style: none;
+}
+
+.hp-40{
+  padding-left: 40px;
+}
+
+.pl-50{
+  padding-left: 50px;
+}
+
+.btn-style{
+  margin-left: 56px;
+}
+
+// MODAL
+
+
+.modal-confirm {
+  color: #636363;
+  width: 400px;
+}
+
+.modal-confirm .modal-content {
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal-confirm .modal-header {
+  border-bottom: none;
+  position: relative;
+}
+
+.modal-confirm h4 {
+  font-size: 26px;
+  margin: 30px 0 -10px;
+  text-align: center;
+}
+
+.modal-confirm .close {
+  position: absolute;
+  right: -25px;
+  top: -25px;
+}
+
+.modal-confirm .modal-body {
+  color: #999;
+}
+
+.modal-confirm .modal-footer a {
+  color: #999;
+}
+
+.modal-confirm .btn {
+  border: none;
+  border-radius: 4px;
+  border-radius: 3px;
+  color: #fff;
+  line-height: normal;
+  margin: 0 5px;
+  min-height: 40px;
+  min-width: 120px;
+  outline: none !important;
+  text-decoration: none;
+  transition: all 0.4s;
+}
+
+.modal-confirm .btn-info {
+  background: #c1c1c1;
+}
+
+.modal-confirm .btn-info:hover,
+.modal-confirm .btn-info:focus {
+  background: #a8a8a8;
+}
+
+.modal-confirm .btn-danger {
+  background: #f15e5e;
+}
+
+.modal-confirm .btn-danger:hover,
+.modal-confirm .btn-danger:focus {
+  background: #ee3535;
+}

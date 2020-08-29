@@ -1,79 +1,107 @@
-<div class="row mt-4">
-  <div class="col-sm-12">
-    <form [formGroup]="createFirmwareGroup">
-      <div class="form-row">
-        <div class="col-sm-3 col-form-label">
-          <label class="mt-3">Client Name</label>
+<div class="container mt-5">
+  <section class="section-tours">
+<mat-card>
+  <div class="row mt-4">
+    <div class="col-sm-12">
+      <form [formGroup]="createFirmwareGroup">
+        <div class="form-row">
+          <div class="col-sm-3 col-form-label">
+            <label class="mt-3">Client Name</label>
+          </div>
+          <div class="col-sm-9 col-form-label">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Client</mat-label>
+              <mat-select formControlName="cName">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let ver of nameArray" [value]="ver">
+                  {{ver}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
-        <div class="col-sm-9 col-form-label">
-          <mat-form-field appearance="fill">
-            <mat-label>Select Client</mat-label>
-            <mat-select formControlName="cName">
-              <mat-option>--</mat-option>
-              <mat-option *ngFor="let ver of nameArray" [value]="ver">
-                {{ver}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <div class="form-row">
+          <div class="col-sm-3 col-form-label">
+            <label class="mt-3">Select Firmware Type</label>
+          </div>
+          <div class="col-sm-9 col-form-label">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Firmware</mat-label>
+              <mat-select formControlName="fType">
+                <mat-option *ngFor="let com of typeArray" [value]="com">
+                  {{com}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="col-sm-3 col-form-label">
-          <label class="mt-3">Select Firmware Type</label>
+        <div class="form-row">
+          <div class="col-sm-3 col-form-label">
+            <label class="mt-3">Firmware Version</label>
+          </div>
+          <div class="col-sm-9 col-form-label">
+            <mat-form-field appearance="fill">
+              <mat-label>Select version</mat-label>
+              <mat-select formControlName="fVersion">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let ver of versionArray" [value]="ver">
+                  {{ver}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
-        <div class="col-sm-9 col-form-label">
-          <mat-form-field appearance="fill">
-            <mat-label>Select Firmware</mat-label>
-            <mat-select formControlName="fType">
-              <mat-option *ngFor="let com of typeArray" [value]="com">
-                {{com}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-sm-3 col-form-label">
-          <label class="mt-3">Firmware Version</label>
-        </div>
-        <div class="col-sm-9 col-form-label">
-          <mat-form-field appearance="fill">
-            <mat-label>Select version</mat-label>
-            <mat-select formControlName="fVersion">
-              <mat-option>--</mat-option>
-              <mat-option *ngFor="let ver of versionArray" [value]="ver">
-                {{ver}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
 
-      <div class="form-row">
-        <div class="col-sm-3 col-form-label">
-          <label class="mt-3">Batch CSV</label>
+        <div class="form-row">
+          <div class="col-sm-3 col-form-label">
+            <label class="mt-3">Batch CSV</label>
+          </div>
+          <div class="col-sm-9 col-form-label">
+            <input type="file" class="form-control-file" placeholder="Upload file" accept=".bin">
+          </div>
         </div>
-        <div class="col-sm-9 col-form-label">
-          <input type="file" class="form-control-file" placeholder="Upload file" accept=".bin">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-sm-9 col-form-label">
+        <div class="form-row">
+          <div class="col-sm-9 col-form-label">
 
-        </div>
-        <div class="col-sm-3 col-form-label">
-          <button class="float-right btn-size btn btn-dark w-75">
-            Create Firmware
-        </button>
-        </div>
-      </div>
-      <!-- <div class="col-sm-9"></div>
-        <div class="col-sm-3 col-form-label text-right">
-          <button class="float-right btn-size btn btn-dark w-75">
-              Create Firmware
+          </div>
+          <div class="col-sm-3 col-form-label">
+            <button class="float-right btn-size btn btn-dark w-75" data-toggle="modal" data-target="#myModal">
+              Confirm
           </button>
-      </div> -->
-    </form>
+          </div>
+        </div>
+        <!-- <div class="col-sm-9"></div>
+          <div class="col-sm-3 col-form-label text-right">
+            <button class="float-right btn-size btn btn-dark w-75">
+                Create Firmware
+            </button>
+        </div> -->
+      </form>
+    </div>
+  </div>
+  <!-- (change)="uploadedFile($event)"  -->
+
+</mat-card>
+</section>
+</div>
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center" style="width: 100%;">
+          <h4 class="modal-title">Are you sure?</h4>
+        </div>
+        <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to create these topics?</p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; border: none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal" #closeModal2>Cancel</button>
+        <button type="button" class="btn btn-dark">Create</button>
+      </div>
+    </div>
   </div>
 </div>
-<!-- (change)="uploadedFile($event)"  -->
