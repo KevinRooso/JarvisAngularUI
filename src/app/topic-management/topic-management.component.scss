@@ -131,17 +131,21 @@ color: #a834eb;
 }
 
 .card-header {
-font-size: 13px;
+font-size: 15px;
 }
 
 .card-body {
-font-size: 12px;
+font-size: 14px;
 }
 
 .btn-size {
 font-size: 14px;
 font-family: Georgia;
 font-weight: 400;
+}
+
+.lh-3 {
+  line-height: 3;
 }
 
 @media (min-width: 850px)

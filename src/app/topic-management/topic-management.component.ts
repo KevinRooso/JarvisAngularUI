@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ServiceService } from '../service.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-topic-management',
@@ -9,65 +10,101 @@ import { ServiceService } from '../service.service';
   styleUrls: ['./topic-management.component.scss']
 })
 export class TopicManagementComponent implements OnInit {
-
-  displayedColumns: string[] = ['seq', 'imei','bin','tcu'];
+  
   dataSource: any;
   param1:any;
 
-  imeiDetail: any = {
-    imei: '',
-    tcu: '',
-    bms: '',
-    cfg: ''
-  };
+  clientList:any = [
+    {
+      id: 1,
+      name: 'Exicom'
+    },
+    {
+      id: 3,
+      name: 'Bounce'
+    },
+    {
+      id: 2,
+      name: 'Ola'
+    },
+    {
+      id: 6,
+      name: 'Reliance'
+    }
+  ];  
 
-  onlyImei = true;
+  clientValue = 1;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  clientForm: FormGroup;
+
+  isTopicDone = false;
+
   fotaData:any[] = [];
   param2: any;
 
+  publishTopics:any[] = [];
+  defaultTopic = [{
+    topicname: 'NA'
+  }];
+  subscribeTopics:any[] = [];
+
+
   constructor(private router:Router, private router1: ActivatedRoute,
-    private service: ServiceService) { }
+    private service: ServiceService,private _formbuilder: FormBuilder) { 
+
+      this.clientForm = this._formbuilder.group({
+        org: ['']
+      });
+  }
 
   ngOnInit() {
-    this.router1.queryParams.subscribe(
-      params => {
-        this.param1 = params.selectedItem;
-        this.param2 = params.cname;
+    this.getAllClient();
+    this.getTopics(1);    
+  }
 
-        this.getAssets(this.param1);
+  getAllClient(){
+    this.service.getOrganisationData().subscribe(
+      res=> {        
+        let arrObj = res.filter(i=>i.id == 1);
+        this.clientForm.controls['org'].setValue(arrObj[0].id);
+        this.clientList = res.sort((a,b)=> a.id - b.id);
+        console.log(this.clientList);        
       }
     );
   }
 
-  getAssets(orgId){
-    this.service.getAssetListForFota(orgId).subscribe(
+  getTopics(orgId){
+    this.service.displayTopicByOrgId(orgId).subscribe(
       res=> {
-        res.forEach((i, index)=>{
-          let obj = {
-            seq: index+1,
-            imei: i.imeiNo,
-            bin: i.bin,
-            tcu: i.tcu,
-            bms: i.bms
-          };
-          this.fotaData.push(obj);
-        });
-        this.dataSource = new MatTableDataSource(this.fotaData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        if(res.length > 0){
+          this.publishTopics = res.filter(i=>i.messagingtype=='FWP');
+          this.subscribeTopics = res.filter(i=>i.messagingtype=='FWA');
+          this.isTopicDone = true;
+        }else{
+          this.publishTopics = this.defaultTopic;
+          this.subscribeTopics = this.defaultTopic;
+          this.isTopicDone = false;          
+        }                
       }
-    );
+    )
   }
 
   createBatch(){
     this.router.navigate(['./create-topic'],{ queryParams: {selectedItem: this.param1,cname: this.param2} });
   }
 
-  getImeiDetail(row){
-    this.imeiDetail = row;
+  createTopic(){
+    console.log(this.clientForm.controls['org'].value);
+    let arrObj = this.clientList.filter(i=>
+      i.id == this.clientForm.controls['org'].value);
+    console.log(arrObj);
+    let clientName = arrObj[0].orgName;
+    this.router.navigate(['./topic-preview'],{ queryParams: {client: this.clientForm.controls['org'].value, name: clientName} });
+  }
+
+  changeTopic(){
+    console.log(this.clientForm.controls['org'].value);
+    this.getTopics(this.clientForm.controls['org'].value);
   }
 
 }

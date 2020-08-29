@@ -369,6 +369,15 @@ export class ServiceService {
   getImeiListByBatch(bid): Observable<any> {
     return this.http.get<any>(this.api_user_url2 + `/getBatchDetailsByBatchId/${bid}`);
   }
+
+  createTopicByOrgId(orgId): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/createTopic/${orgId}`,'');   
+  }
+
+  displayTopicByOrgId(orgId): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + `/displayTopicsByOrgId/${orgId}`);
+  }
+
   /*  */
   tranfromArray(columnName: any[], dataList: any, x: string, y: string) {
     let filterdata: any = {};

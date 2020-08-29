@@ -1,0 +1,73 @@
+<div class="container mt-5">
+  <section class="section-tours">
+    <div class="row my-3">
+      <div class="col-md-3">
+         <button class="btn btn-dark w-50" style="font-size: 15px;" (click)="back()">
+            Back
+          </button>
+      </div>      
+    </div>  
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Preview
+          </div>
+          <div class="card-body">
+           <div class="row my-4">
+            <div class="col-md-6 pl-50">
+              <h4 class="hp-40">Publish</h4>
+              <ul class="col-form-label">
+               <li><span class="mr-3">TCU: </span> FWP/exicom/{{param2}}/TCU/imei</li>
+               <li><span class="mr-3">BMS: </span> FWP/exicom/{{param2}}/BMS/imei</li>
+               <li><span class="mr-3">CFG: </span> FWP/exicom/{{param2}}/Config/imei</li>
+               <li><span class="mr-1">sysconfig: </span> FWP/exicom/{{param2}}/sysconfig/imei</li>
+               <!-- <li>FWP/exicom/sysconfig/imei</li> -->
+              </ul>
+            </div>
+            <div class="col-md-6 pl-50">
+              <h4 class="hp-40">Subscribe</h4>
+              <ul class="col-form-label">
+                <li><span class="mr-3">TCU: </span>FWA/exicom/{{param2}}/TCU/imei</li>
+                <li><span class="mr-3">BMS: </span>FWA/exicom/{{param2}}/BMS/imei</li>
+                <li><span class="mr-3">CFG: </span>FWA/exicom/{{param2}}/Config/imei</li>
+                <li><span class="mr-1">sysconfig: </span> FWA/exicom/{{param2}}/sysconfig/imei</li>
+                <!-- <li>FWP/exicom/sysconfig/imei</li> -->
+              </ul>            
+            </div>
+           </div>
+           <div class="row my-2 p-2">
+               <div class="col-md-4"></div>
+               <div class="col-md-7">
+                <button class="btn btn-dark w-25 btn-style" style="font-size: 15px;" data-toggle="modal" data-target="#myModal">
+                    Accept
+                </button>
+               </div>                           
+           </div>
+           </div>                    
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="text-center" style="width: 100%;">
+            <h4 class="modal-title">Are you sure?</h4>
+          </div>
+          <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Do you really want to create these topics?</p>
+        </div>
+        <div class="modal-footer" style="justify-content: center; border: none;">
+          <button type="button" class="btn btn-info" data-dismiss="modal" #closeModal2>Cancel</button>
+          <button type="button" class="btn btn-dark" (click)="createTopic()">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
