@@ -38,8 +38,8 @@ export class ServiceService {
    api_user_url = 'http://119.252.208.14:8085';
   //api_user_url = 'http://stagingbn.bt.exicom.in:8085';
   api_user_url1 = 'http://192.168.1.128:8086';
-  api_user_url2 = 'http://localhost:8090';
-  // api_user_url2 = 'http://119.252.208.14:8090';
+ api_user_url2 = 'http://localhost:8090';
+  //  api_user_url2 = 'http://119.252.208.14:8090';
   //api_user_url = 'http://192.168.1.88:8085';
    //api_user_url = 'http://192.168.1.167:8085';
   // api_user_url = 'http://localhost:8085';
@@ -376,6 +376,18 @@ export class ServiceService {
 
   displayTopicByOrgId(orgId): Observable<any> {
     return this.http.get<any>(this.api_user_url2 + `/displayTopicsByOrgId/${orgId}`);
+  }
+
+  getFirmwareList(): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + '/getAllFirmware');
+  }
+
+  firmwareExists(orgId,firmwaretype,firmwareversion): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/compareFirmware/${orgId}/${firmwaretype}/${firmwareversion}`,'');
+  }
+
+  createFirmware(orgId,firmwaretype,firmwareversion,file): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/createFirmware/${orgId}/${firmwaretype}/${firmwareversion}`,file);
   }
 
   /*  */

@@ -10,7 +10,7 @@ import { ServiceService } from '../service.service';
 })
 export class FirmwareComponent implements OnInit {
 
-  displayedColumns: string[] = ['seq', 'imei','bin','tcu'];
+  displayedColumns: string[] = ['seq', 'name','type','version'];
   dataSource: any;
   param1:any;
 
@@ -26,20 +26,41 @@ export class FirmwareComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   fotaData:any[] = [];
+  firmwareData:any[]=[];
   param2: any;
 
   constructor(private router:Router, private router1: ActivatedRoute,
     private service: ServiceService) { }
 
   ngOnInit() {
-    this.router1.queryParams.subscribe(
-      params => {
-        this.param1 = params.selectedItem;
-        this.param2 = params.cname;
+    // this.router1.queryParams.subscribe(
+    //   params => {
+    //     this.param1 = params.selectedItem;
+    //     this.param2 = params.cname;
 
-        this.getAssets(this.param1);
+    //     this.getAssets(this.param1);
+    //   }
+    // );
+    this.getFirmware();
+  }
+
+  getFirmware(){
+    this.service.getFirmwareList().subscribe(
+      res=> {
+        res.forEach((i, index)=>{
+          let obj = {
+            seq: index+1,
+            name: i.clientname,
+            type: i.firmwaretype,
+            version: i.firmwareversion,
+          };
+          this.firmwareData.push(obj);
+        });
+        this.dataSource = new MatTableDataSource(this.firmwareData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;              
       }
-    );
+    )
   }
 
   getAssets(orgId){

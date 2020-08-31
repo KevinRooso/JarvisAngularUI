@@ -268,9 +268,13 @@ export class FotaChooseComponent implements OnInit, OnChanges {
       bmsVersion: "null",
       cfg: "null",
       cfgVersion: "null",
+      sysconfig:"null",
+      sysconfigVersion:"null",      
       tcuCommand: "null",
       bmsCommand: "null",
-      cfgCommand: "null"
+      cfgCommand: "null",
+      sysconfigCommand:"null",
+      batterydata:"batterydata"
     };
     this.compArray.forEach(item=>{
       if(item === 'tcu'){
@@ -325,9 +329,13 @@ export class FotaChooseComponent implements OnInit, OnChanges {
       bmsVersion: "null",
       cfg: "null",
       cfgVersion: "null",
+      sysconfig:"null",
+      sysconfigVersion:"null",      
       tcuCommand: "null",
       bmsCommand: "null",
-      cfgCommand: "null"
+      cfgCommand: "null",
+      sysconfigCommand:"null",
+      batterydata:"batterydata"
     };
     this.compArray.forEach(item=>{
       if(item === 'tcu'){
