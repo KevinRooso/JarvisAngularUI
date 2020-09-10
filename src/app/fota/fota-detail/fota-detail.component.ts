@@ -94,7 +94,7 @@ export class FotaDetailComponent implements OnInit {
   }
 
   getBatches(){    
-    this.service.getBatches().subscribe(
+    this.service.getBatchByOrgId(this.param1).subscribe(
       res => {
         this.fotaData = [];
         res.forEach((i, index)=>{          
@@ -105,7 +105,7 @@ export class FotaDetailComponent implements OnInit {
             count: i.count,
             date: i.start_date,
             id: i.batch_id,
-            status: i.execute          
+            status: i.status          
           };     
           this.fotaData.push(obj);          
         });
@@ -132,7 +132,7 @@ export class FotaDetailComponent implements OnInit {
     console.log(this.paramObj); 
     formData.append('file', this.fileUploaded);
     formData.append('request',JSON.stringify(this.paramObj));
-    this.service.uploadBatchDetails(formData,3).subscribe(
+    this.service.uploadBatchDetails(formData,this.param1).subscribe(
       res => {
         if(res.status === 200){
           this.getBatches();
@@ -142,6 +142,14 @@ export class FotaDetailComponent implements OnInit {
         if(res.status === 203){
           alert("DUPLICATE BATCH");          
         }                        
+      },
+      err => {
+        if(err.status == 400){
+          alert("First Create Topics of "+ this.param2);
+        }
+        else {
+          alert("Error in Uploading Batch");
+        }
       }
     );
     }else{
@@ -168,7 +176,7 @@ export class FotaDetailComponent implements OnInit {
         this.getBatches();
         this.closeDetail.nativeElement.click();
         }
-        if(res.status === 203){
+        if(res.status === 204){
           alert("BATCH CANT BE DELETED");
           this.closeDetail.nativeElement.click();
         }      
@@ -192,7 +200,7 @@ export class FotaDetailComponent implements OnInit {
   }
 
   isRunning(){    
-    return !(this.batchRow.status === 'execute');
+    return !(this.batchRow.status === 'running' || this.batchRow.status === 'done');
   }
 
 }

@@ -10,42 +10,42 @@
       <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="seq">
-            <th mat-header-cell *matHeaderCellDef width="5%" mat-sort-header disabled><b>S.No.</b></th>
+            <th mat-header-cell *matHeaderCellDef width="5%" mat-sort-header disabled><b>S.NO.</b></th>
             <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
           </ng-container>
   
           <ng-container matColumnDef="imei">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header width="12%"><b>Imei</b></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="12%"><b>IMEI</b></th>
             <td mat-cell *matCellDef="let row">{{ row.imei }}</td>
           </ng-container>
 
           <ng-container matColumnDef="batchId">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header width="8%"><b>Batch Id</b></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="8%"><b>BATCH ID</b></th>
             <td mat-cell *matCellDef="let row">{{ row.batchId }}</td>
           </ng-container>
   
           <ng-container matColumnDef="tcuVersion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header width="8%"><b>TCU Version</b></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="8%"><b>TCU VERSION</b></th>
             <td mat-cell *matCellDef="let row">{{ row.tcuVersion }}</td>
           </ng-container>
 
           <ng-container matColumnDef="tcuCommand">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header width="12%"><b>TCU Command</b></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="12%"><b>TCU COMMAND</b></th>
             <td mat-cell *matCellDef="let row">{{ row.tcuCommand }}</td>
           </ng-container>
 
           <ng-container matColumnDef="bmsVersion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header width="8%"><b>BMS Version</b></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="8%"><b>BMS VERSION</b></th>
             <td mat-cell *matCellDef="let row">{{ row.bmsVersion }}</td>
           </ng-container>
 
           <ng-container matColumnDef="bmsCommand">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header width="12%"><b>BMS Command</b></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="12%"><b>BMS COMMAND</b></th>
             <td mat-cell *matCellDef="let row">{{ row.bmsCommand }}</td>
           </ng-container>
 
           <ng-container matColumnDef="cfgVersion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header width="8%"><b>CFG Version</b></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="8%"><b>CFG VERSION</b></th>
             <td mat-cell *matCellDef="let row">{{ row.cfgVersion }}</td>
           </ng-container>
 
@@ -55,14 +55,14 @@
           </ng-container>
 
           <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header width="12%"><b>Status</b></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="12%"><b>STATUS</b></th>
             <td mat-cell *matCellDef="let row">
                 {{row.status}}
             </td>
           </ng-container>
   
           <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header width="15%"><b>Action</b></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header width="15%"><b>ACTION</b></th>
             <td mat-cell *matCellDef="let row">
               <button class="btn btn-outline-dark mr-3" (click)="logImei(row.imei)">
                 LOG

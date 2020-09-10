@@ -1,5 +1,13 @@
 table {
-    width: 100%;
+    width: 100%;    
+}
+
+table th {
+  text-transform: uppercase;
+}
+
+.btn {
+  font-size: 10px;
 }
 
 .outline-purple {
@@ -28,6 +36,7 @@ th.mat-header-cell,
 td.mat-cell,
 td.mat-footer-cell {
   padding: 1%;
+  font-size:12px;
 }
 
 .assignee-button {

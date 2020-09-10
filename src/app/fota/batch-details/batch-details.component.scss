@@ -3,4 +3,8 @@ table {
 }
 td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
   padding: 1%;
+  font-size: 12px;
+}
+th.mat-header-cell {
+  text-transform: uppercase;
 }

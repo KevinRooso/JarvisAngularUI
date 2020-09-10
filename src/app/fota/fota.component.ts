@@ -9,7 +9,7 @@ import { ServiceService } from '../service.service';
   styleUrls: ['./fota.component.scss']
 })
 export class FotaComponent implements OnInit {
-  displayedColumns: string[] = ['seq', 'imei','bin','tcu', 'bms','cfg','action'];
+  displayedColumns: string[] = ['seq', 'imei','bin','tcu', 'bms','cfg','status','action'];
   dataSource: any;
   param1:any;
   paramObj:any;
@@ -57,6 +57,7 @@ export class FotaComponent implements OnInit {
   getAssets(orgId){
     this.service.getAssetListForFota(orgId).subscribe(
       res=> {
+        this.fotaData = [];
         res.forEach((i, index)=>{
           let obj = {
             seq: index+1,
@@ -64,10 +65,11 @@ export class FotaComponent implements OnInit {
             bin: i.bin,
             tcu: i.tcu,
             bms: i.bms,
-            cfg: i.bmsConfigurationVersion
+            cfg: i.bmsConfigurationVersion,
+            status: i.status
           };
           this.fotaData.push(obj);
-        });
+        });        
         this.dataSource = new MatTableDataSource(this.fotaData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -97,8 +99,21 @@ export class FotaComponent implements OnInit {
     this.service.runFotaForSingleImei(this.param1,this.imeiDetail.imei,formData).subscribe(
       res=> {
         alert("Fota pushed");
+        this.getAssets(this.param1);
         this.closePush.nativeElement.click();
         this.paramRecieved = false;
+      },
+      err=> {
+        if(err.status == 400){
+          alert("First Create Topics of " + this.param2);
+          this.closePush.nativeElement.click();
+          this.paramRecieved = false;
+        }
+        else{
+          alert("Unable to Push Fota");
+          this.closePush.nativeElement.click();          
+          this.paramRecieved = false;
+        }        
       }
     );
   }
@@ -111,6 +126,19 @@ export class FotaComponent implements OnInit {
     //   }
     // )
     this.router.navigate(['/fota-detail/log'],{ queryParams: {selectedItem: this.param1,cname: this.param2,imei: row.imei, bid: 0} });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  isRunningStatus(row){
+    if(row.status == 'running'){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 }

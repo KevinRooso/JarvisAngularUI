@@ -70,6 +70,10 @@ export class FotaChooseComponent implements OnInit, OnChanges {
     {
       name: '10',
       displayName: 'SAVE CONFIG'
+    },
+    {
+      name: '11',
+      displayName: 'START OTA'
     }
   ];
 
@@ -267,14 +271,10 @@ export class FotaChooseComponent implements OnInit, OnChanges {
       bms: "null",
       bmsVersion: "null",
       cfg: "null",
-      cfgVersion: "null",
-      sysconfig:"null",
-      sysconfigVersion:"null",      
+      cfgVersion: "null",      
       tcuCommand: "null",
       bmsCommand: "null",
-      cfgCommand: "null",
-      sysconfigCommand:"null",
-      batterydata:"batterydata"
+      cfgCommand: "null"
     };
     this.compArray.forEach(item=>{
       if(item === 'tcu'){
@@ -328,14 +328,10 @@ export class FotaChooseComponent implements OnInit, OnChanges {
       bms: "null",
       bmsVersion: "null",
       cfg: "null",
-      cfgVersion: "null",
-      sysconfig:"null",
-      sysconfigVersion:"null",      
+      cfgVersion: "null",     
       tcuCommand: "null",
       bmsCommand: "null",
-      cfgCommand: "null",
-      sysconfigCommand:"null",
-      batterydata:"batterydata"
+      cfgCommand: "null"
     };
     this.compArray.forEach(item=>{
       if(item === 'tcu'){

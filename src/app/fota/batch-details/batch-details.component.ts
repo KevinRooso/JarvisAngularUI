@@ -37,8 +37,7 @@ export class BatchDetailsComponent implements OnInit {
   getBatchDetails(bid){
     this.batchData = [];
     this.service.getImeiListByBatch(bid).subscribe(
-      res=> {
-        console.log(res);
+      res=> {        
         res.forEach((i, index)=>{
           let obj:any = {
             seq: index+1,

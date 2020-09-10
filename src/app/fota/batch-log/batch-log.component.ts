@@ -15,7 +15,7 @@ export class BatchLogComponent implements OnInit {
   param2:any;
   param3:any;
 
-  logColumns: string[] = ['seq', 'imei', 'batchid','type','topic','status','command','response','time'];
+  logColumns: string[] = ['seq', 'imei', 'batchid','type','topic','status','command','response','time','action'];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -71,7 +71,26 @@ export class BatchLogComponent implements OnInit {
     }
     else{
       this.router.navigate(['/fota-detail/batch'],{ queryParams: {selectedItem: this.param1,cname: this.param2, bid: this.param3} });
-    }    
+    } 
+       
   }
 
+  retry(row){
+    if(row.status == 'fail' || row.status == 'timeout'){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  retryFota(row){
+    console.log(row);
+    this.service.retryFota(this.param1,row.type,row.imei).subscribe(
+      res=>{        
+        this.getLog(this.param4,this.param3);
+        alert("Retry Successful");
+      }
+    );
+  }
 }

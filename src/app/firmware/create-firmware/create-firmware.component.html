@@ -17,6 +17,7 @@
                   {{name.orgName}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="checkError('cName', 'required')">(Client Name is required)</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -32,6 +33,7 @@
                   {{com}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="checkError('fType', 'required')">(Firmware Type is required)</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -48,6 +50,7 @@
                   {{ver}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="checkError('fVersion', 'required')">(Firmware Version is required)</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -65,9 +68,10 @@
 
           </div>
           <div class="col-sm-3 col-form-label">
-            <button class="float-right btn-size btn btn-dark w-75" (click)="isFirmwareExist()" data-toggle="modal" data-target="#myModal">
+            <button class="float-right btn-size btn btn-dark w-75" (click)="isFirmwareExist()">
               Confirm
           </button>
+          <button #openConfirmButton [hidden]="true" data-toggle="modal" data-target="#myModal"></button>
           </div>
         </div>
         <!-- <div class="col-sm-9"></div>

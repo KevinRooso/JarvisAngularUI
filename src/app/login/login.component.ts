@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit {
       }, error => {
         // Error Reposnse Messge Handling
         //Showing Response Message to user know password is Authentication field
+        alert("Wrong Credentials");
         console.log(error);        
       })
   }

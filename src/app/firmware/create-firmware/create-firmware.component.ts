@@ -15,11 +15,14 @@ export class CreateFirmwareComponent implements OnInit {
   nameArray:any[] = [];
   compArray: any[] = [];
   fileUploaded: File;
-  fileValid: boolean;
+  fileValid: boolean = false;
+  checkError: any;
+  submitted = false;
 
   fwareExists = false;
 
-  @ViewChild('closeModal2', { static: true }) closeModal;
+  @ViewChild('closeModal2', { static: true }) closeModal;  
+  @ViewChild('openConfirmButton', { static: true }) confirmButton;  
 
   constructor(private _formBuilder: FormBuilder,private service: ServiceService,
     private router: Router) {
@@ -32,6 +35,16 @@ export class CreateFirmwareComponent implements OnInit {
 
   ngOnInit() {
     this.getAllClient();
+
+    this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
+          return this.createFirmwareGroup.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.createFirmwareGroup.controls[controlName].hasError(errorName);
+      }
+    };
   }
 
   uploadedFile(event) {
@@ -39,8 +52,7 @@ export class CreateFirmwareComponent implements OnInit {
     const fileType = this.fileUploaded.type;
     console.log(fileType);
     if (fileType === 'application/octet-stream' || fileType === 'application/x-sega-cd-rom') {
-      this.fileValid = true;
-      console.log("bin");      
+      this.fileValid = true;      
     }   
   }
 
@@ -54,6 +66,9 @@ export class CreateFirmwareComponent implements OnInit {
   }
 
   isFirmwareExist(){
+   this.submitted = true;
+   if(this.fileValid){   
+    if(this.createFirmwareGroup.valid){
     let orgId = this.createFirmwareGroup.controls['cName'].value;
     let type = this.createFirmwareGroup.controls['fType'].value;
     let version = this.createFirmwareGroup.controls['fVersion'].value;
@@ -63,9 +78,16 @@ export class CreateFirmwareComponent implements OnInit {
           this.fwareExists = true;
         }else{
           this.fwareExists = false;
-        }        
+        }
+        this.confirmButton.nativeElement.click();        
       }
     );
+    }else {
+      alert("Please fill all Fields");
+    }
+   }else{
+     alert("Please Upload Valid Firmware Bin");
+   }   
   }
 
   createFirmware(){

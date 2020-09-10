@@ -10,7 +10,7 @@ import { ServiceService } from '../service.service';
 })
 export class FirmwareComponent implements OnInit {
 
-  displayedColumns: string[] = ['seq', 'name','type','version'];
+  displayedColumns: string[] = ['seq', 'name','type','version','username','createdDate'];
   dataSource: any;
   param1:any;
 
@@ -53,6 +53,8 @@ export class FirmwareComponent implements OnInit {
             name: i.clientname,
             type: i.firmwaretype,
             version: i.firmwareversion,
+            username: i.username,
+            createdDate: i.createdate
           };
           this.firmwareData.push(obj);
         });

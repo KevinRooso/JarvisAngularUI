@@ -2,5 +2,10 @@ table {
     width: 100%;
 }
 td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
-  padding: 1%;
+  padding: 1.1%;
+  font-size: 12px;
+}
+.retry-button :disabled { 
+  color: #6a6e71ba;
+  background-color: #715c5c24;
 }
