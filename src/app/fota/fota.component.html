@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container-fluid mt-5">
     <section class="section-tours">
       <div class="row my-3">
         <div class="col-md-3">
@@ -6,12 +6,25 @@
             Create Batch
           </button>
         </div>
-        <div class="col-md-6"></div>      
-        <div class="col-md-3">
-          <mat-form-field class="float-right">
-            <mat-label>Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Filter" #input>
-          </mat-form-field>          
+        <div class="col-md-7"></div>
+        <div class="col-md-2 text-right">
+          <div class="panel">
+            <div class="xn-search">
+              <form role="form">
+                <input
+                  type="text"
+                  (keyup)="applyFilter($event)"
+                  name="search"
+                  placeholder="Search"
+                />
+              </form>
+            </div>
+            <!-- <label>Search:<input type="search" class="form-control" placeholder="Filter" (keyup)="applyFilter($event.target.value)"></label> -->
+          </div>
+          <!-- <mat-form-field class="float-right">
+            <mat-label>Search</mat-label>
+            <input  class="form-control" (keyup)="applyFilter($event)" placeholder="Filter" #input>
+          </mat-form-field> -->
         </div>
       </div>
       <div class="mat-elevation-z8">
@@ -20,7 +33,7 @@
             <th mat-header-cell *matHeaderCellDef width="10%" mat-sort-header disabled><b>S.NO.</b></th>
             <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
           </ng-container>
-  
+
           <ng-container matColumnDef="imei">
             <th mat-header-cell *matHeaderCellDef mat-sort-header width="17%"><b>IMEI</b></th>
             <td mat-cell *matCellDef="let row">{{ row.imei }}</td>
@@ -30,7 +43,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header width="16%"><b>BIN</b></th>
             <td mat-cell *matCellDef="let row">{{ row.bin }}</td>
           </ng-container>
-  
+
           <ng-container matColumnDef="tcu">
             <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>TCU</b></th>
             <td mat-cell *matCellDef="let row">{{ row.tcu }}</td>
@@ -52,7 +65,7 @@
               {{row.status}}
             </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef mat-sort-header width="20%"><b>ACTION</b></th>
             <td mat-cell *matCellDef="let row">
@@ -64,42 +77,43 @@
               </button>
             </td>
           </ng-container>
-  
+
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-  
+
         <mat-paginator [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
       </div>
     </section>
   </div>
   <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document" style="top:80px">
+    <div class="modal-dialog" role="document" style="top:60px">
       <div class="modal-content">
         <div class="modal-header" style="border-bottom: none; padding: 0;">
-          <div class="heading-shadow pt-1 mt-3 ml-2">
-            <h3>DETAILS</h3>
-          </div>  
+          <!-- <h5 class="modal-title">DETAILS</h5> -->
+          <div class="heading-shadow py-3 px-4">
+            <h5 class="modal-title">DETAILS</h5>
+          </div>
           <button type="button" #closePush class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body p-0 pt-5">
             <div class="row m-2">
              <div class="col-md-3">
               <div class="card">
                   <div class="card-header">IMEI</div>
                   <div class="card-body">
-                    <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                    <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
                     <span class="float-right">{{imeiDetail.imei}}</span>
                   </div>
               </div>
-             </div>                                                  
+             </div>
               <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">TCU</div>
                     <div class="card-body w-100">
-                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
                       <span class="float-right">{{imeiDetail.tcu}}</span>
                     </div>
                 </div>
@@ -108,7 +122,7 @@
                 <div class="card">
                     <div class="card-header">BMS</div>
                     <div class="card-body">
-                       <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                       <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
                        <span class="float-right">{{imeiDetail.bms}}</span>
                     </div>
                 </div>
@@ -117,21 +131,21 @@
                 <div class="card">
                     <div class="card-header">CFG</div>
                     <div class="card-body">
-                        <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                        <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
                         <span class="float-right">{{imeiDetail.cfg}}</span>
                     </div>
-                </div>                                                    
+                </div>
             </div>
             </div>
             <div class="row mt-3 m-2">
-              <div class="col-md-12">                
+              <div class="col-md-12">
                   <div class="card">
-                    <div class="card-header">Update Fota</div>
+                    <div class="card-header">UPDATE FOTA</div>
                     <div class="card-body">
                     <app-fota-choose (batchInfo)="getImeiParam($event)" [imei]="modalImei" [onlyImei]="onlyImei"></app-fota-choose>
                     </div>
-                  </div>                                                                  
-              </div>                
+                  </div>
+              </div>
             </div>
             <div class="row mt-3 m-2">
               <div class="col-md-12 border-white">
@@ -142,21 +156,21 @@
                     RUN
                   </button>
                 </div>
-              </div>               
-              </div>              
+              </div>
+              </div>
             </div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" style="top:80px">
       <div class="modal-content">
         <div class="modal-header" style="border-bottom: none; padding: 0;">
           <div class="heading-shadow pt-1 mt-3 ml-2">
             <h3>STATUS</h3>
-          </div>  
+          </div>
           <button type="button" #closeStatus class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -167,16 +181,16 @@
               <div class="card">
                   <div class="card-header">IMEI</div>
                   <div class="card-body">
-                    <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                    <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
                     <span class="float-right">{{imeiStatus.imei}}</span>
                   </div>
               </div>
-             </div>                                                  
+             </div>
               <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">TCU Status</div>
                     <div class="card-body w-100">
-                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
                       <span class="float-right">{{imeiStatus.tcuStatus}}</span>
                     </div>
                 </div>
@@ -185,7 +199,7 @@
                 <div class="card">
                     <div class="card-header">BMS Status</div>
                     <div class="card-body">
-                       <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                       <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
                        <span class="float-right">{{imeiStatus.bmStatus}}</span>
                     </div>
                 </div>
@@ -194,12 +208,12 @@
                 <div class="card">
                     <div class="card-header">CFG Status</div>
                     <div class="card-body">
-                        <i class="fa fa-bar-chart bars" aria-hidden="true"></i>    
+                        <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
                         <span class="float-right">{{imeiStatus.cfgStatus}}</span>
                     </div>
-                </div>                                                    
+                </div>
             </div>
-            </div>                       
+            </div>
         </div>
       </div>
     </div>

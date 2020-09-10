@@ -1,4 +1,4 @@
-   <div class="row mt-4">
+   <div class="row">
     <div class="col-md-4">
         <mat-checkbox #tcuCheckbox (change)="onCheckChange($event,'tcu')" [disabled]="compSelected | async" value="tcu">TCU</mat-checkbox>
     </div>
@@ -9,10 +9,10 @@
         <mat-checkbox #cfgCheckbox (change)="onCheckChange($event,'cfg')" value="cfg" [hidden]="isBms" [disabled]="(compSelected | async)">CFG</mat-checkbox>
     </div>
    </div>
-   <div class="row mt-4">
+   <div class="row">
        <div class="col-md-4">
         <form [formGroup]="firstFormGroup" [ngClass]="(onlyImei)?'form-font-2':'form-font-1'">
-            <div class="form-row mt-3">              
+            <div class="form-row mt-2">
               <div class="col-md-3 col-form-label">
                 <label class="mt-3">Version</label>
             </div>
@@ -26,9 +26,9 @@
                   </mat-option>
                 </mat-select>
             </mat-form-field>
-          </div>        
+          </div>
            </div>
-          <div class="form-row mt-3">              
+          <div class="form-row mt-2">
             <div class="col-md-3 col-form-label">
               <label class="mt-3">Command</label>
           </div>
@@ -41,13 +41,13 @@
                 </mat-option>
               </mat-select>
           </mat-form-field>
-        </div>        
+        </div>
           </div>
         </form>
       </div>
       <div class="col-md-4">
         <form [formGroup]="secondFormGroup" [ngClass]="(onlyImei)?'form-font-2':'form-font-1'">
-            <div class="form-row mt-3">              
+            <div class="form-row mt-2">
               <div class="col-md-3 col-form-label">
                 <label class="mt-3">Version</label>
             </div>
@@ -61,9 +61,9 @@
                   </mat-option>
                 </mat-select>
             </mat-form-field>
-            </div>        
+            </div>
            </div>
-          <div class="form-row mt-3">              
+          <div class="form-row mt-2">
             <div class="col-md-3 col-form-label">
               <label class="mt-3">Command</label>
           </div>
@@ -71,19 +71,19 @@
           <mat-form-field appearance="fill">
               <mat-label>Select Command</mat-label>
               <mat-select formControlName="command" [disabled]="!bmsChe">
-                <mat-option>--</mat-option>                     
+                <mat-option>--</mat-option>
                 <mat-option *ngFor="let com of commandsArray"  [value]="com.name">
                   {{com.displayName}}
                 </mat-option>
               </mat-select>
-          </mat-form-field> 
-          </div>       
+          </mat-form-field>
+          </div>
           </div>
         </form>
       </div>
       <div class="col-md-4" *ngIf="cfgSelected | async">
         <form [formGroup]="thirdFormGroup" [ngClass]="(onlyImei)?'form-font-2':'form-font-1'">
-            <div class="form-row mt-3">              
+            <div class="form-row mt-2">
               <div class="col-md-3 col-form-label">
                 <label class="mt-3">Version</label>
             </div>
@@ -95,10 +95,10 @@
                     {{ver}}
                   </mat-option>
                 </mat-select>
-            </mat-form-field> 
-            </div>       
+            </mat-form-field>
+            </div>
            </div>
-          <div class="form-row mt-3">              
+          <div class="form-row mt-2">
             <div class="col-md-3 col-form-label">
               <label class="mt-3">Command</label>
           </div>
@@ -111,19 +111,19 @@
                 </mat-option>
               </mat-select>
           </mat-form-field>
-          </div>        
+          </div>
           </div>
         </form>
       </div>
    </div>
-   <div class="row mt-4">
+   <div class="row mt-2">
        <div class="col-md-5"></div>
        <div class="col-md-7">
         <button *ngIf="!onlyImei" [disabled]="batchConfirm" class="text-center btn btn-dark btn-size w-25" (click)="submitBatchParam()">
-            Confirm and Proceed to Csv
+          CONFIRM AND PROCEED TO CSV
         </button>
         <button *ngIf="onlyImei" [disabled]="imeiConfirm" class="text-center btn btn-dark btn-size w-25" (click)="submitImeiParam()">
-            Confirm
+            CONFIRM
         </button>
        </div>
    </div>
@@ -136,7 +136,7 @@
         <form [formGroup]="firstFormGroup" class="row mat-elevation-z2 p-3">
         <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="1.01"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="1.01"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -146,7 +146,7 @@
            </div>
            <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="1.02"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="1.02"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -156,7 +156,7 @@
            </div>
            <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="1.05"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="1.05"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -166,7 +166,7 @@
            </div>
            <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="1.07"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="1.07"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -182,7 +182,7 @@
         <form [formGroup]="secondFormGroup" class="row mat-elevation-z2 p-3">
          <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="v15123"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="v15123"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -192,7 +192,7 @@
            </div>
            <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="v15125"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="v15125"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -202,17 +202,17 @@
            </div>
            <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="v15127"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="v15127"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
                    v15127
                 </div>
             </label>
-           </div>           
+           </div>
            <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="v15129"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="v15129"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -228,7 +228,7 @@
         <form [formGroup]="thirdFormGroup" class="row mat-elevation-z2 p-3">
          <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="512"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="512"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -238,7 +238,7 @@
            </div>
            <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="605"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="605"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -248,7 +248,7 @@
            </div>
            <div class="col-md-3">
             <label>
-                <input type="radio" class="card-input-element" formControlName="version" value="650"/>            
+                <input type="radio" class="card-input-element" formControlName="version" value="650"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -258,7 +258,7 @@
            </div>
            <div class="col-md-3">
             <label>
-                <input type="radio" id="myRadio" class="card-input-element" formControlName="version" value="701"/>            
+                <input type="radio" id="myRadio" class="card-input-element" formControlName="version" value="701"/>
                 <div class="example-ripple-container mat-elevation-z4" matRipple
                    [matRippleCentered]="centered"
                 >
@@ -268,7 +268,7 @@
            </div>
         </form>
         </div>
-       </div>              
+       </div>
    </div>
    <div *ngIf="(compSelected | async) && !(verSelected | async)" class="row ml-1 mt-4">
     <button mat-button (click)="selectVersion()">Select Version</button>
@@ -308,6 +308,6 @@
         <button mat-button (click)="submitFota()">Proceed To Upload CSV</button>
         <button mat-button (click)="resetParams()">Reset</button>
        </div>
-   </div>   
+   </div>
 
    -->
