@@ -5,7 +5,32 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
   padding: 1.1%;
   font-size: 12px;
 }
-.retry-button :disabled { 
+.retry-button :disabled {
   color: #6a6e71ba;
   background-color: #715c5c24;
+}
+
+table {
+  width: 100%;
+}
+
+table th {
+text-transform: uppercase;
+//color: #f5f5f5;
+background: #f9f9f9;
+}
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+ padding: .4%;
+  font-size:12px;
+}
+tr.mat-row {
+  height: 40px;
+}
+tr.mat-header-row {
+  height: 40px;
+}
+.mat-paginator-container{
+  max-height: 50px;
 }

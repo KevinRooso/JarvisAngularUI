@@ -1,83 +1,83 @@
-<div class="container mt-5">
+<div class="container-fluid mt-5">
     <section class="section-tours">
         <div class="row my-3">
             <div class="col-md-3">
               <button class="btn btn-dark w-50" style="font-size: 15px;" (click)="back()">
                 Back
               </button>
-            </div>      
+            </div>
         </div>
     <div class="mat-elevation-z8">
     <table mat-table [dataSource]="logDataSource" matSort>
         <ng-container matColumnDef="seq">
-                    <th mat-header-cell *matHeaderCellDef width="5%" mat-sort-header disabled><b>S.NO.</b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disabled><b>S.NO.</b></th>
                     <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
         </ng-container>
-          
+
                   <ng-container matColumnDef="imei">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>IMEI</b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>IMEI</b></th>
                     <td mat-cell *matCellDef="let row">{{ row.imei }}</td>
                   </ng-container>
-          
+
                   <ng-container matColumnDef="batchid">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="5%"><b>BATCH <span class="float-left">ID</span></b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>BATCH ID</b></th>
                     <td mat-cell *matCellDef="let row">{{ row.batchid }}</td>
-                  </ng-container>                          
-        
+                  </ng-container>
+
                   <ng-container matColumnDef="type">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>TYPE</b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>TYPE</b></th>
                     <td mat-cell *matCellDef="let row">{{ row.type }}</td>
                   </ng-container>
-          
+
                   <ng-container matColumnDef="topic">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>TOPIC</b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>TOPIC</b></th>
                     <td mat-cell *matCellDef="let row">
-                      {{row.topic}} 
+                      {{row.topic}}
                     </td>
                   </ng-container>
-  
+
                   <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>STATUS</b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>STATUS</b></th>
                     <td mat-cell *matCellDef="let row">
-                      {{row.status}} 
+                      {{row.status}}
                     </td>
                   </ng-container>
-  
+
                   <ng-container matColumnDef="command">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>COMMAND</b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>COMMAND</b></th>
                     <td mat-cell *matCellDef="let row">
-                      {{row.command}} 
+                      {{row.command}}
                     </td>
                   </ng-container>
-  
+
                   <ng-container matColumnDef="response">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>RESPONSE</b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>RESPONSE</b></th>
                     <td mat-cell *matCellDef="let row">
-                      {{row.response}} 
+                      {{row.response}}
                     </td>
-                  </ng-container>                  
-  
+                  </ng-container>
+
                   <ng-container matColumnDef="time">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>TIME</b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>TIME</b></th>
                     <td mat-cell *matCellDef="let row">
-                      {{row.time | date: 'dd-MM-yyyy HH:mm:ss'}} 
+                      {{row.time | date: 'dd-MM-yyyy HH:mm:ss'}}
                     </td>
                   </ng-container>
 
                   <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>ACTION</b></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><b>ACTION</b></th>
                     <td mat-cell *matCellDef="let row">
                       <button class="btn btn-outline-dark mr-3 retry-button" style="font-size:12px;" (click)="retryFota(row)" [disabled]="retry(row)">
                         RETRY
                       </button>
                     </td>
                   </ng-container>
-          
+
                   <tr mat-header-row *matHeaderRowDef="logColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: logColumns"></tr>
                 </table>
-          
+
                 <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
               </div>
     </section>
-</div>    
+</div>
