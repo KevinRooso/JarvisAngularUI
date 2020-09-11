@@ -108,7 +108,7 @@ button:focus {
   background: transparent;
   float: left;
   margin-left: 25px;
-  
+
 }
 .nav-btn {
   height: 102px;
@@ -181,4 +181,7 @@ input[type=text]::-ms-clear {
   margin-left: 0 !important;
 }
 
-.cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; } 
+.cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; }
+td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
+  padding-left: 20px !important;
+}
