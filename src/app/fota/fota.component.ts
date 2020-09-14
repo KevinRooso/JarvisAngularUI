@@ -44,9 +44,21 @@ export class FotaComponent implements OnInit {
   value = 50;
   color = 'primary';
   displayProgressSpinnerInBlock: boolean = false;
+  grid_url: string;
+
+  Columns: any[] = [    
+     { 'columnName': 'imeiNo', 'displayName': 'IMEI', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'bin', 'displayName': 'BIN', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'tcu', 'displayName': 'TCU', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'bms', 'displayName': 'BMS', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'cfg', 'displayName': 'CFG', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'status', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false }  
+     , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'dashboard'}
+  ];
 
   constructor(private router:Router, private router1: ActivatedRoute,
-    private service: ServiceService) { }
+    private service: ServiceService) {      
+    }
 
   ngOnInit() {
     this.router1.queryParams.subscribe(
@@ -54,7 +66,8 @@ export class FotaComponent implements OnInit {
         this.param1 = params.selectedItem;
         this.param2 = params.cname;
 
-        this.getAssets(this.param1);
+        this.grid_url = this.service.api_user_url2 + '/api/bms/fota/assets/' + params.selectedItem
+        // this.getAssets(this.param1);
       }
     );    
   }

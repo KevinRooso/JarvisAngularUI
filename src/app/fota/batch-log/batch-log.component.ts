@@ -27,6 +27,7 @@ export class BatchLogComponent implements OnInit {
   displayProgressSpinnerInBlock: boolean = false;
   imeiLog: boolean = false;
   batchLog: boolean = false;
+  grid_url: string;
 
   constructor(private service: ServiceService,private router1: ActivatedRoute,private router: Router) { }
 
@@ -40,11 +41,13 @@ export class BatchLogComponent implements OnInit {
 
         if(this.param3 == 0){
           this.imeiLog = true;
+          this.grid_url = this.service.api_user_url2 + `/api/bms/log/executed/packs/${params.imei}/${params.imei}`
         }else{
           this.batchLog = true;
+          this.grid_url = this.service.api_user_url2 + `/api/bms/log/executed/packs/${params.bid}/${params.imei}`
         }
         
-        this.getLog(this.param4,this.param3);
+        // this.getLog(this.param4,this.param3);
       }
     ); 
   }

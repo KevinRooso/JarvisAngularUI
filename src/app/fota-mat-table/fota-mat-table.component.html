@@ -1,0 +1,231 @@
+<!-- <mat-card> -->
+<!-- <button><mat-icon>add_box</mat-icon> </button> -->
+<!-- <mat-icon>settings_applications</mat-icon> -->
+<!-- <mat-form-field>
+          <mat-label>Add New Column</mat-label>
+          <mat-select [formControl]="datacolumns" (selectionChange)="updateColumn($event)" multiple>
+            <mat-option *ngFor="let header of headerColumns" [value]="header.displayName" >{{header.displayName}}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+
+<!-- <mat-select [formControl]="datacolumns" (selectionChange)="updateColumn($event)" multiple >
+            <mat-option *ngFor="let header of headerColumns"  [value]="header.displayName">{{header.displayName}}</mat-option>
+       </mat-select> -->
+
+<!-- <div class="my-3 col-sm-1">
+    <mat-form-field *ngIf="searchEnable">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+  </div> -->
+
+<div class="example-container mat-elevation-z8">
+  <div
+    class="example-loading-shade"
+    *ngIf="isLoadingResults || isRateLimitReached"
+  >
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      This API might be down. It will be reset in one minute.
+    </div>
+  </div>
+
+  <div class="example-table-container mb-1">
+  <div style="display: inline-block;padding: 8px 0px;" *ngIf="searchEnable">
+    <span style="font-size: 20px;font-weight: 400;">{{companyName}} Assets Table</span>
+  </div>
+
+    <div class="panel" *ngIf="searchEnable">
+      <div class="xn-search">
+        <form role="form">
+          <input
+            type="text"
+            (keyup)="applyFilter($event.target.value)"
+            name="search"
+            placeholder="Enter BIN"
+          />
+        </form>
+      </div>
+      <!-- <label>Search:<input type="search" class="form-control" placeholder="Filter" (keyup)="applyFilter($event.target.value)"></label> -->
+    </div>
+    <table
+      *ngIf="displayedColumns != null"
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      matSort
+      matSortActive=""
+      matSortDisableClear
+      multiTemplateDataRows
+      matSortDirection="desc"
+    >
+      <!-- <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                  [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                  (change)="$event ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)"
+                                  [aria-label]="checkboxLabel(row)">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>   -->
+      <ng-container
+        matColumnDef="{{ column.columnName }}"
+        *ngFor="let column of headerColumns"
+      >
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          [disabled]="column.sortDisabled"
+        >
+          {{ column.displayName }}
+        </th>
+
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="!column.action; else elseBlock">
+            <span *ngIf="!column.dateFormat">
+                {{ element[column.columnName] }}
+              </span>
+              <span *ngIf="column.dateFormat">
+                {{ element[column.columnName] | date: 'dd-MM-yyyy HH:mm:ss'}}
+              </span>                      
+          </span>
+          <ng-template #elseBlock>
+            <button
+              *ngIf="column.displayName == 'Action'"
+              mat-icon-button
+              (click)="getColumnValue(element.id, 'edit',element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <span *ngIf="column.purpose == 'dashboard'">
+              <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="getImeiDetail(row)" data-toggle="modal" data-target="#imeiModal">
+                PUSH FOTA
+              </button>
+              <button style="font-size: 10px;" class="btn btn-outline-dark" (click)="getImeiStatus(element)">
+                LOG
+              </button>
+            </span>
+            <span *ngIf="column.purpose == 'batchList'">
+              <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="batchDetails(element)" data-toggle="modal" data-target="#detailsModal">
+                PUSH
+              </button>
+              <button style="font-size: 10px;" class="btn btn-outline-dark" (click)="logBatch(element)">
+                DETAILS
+              </button>
+            </span>
+            <span *ngIf="column.purpose == 'imeiList'">
+              <button class="btn btn-outline-dark mr-3" (click)="logImei(element)" >
+                LOG
+              </button>
+            </span>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: displayedColumns"
+        class="example-element-row"
+      ></tr>
+    </table>
+
+    <div class="page-select mb-4">
+      <div class="label">Go to page:</div>
+      <mat-form-field style="width: 60px;margin-left: 10px;">
+        <mat-select
+          [ngModel]="manualPage"
+          (ngModelChange)="updateManualPage($event)"
+        >
+          <mat-option
+            *ngFor="let in of counter(totalPagesNumber); let i = index"
+            [value]="i"
+            >Page {{ i + 1 }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-paginator
+        [length]="resultsLength"
+        [pageSize]="10"
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        (page)="clearManualPage()"
+      ></mat-paginator>
+    </div>
+  </div>  
+</div>
+
+
+<!-- RUN IMEI MODAL FOR FOTA DASHBOARD-->
+
+
+<!-- DETAIL MODAL FOR CREATE BATCH -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="top:80px">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: none; padding: 0;">
+          <div class="heading-shadow py-3 px-4">
+            <h5 class="modal-title">DETAILS</h5>
+          </div>
+          <button type="button" #closeDetail class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body p-0 pt-5">
+            <div class="row m-2">
+             <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">Batch Id</div>
+                    <div class="card-body">
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                      <span class="float-right">{{batchRow.id}}</span>
+                    </div>
+                </div>
+             </div>
+             <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">Org Id</div>
+                    <div class="card-body w-100">
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                      <span class="float-right">{{batchRow.orgId}}</span>
+                    </div>
+                </div>
+             </div>
+             <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">Count</div>
+                    <div class="card-body">
+                       <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                       <span class="float-right">{{batchRow.count}}</span>
+                    </div>
+                </div>
+             </div>
+             <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">Status</div>
+                    <div class="card-body">
+                        <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                        <span class="float-right">{{batchRow.status}}</span>
+                    </div>
+                </div>
+             </div>
+            </div>
+            <div class="row m-2 mt-5">            
+              <div class="col-sm-12 text-right">
+                <button class="float-right btn-size btn btn-dark ml-4 px-3" (click)="deleteBatch()">
+                  DELETE BATCH
+                </button>
+                <button class="float-right btn-size btn btn-dark px-4" (click)="runBatch()">
+                  RUN BATCH
+                </button>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>   

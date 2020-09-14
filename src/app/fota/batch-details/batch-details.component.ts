@@ -21,9 +21,19 @@ export class BatchDetailsComponent implements OnInit {
   color = 'primary';
   displayProgressSpinnerInBlock: boolean = false;
 
+   Columns: any[] = [
+  { 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": false, "action": false}
+  , { 'columnName': 'batchId', 'displayName': 'BATCH ID', "active": true, "hyperlink": false, "action": false }
+  , { 'columnName': 'orgId', 'displayName': 'ORG ID', "active": true, "hyperlink": false, "action": false }
+  , { 'columnName': 'imeiNumber', 'displayName': 'IMEI', "active": true, "hyperlink": false, "action": false }  
+  , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateformat":true,"hyperlink": false, "action": false }  
+   , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'imeiList'}
+];
+
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  grid_url: string;
 
   constructor(private service: ServiceService,private router: Router,
     private router1: ActivatedRoute) { }
@@ -34,7 +44,9 @@ export class BatchDetailsComponent implements OnInit {
         this.param1 = params.selectedItem;
         this.param2 = params.cname;
         this.param3 = params.bid;
-        this.getBatchDetails(this.param3);                
+
+        this.grid_url = this.service.api_user_url2 + `/api/bms/view/packs/${params.bid}`
+        // this.getBatchDetails(this.param3);                
       }
     );
   }

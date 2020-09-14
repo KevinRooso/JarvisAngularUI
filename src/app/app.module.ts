@@ -123,6 +123,7 @@ import { CreateFirmwareComponent } from './firmware/create-firmware/create-firmw
 import { BatchLogComponent} from './fota/batch-log/batch-log.component';
 import { BatchDetailsComponent } from './fota/batch-details/batch-details.component';
 import { TopicPreviewComponent } from './topic-preview/topic-preview.component';
+import { FotaMatTableComponent } from './fota-mat-table/fota-mat-table.component';
 
 
 // PlotlyModule.plotlyjs = PlotlyJS;
@@ -213,7 +214,9 @@ PlotlyViaCDNModule.plotlyVersion = '1.49.4';
 
     BatchDetailsComponent,
 
-    TopicPreviewComponent
+    TopicPreviewComponent,
+
+    FotaMatTableComponent
   ],
   imports: [
     MatGridListModule,

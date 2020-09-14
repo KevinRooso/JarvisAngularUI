@@ -28,7 +28,7 @@
               </button>
             </div>
         </div>
-    <div class="mat-elevation-z8">
+    <!-- <div class="mat-elevation-z8">
     <table mat-table [dataSource]="logDataSource" matSort>
         <ng-container matColumnDef="seq">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header disabled><b>S.NO.</b></th>
@@ -99,6 +99,16 @@
                 </table>
 
                 <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-              </div>
+              </div> -->
+
+              <div class="mat-container mt-4">
+                <app-fota-mat-table
+                  [dataUrl]="grid_url"
+                  [headerColumns]="Columns"
+                  [search]=false
+                  (outData)="openBox($event)"
+                  [companyName]="param1"
+                ></app-fota-mat-table>
+              </div> 
     </section>
 </div>

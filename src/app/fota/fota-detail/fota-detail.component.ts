@@ -39,29 +39,26 @@ export class FotaDetailComponent implements OnInit {
   @ViewChild('closeDetail', { static: true }) closeDetail;
   @ViewChild('closeLog', { static: true }) closeLog;
   fotaData:any[] = [];
-  // fotaData: any = [{
-  //   seq: 1,
-  //   batchName: 'Bounce',
-  //   count: 90,
-  //   date: '21 December 2019',
-  //   user: 'Suresh',
-  //   status: 'New'
-  // },{
-  //   seq: 2,
-  //   batchName: 'Bounce',
-  //   count: 80,
-  //   date: '21 December 2019',
-  //   user: 'Suresh',
-  //   status: 'Executed'
-  // }];
 
  logData: any[] = [];
+
+ 
+ Columns: any[] = [
+  { 'columnName': 'id', 'displayName': 'BATCH ID', "active": true, "hyperlink": false, "action": false}
+  , { 'columnName': 'orgId', 'displayName': 'ORG ID', "active": true, "hyperlink": false, "action": false }
+  , { 'columnName': 'count', 'displayName': 'COUNT', "active": true, "hyperlink": false, "action": false }
+  , { 'columnName': 'status', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false }
+  , { 'columnName': 'execute', 'displayName': 'EXECUTE', "active": true, "hyperlink": false, "action": false }
+  , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateformat":true,"hyperlink": false, "action": false }  
+   , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'batchList'}
+];
 
   paramObj:any=null;
   param1: any;
   param2: any;
   fileValid = false;
   paramRecieved = false;
+  grid_url: string;
 
   constructor(private formbuilder:FormBuilder, private service: ServiceService, private router1: ActivatedRoute,
     private router: Router) {
@@ -75,8 +72,10 @@ export class FotaDetailComponent implements OnInit {
       params => {
         this.param1 = params.selectedItem;
         this.param2 = params.cname;        
+        this.grid_url = this.service.api_user_url2 + '/api/bms/view/batches/' + params.selectedItem
       }
-    );    
+    );
+        
     this.getBatches();
     this.logDataSource = new MatTableDataSource(this.logData);
     this.dataSource.paginator = this.paginator;
