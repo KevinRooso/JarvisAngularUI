@@ -18,29 +18,50 @@
             <div class="col-md-6 pl-50">
               <h4 class="hp-40">Publish</h4>
               <ul class="col-form-label">
-               <li><span class="mr-3">TCU: </span> FWP/exicom/{{param2}}/TCU/imei</li>
-               <li><span class="mr-3">BMS: </span> FWP/exicom/{{param2}}/BMS/imei</li>
-               <li><span class="mr-3">CFG: </span> FWP/exicom/{{param2}}/Config/imei</li>
-               <li><span class="mr-1">sysconfig: </span> FWP/exicom/{{param2}}/sysconfig/imei</li>
+                <li><span class="mr-3">tcu: </span> /FWP/{{param2}}/TCU/imei</li>
+               <li><span class="mr-3">bms: </span> /FWP/{{param2}}/BMS/imei</li>
+               <li><span class="mr-3">cfg: </span> /FWP/{{param2}}/Config/imei</li>
+               <li><span class="mr-1">sysconfig: </span> /FWP/{{param2}}/sysconfig/imei</li>
                <!-- <li>FWP/exicom/sysconfig/imei</li> -->
               </ul>
             </div>
             <div class="col-md-6 pl-50">
               <h4 class="hp-40">Subscribe</h4>
               <ul class="col-form-label">
-                <li><span class="mr-3">TCU: </span>FWA/exicom/{{param2}}/TCU/imei</li>
-                <li><span class="mr-3">BMS: </span>FWA/exicom/{{param2}}/BMS/imei</li>
-                <li><span class="mr-3">CFG: </span>FWA/exicom/{{param2}}/Config/imei</li>
-                <li><span class="mr-1">sysconfig: </span> FWA/exicom/{{param2}}/sysconfig/imei</li>
+                <li><span class="mr-3">tcu: </span> /FWA/{{param2}}/TCU/imei</li>
+                <li><span class="mr-3">bms: </span> /FWA/{{param2}}/BMS/imei</li>
+                <li><span class="mr-3">cfg: </span> /FWA/{{param2}}/Config/imei</li>
+                <li><span class="mr-1">sysconfig: </span>  /FWA/{{param2}}/sysconfig/imei</li>
                 <!-- <li>FWP/exicom/sysconfig/imei</li> -->
               </ul>
             </div>
+            <!-- <mat-form-field class="example-full-width">
+              <mat-label>EDIR CLIENT NAME</mat-label>
+              <input matInput placeholder="Client" [(ngModel)]="param2">
+            </mat-form-field> -->
            </div>
-           <div class="row my-2 p-2">
-               <div class="col-md-4"></div>
+           <div class="container">
+            <div class="row m-5">
+              <!-- <div class="col-sm-12"> -->
+                <div class="col-sm-3">
+                  <label>UPDATE CLIENT NAME</label>
+                </div>
+                <div class="col-sm-9">
+                 <mat-form-field class="example-full-width">
+                   <mat-label>EDIT CLIENT NAME</mat-label>
+                   <input matInput placeholder="Client" [(ngModel)]="param2">
+                 </mat-form-field>
+                </div>
+              <!-- </div> -->
+            </div>
+           </div>
+           <div class="row my-2 p-2 px-3">
+               <div class="col-md-4">
+
+               </div>
                <div class="col-md-7">
                 <button class="btn btn-dark w-25 btn-style" style="font-size: 15px;" data-toggle="modal" data-target="#myModal">
-                    Accept
+                    CREATE TOPICS
                 </button>
                </div>
            </div>

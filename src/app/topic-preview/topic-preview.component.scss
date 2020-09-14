@@ -15,14 +15,14 @@ li {
 }
 
 .pl-50{
-  padding-left: 50px;  
+  padding-left: 50px;
 }
 
 .btn-style{
   margin-left: 56px;
 }
 
-// MODAL 
+// MODAL
 
 
 .modal-confirm {
@@ -63,7 +63,7 @@ li {
   color: #999;
 }
 
-.modal-confirm .btn {  
+.modal-confirm .btn {
   border: none;
   border-radius: 4px;
   border-radius: 3px;
@@ -93,4 +93,7 @@ li {
 .modal-confirm .btn-danger:hover,
 .modal-confirm .btn-danger:focus {
   background: #ee3535;
+}
+ul li{
+  text-transform: lowercase !important;
 }
