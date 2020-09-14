@@ -16,6 +16,11 @@ export class BatchDetailsComponent implements OnInit {
   param3: any;
   batchData: any[] = [];
 
+  mode = 'indeterminate';
+  value = 50;
+  color = 'primary';
+  displayProgressSpinnerInBlock: boolean = false;
+
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -36,8 +41,10 @@ export class BatchDetailsComponent implements OnInit {
 
   getBatchDetails(bid){
     this.batchData = [];
+    this.displayProgressSpinnerInBlock = true;
     this.service.getImeiListByBatch(bid).subscribe(
-      res=> {        
+      res=> {       
+        this.displayProgressSpinnerInBlock = false; 
         res.forEach((i, index)=>{
           let obj:any = {
             seq: index+1,
@@ -51,7 +58,7 @@ export class BatchDetailsComponent implements OnInit {
             cfgCommand: i.cfgCommand
           };
           if(i.status === null ){
-            obj.status = "pending";
+            obj.status = "to start";
           }else{
             obj.status = i.status;
           }
@@ -60,7 +67,10 @@ export class BatchDetailsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.batchData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      }
+      },
+     err => {
+      this.displayProgressSpinnerInBlock = false;
+     }
     )
   }
 
@@ -70,6 +80,23 @@ export class BatchDetailsComponent implements OnInit {
 
   logImei(imei){
     this.router.navigate(['/fota-detail/log'],{ queryParams: {selectedItem: this.param1,cname: this.param2, bid: this.param3, imei: imei} });
+  }
+
+  disableLog(row){
+    if(row.status == 'to start'){
+      return true;
+    }else {
+      return false;
+    }
+  }
+  
+  goToFotaList(){
+    this.router.navigate(['/fota'],{ queryParams: {selectedItem: this.param1,cname: this.param2} });
+  }
+
+
+  goToCreateBatch(){
+    this.router.navigate(['/fota-detail'],{ queryParams: {selectedItem: this.param1,cname: this.param2} });
   }
 
 }

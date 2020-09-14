@@ -93,7 +93,8 @@ export class FotaDetailComponent implements OnInit {
     }   
   }
 
-  getBatches(){    
+  getBatches(){
+    this.displayProgressSpinnerInBlock = true;    
     this.service.getBatchByOrgId(this.param1).subscribe(
       res => {
         this.fotaData = [];
@@ -132,8 +133,10 @@ export class FotaDetailComponent implements OnInit {
     console.log(this.paramObj); 
     formData.append('file', this.fileUploaded);
     formData.append('request',JSON.stringify(this.paramObj));
+    this.displayProgressSpinnerInBlock = true;
     this.service.uploadBatchDetails(formData,this.param1).subscribe(
       res => {
+        this.displayProgressSpinnerInBlock = false;
         if(res.status === 200){
           this.getBatches();
           this.bDone = true;
@@ -144,6 +147,7 @@ export class FotaDetailComponent implements OnInit {
         }                        
       },
       err => {
+        this.displayProgressSpinnerInBlock = false;
         if(err.status == 400){
           alert("First Create Topics of "+ this.param2);
         }
@@ -153,6 +157,7 @@ export class FotaDetailComponent implements OnInit {
       }
     );
     }else{
+      this.displayProgressSpinnerInBlock = false;
       alert("Please Upload Valid CSV");
     }  
   }
@@ -168,9 +173,11 @@ export class FotaDetailComponent implements OnInit {
   }
 
   deleteBatch(){
-    let bid = this.batchRow.id;    
+    let bid = this.batchRow.id;
+    this.displayProgressSpinnerInBlock = true;    
     this.service.deleteBatch(bid).subscribe(
       res=> {
+        this.displayProgressSpinnerInBlock = false;
         if(res.status === 200){
         alert("BATCH DELETED");
         this.getBatches();
@@ -180,14 +187,20 @@ export class FotaDetailComponent implements OnInit {
           alert("BATCH CANT BE DELETED");
           this.closeDetail.nativeElement.click();
         }      
+      },
+      err=> {
+        this.displayProgressSpinnerInBlock = false;
+        alert("Error in deleting Batch");
       }
     );
   }
 
   runBatch(){
     let bid = this.batchRow.id;
+    this.displayProgressSpinnerInBlock = true;
     this.service.runBatchById(bid).subscribe(
       res=> {
+        this.displayProgressSpinnerInBlock = false;
         alert("Batch Executed");
         this.getBatches();
         this.closeDetail.nativeElement.click();
@@ -201,6 +214,10 @@ export class FotaDetailComponent implements OnInit {
 
   isRunning(){    
     return !(this.batchRow.status === 'running' || this.batchRow.status === 'done');
+  }
+
+  goToFotaList(){
+    this.router.navigate(['/fota'],{ queryParams: {selectedItem: this.param1,cname: this.param2} });
   }
 
 }

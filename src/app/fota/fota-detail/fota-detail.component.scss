@@ -166,6 +166,40 @@ td.mat-footer-cell {
     margin: 1.75rem auto;
   }
 
+.breadcrumb {
+  width: 100%;
+  background: #e8e8e8;
+  margin-bottom: 0px;
+  padding: 12px 15px 12px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+.breadcrumb li, .breadcrumb li a {
+  font-size: 12px;
+  line-height: 12px;
+  color: #4d5669;
+  text-decoration: none;
+
+}
+.breadcrumb>li {
+  display: inline-block;
+}
+
+.breadcrumb > li + li:before {
+  font-family: "FontAwesome";
+  content: "\f105";
+  color: #4d5669;
+  padding: 0px 8px;
+}
+.breadcrumb li:last-child {
+  color: #22262e;
+  font-weight: bold ;
+}
+
+
 @media (min-width: 850px)
 {
   .modal-dialog {
@@ -208,4 +242,9 @@ tr.mat-header-row {
 }
 .modal-content{
   min-height: 250px;
+}
+
+.sq-relative-backdrop {
+  position: fixed;
+  height: 100%;
 }

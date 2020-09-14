@@ -40,6 +40,11 @@ export class FotaComponent implements OnInit {
   fotaData:any[] = [];
   param2: any;
 
+  mode = 'indeterminate';
+  value = 50;
+  color = 'primary';
+  displayProgressSpinnerInBlock: boolean = false;
+
   constructor(private router:Router, private router1: ActivatedRoute,
     private service: ServiceService) { }
 
@@ -55,6 +60,7 @@ export class FotaComponent implements OnInit {
   }
 
   getAssets(orgId){
+    this.displayProgressSpinnerInBlock = true;
     this.service.getAssetListForFota(orgId).subscribe(
       res=> {
         this.fotaData = [];
@@ -73,6 +79,7 @@ export class FotaComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.fotaData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.displayProgressSpinnerInBlock = false;
       }
     );
   }
@@ -96,23 +103,27 @@ export class FotaComponent implements OnInit {
     console.log(this.paramObj);
     const formData = new FormData();
     formData.append('request',JSON.stringify(this.paramObj));
+    this.displayProgressSpinnerInBlock = true;
     this.service.runFotaForSingleImei(this.param1,this.imeiDetail.imei,formData).subscribe(
       res=> {
         alert("Fota pushed");
         this.getAssets(this.param1);
         this.closePush.nativeElement.click();
         this.paramRecieved = false;
+        this.displayProgressSpinnerInBlock = false;
       },
       err=> {
         if(err.status == 400){
           alert("First Create Topics of " + this.param2);
           this.closePush.nativeElement.click();
           this.paramRecieved = false;
+          this.displayProgressSpinnerInBlock = false;
         }
         else{
           alert("Unable to Push Fota");
           this.closePush.nativeElement.click();          
           this.paramRecieved = false;
+          this.displayProgressSpinnerInBlock = false;
         }        
       }
     );

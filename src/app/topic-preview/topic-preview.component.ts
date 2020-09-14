@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ServiceService } from '../service.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-topic-preview',
@@ -10,6 +11,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class TopicPreviewComponent implements OnInit {
   param1: any;
   param2: any;
+  topicForm: FormGroup;
+  checkError:any;
 
   publishTopics = ['FWP/exicom/bounce/TCU/<imei>','FWP/exicom/bounce/BMS/<imei>','FWP/exicom/bounce/Config/<imei>',
   'FWP/exicom/sysconfig/<imei>'];
@@ -18,27 +21,53 @@ export class TopicPreviewComponent implements OnInit {
   'FWA/exicom/sysconfig/<imei>']
 
   @ViewChild('closeModal2', { static: true }) closeModal2;
+  @ViewChild('openConfirm', { static: true }) openConfirm;
+  submitted = false;
 
   constructor(private service: ServiceService,private router: Router,
-    private router1: ActivatedRoute) { }
+    private router1: ActivatedRoute, private frmbuilder: FormBuilder) {
+      this.topicForm = this.frmbuilder.group({
+        client: ['', [Validators.required,Validators.pattern('^[a-z]*$')]]
+      });
+    }
 
   ngOnInit() {
     this.router1.queryParams.subscribe(
       params => {
         this.param1 = params.client;
-        this.param2 = params.name;        
+        this.param2 = params.name.toLowerCase();
+        this.topicForm.controls['client'].setValue(this.param2);        
       }
     );
+    this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
+          return this.topicForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.topicForm.controls[controlName].hasError(errorName);
+      }
+    };
   }
 
   createTopic(){
-    this.service.createTopicByOrgId(this.param1).subscribe(
+    let cname = this.topicForm.controls['client'].value;
+    console.log(cname);
+    this.service.createTopicByOrgId(this.param1,cname).subscribe(
       _res=> {
         console.log("Topics created");
         this.closeModal2.nativeElement.click();
         this.router.navigate(['/topic-detail']);        
       }
     );
+  }
+
+  isTopicSubmit(){
+    this.submitted = true;
+    this.topicForm.markAsTouched();
+    if(this.topicForm.valid){
+      this.openConfirm.nativeElement.click();
+    }
   }
 
   back(){

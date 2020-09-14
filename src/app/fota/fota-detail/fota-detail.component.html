@@ -1,62 +1,14 @@
 <app-progress-spinner color="accent" [mode]="mode" [value]="value" *ngIf="displayProgressSpinnerInBlock" [diameter]="50"
 class="center-aligned sq-relative-backdrop">
 </app-progress-spinner>
-<!-- <div class="row m-2 p-1 mt-4">
-    <div class="col-md-2">
-       <div class="card">
-           <div class="card-header">CUSTOMER</div>
-           <div class="card-body">
-             <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-             <span class="float-right">Bounce</span>
-           </div>
-       </div>
-    </div>
-    <div class="col-md-2">
-       <div class="card">
-           <div class="card-header">TCU</div>
-           <div class="card-body w-100">
-             <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-             <span class="float-right">i.06</span>
-           </div>
-       </div>
-    </div>
-    <div class="col-md-2">
-       <div class="card">
-           <div class="card-header">BMS</div>
-           <div class="card-body">
-              <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-              <span class="float-right">1.03</span>
-           </div>
-       </div>
-    </div>
-    <div class="col-md-2">
-        <div class="card">
-            <div class="card-header">CFG</div>
-            <div class="card-body">
-                <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                <span class="float-right">1.01</span>
-            </div>
-        </div>
-     </div>
-     <div class="col-md-2">
-        <div class="card">
-            <div class="card-header">Date</div>
-            <div class="card-body">
-              <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-              <span class="float-right">21/12/19</span>
-            </div>
-        </div>
-     </div>
-     <div class="col-md-2">
-        <div class="card">
-            <div class="card-header">User</div>
-            <div class="card-body">
-             <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-             <span class="float-right">Suresh</span>
-            </div>
-        </div>
-     </div>
-</div> -->
+<div>
+  <ul class="breadcrumb">
+    <li><a [routerLink]="['/home-dashboard']">Home</a></li>
+    <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
+    <li><a (click)="goToFotaList()">{{param2}} Fota List</a></li>
+    <li><a style="cursor:auto;">Create Batch</a></li>
+  </ul>
+</div>
 <div class="row m-2 mt-4">
   <div class="col-md-12">
     <div class="card">

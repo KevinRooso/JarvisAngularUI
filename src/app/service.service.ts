@@ -370,8 +370,8 @@ export class ServiceService {
     return this.http.get<any>(this.api_user_url2 + `/getBatchDetailsByBatchId/${bid}`);
   }
 
-  createTopicByOrgId(orgId): Observable<any> {
-    return this.http.post<any>(this.api_user_url2 + `/createTopic/${orgId}`,'');   
+  createTopicByOrgId(orgId,cname): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/createTopic/${orgId}?clientname=${cname}`,'');   
   }
 
   displayTopicByOrgId(orgId): Observable<any> {
