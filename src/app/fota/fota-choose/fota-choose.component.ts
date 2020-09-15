@@ -42,40 +42,9 @@ export class FotaChooseComponent implements OnInit, OnChanges {
   @ViewChild('cfgCheckbox',{static:true}) private cfgCheck: MatCheckbox;
 
   //Commands Array
-  commandsArray = [
-    {
-      name: '1',
-      displayName: 'RESET'
-    },
-    {
-      name: '2',
-      displayName: 'SHOW CONFIG'
-    },
-    {
-      name: '3',
-      displayName: 'SHOW CREDENTIAL'
-    },
-    {
-      name: '4',
-      displayName: 'SHOW OTA'
-    },
-    {
-      name: '5',
-      displayName: 'SHOW PUBTOPICS'
-    },
-    {
-      name: '6',
-      displayName: 'SHOW SUBTOPICS'
-    },
-    {
-      name: '10',
-      displayName: 'SAVE CONFIG'
-    },
-    {
-      name: '11',
-      displayName: 'START OTA'
-    }
-  ];
+  tcuCommandArray:any;
+  bmsCommandArray:any;
+  cfgCommandArray:any;
 
   versionArray = ['1.01','1.03','1.04','1.08','1.10'];
 
@@ -112,17 +81,23 @@ export class FotaChooseComponent implements OnInit, OnChanges {
     });
    }
 
-  ngOnInit() {
-    //Realtime Button hide and list show
-    // this.compSelected = this.service.isCompObservable();
-    // this.tcuSelected = this.service.isTcuObservable();
-    // this.bmsSelected = this.service.isBmsObservable();
-    this.cfgSelected = this.service.isCfgObservable();
-    // this.verSelected = this.service.isVerObservable();    
+  ngOnInit() {    
+    this.cfgSelected = this.service.isCfgObservable();    
+    this.service.getAllCommands().subscribe(res=>{
+      this.tcuCommandArray = res.body.filter(i=> i.type == 'TCU');
+      this.bmsCommandArray = res.body.filter(i=> i.type == 'BMS');
+      this.cfgCommandArray = res.body.filter(i=> i.type == 'CFG');
+    });
+    
   }
 
   ngOnChanges() {
     this.resetParams();
+    this.service.getAllCommands().subscribe(res=>{
+      this.tcuCommandArray = res.body.filter(i=> i.type == 'TCU');
+      this.bmsCommandArray = res.body.filter(i=> i.type == 'BMS');
+      this.cfgCommandArray = res.body.filter(i=> i.type == 'CFG');
+    });
   }
 
   initialParameters(){

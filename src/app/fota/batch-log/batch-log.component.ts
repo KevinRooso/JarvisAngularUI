@@ -29,6 +29,19 @@ export class BatchLogComponent implements OnInit {
   batchLog: boolean = false;
   grid_url: string;
 
+  Columns: any[] = [
+    { 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": false, "action": false}
+    , { 'columnName': 'batchId', 'displayName': 'BATCH ID', "active": true, "hyperlink": false, "action": false }    
+    , { 'columnName': 'imeiNumber', 'displayName': 'IMEI', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'componentType', 'displayName': 'TYPE', "active": true, "hyperlink": false, "action": false }  
+    , { 'columnName': 'componentCommand', 'displayName': 'COMMAND', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'componentVersion', 'displayName': 'VERSION', "active": true, "hyperlink": false, "action": false }    
+    , { 'columnName': 'executionStatus', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false }    
+    , { 'columnName': 'nextRunOrder', 'displayName': 'NEXT RUN', "active": true, "hyperlink": false, "action": false }    
+    , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateFormat":true,"hyperlink": false, "action": false }  
+     , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'executionList'}
+  ];
+
   constructor(private service: ServiceService,private router1: ActivatedRoute,private router: Router) { }
 
   ngOnInit() {
@@ -37,14 +50,14 @@ export class BatchLogComponent implements OnInit {
         this.param1 = params.selectedItem;
         this.param2 = params.cname;
         this.param3 = params.bid;
-        this.param4 = params.imei;
-
+        this.param4 = params.imei;        
+        
         if(this.param3 == 0){
           this.imeiLog = true;
-          this.grid_url = this.service.api_user_url2 + `/api/bms/log/executed/packs/${params.imei}/${params.imei}`
+          this.grid_url = this.service.api_user_url2 + `/api/bms/view/executed/packs/${params.imei}`;
         }else{
           this.batchLog = true;
-          this.grid_url = this.service.api_user_url2 + `/api/bms/log/executed/packs/${params.bid}/${params.imei}`
+          this.grid_url = this.service.api_user_url2 + `/api/bms/view/executed/packs/${params.bid}`
         }
         
         // this.getLog(this.param4,this.param3);

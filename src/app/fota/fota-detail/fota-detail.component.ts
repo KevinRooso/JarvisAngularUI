@@ -49,7 +49,7 @@ export class FotaDetailComponent implements OnInit {
   , { 'columnName': 'count', 'displayName': 'COUNT', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'status', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'execute', 'displayName': 'EXECUTE', "active": true, "hyperlink": false, "action": false }
-  , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateformat":true,"hyperlink": false, "action": false }  
+  , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateFormat":true,"hyperlink": false, "action": false }  
    , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'batchList'}
 ];
 
@@ -125,36 +125,37 @@ export class FotaDetailComponent implements OnInit {
   submitBatch(){
     if(this.fileValid)
     {
-    const formData = new FormData();
-    // for ( let key in this.paramObj ) {
-    //   formData.append(key, this.paramObj[key]);
-    // } 
-    console.log(this.paramObj); 
+    const formData = new FormData();    
     formData.append('file', this.fileUploaded);
-    formData.append('request',JSON.stringify(this.paramObj));
-    this.displayProgressSpinnerInBlock = true;
-    this.service.uploadBatchDetails(formData,this.param1).subscribe(
-      res => {
-        this.displayProgressSpinnerInBlock = false;
-        if(res.status === 200){
-          this.getBatches();
-          this.bDone = true;
-          this.paramRecieved = false;
-        }
-        if(res.status === 203){
-          alert("DUPLICATE BATCH");          
-        }                        
-      },
-      err => {
-        this.displayProgressSpinnerInBlock = false;
-        if(err.status == 400){
-          alert("First Create Topics of "+ this.param2);
-        }
-        else {
-          alert("Error in Uploading Batch");
-        }
+    this.service.createBatch(formData,this.param1,0).subscribe(
+      res=> {
+        console.log(res);
+        alert("Batch Created");
       }
-    );
+    );    
+    // this.displayProgressSpinnerInBlock = true;
+    // this.service.uploadBatchDetails(formData,this.param1).subscribe(
+    //   res => {
+    //     this.displayProgressSpinnerInBlock = false;
+    //     if(res.status === 200){
+    //       this.getBatches();
+    //       this.bDone = true;
+    //       this.paramRecieved = false;
+    //     }
+    //     if(res.status === 203){
+    //       alert("DUPLICATE BATCH");          
+    //     }                        
+    //   },
+    //   err => {
+    //     this.displayProgressSpinnerInBlock = false;
+    //     if(err.status == 400){
+    //       alert("First Create Topics of "+ this.param2);
+    //     }
+    //     else {
+    //       alert("Error in Uploading Batch");
+    //     }
+    //   }
+    // );
     }else{
       this.displayProgressSpinnerInBlock = false;
       alert("Please Upload Valid CSV");

@@ -6,7 +6,7 @@
     <li><a [routerLink]="['/home-dashboard']">Home</a></li>
     <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
     <li><a (click)="goToFotaList()">{{param2}} Fota List</a></li>  
-    <li><a style="cursor:auto;">Imei Log</a></li>
+    <li><a style="cursor:auto;">Imei Result</a></li>
   </ul>
 </div>
 <div *ngIf="batchLog">
@@ -14,20 +14,19 @@
     <li><a [routerLink]="['/home-dashboard']">Home</a></li>
     <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
     <li><a (click)="goToFotaList()">{{param2}} Fota List</a></li>
-    <li><a (click)="goToCreateBatch()">Create Batch</a></li>
-    <li><a (click)="goToBatchDetails()">Batch Details</a></li>
-    <li><a style="cursor:auto;">Imei Log</a></li>
+    <li><a (click)="goToCreateBatch()">Create Batch</a></li>    
+    <li><a style="cursor:auto;">Batch Result</a></li>
   </ul>
 </div>
 <div class="container-fluid mt-5">
     <section class="section-tours">
-        <div class="row my-3">
+        <!-- <div class="row my-3">
             <div class="col-md-3">
               <button class="btn btn-dark w-50" style="font-size: 15px;" (click)="back()">
                 Back
               </button>
             </div>
-        </div>
+        </div> -->
     <!-- <div class="mat-elevation-z8">
     <table mat-table [dataSource]="logDataSource" matSort>
         <ng-container matColumnDef="seq">
@@ -108,6 +107,8 @@
                   [search]=false
                   (outData)="openBox($event)"
                   [companyName]="param1"
+                  [bid]="param3"
+                  [param2]="param2"
                 ></app-fota-mat-table>
               </div> 
     </section>

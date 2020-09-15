@@ -407,3 +407,19 @@ table {
     opacity: 1 !important;
   }
 
+  @media (min-width: 850px)
+  {
+    .modal-dialog {
+      max-width: 800px;
+      margin: 1.75rem auto;
+    }
+  }
+  
+  
+  @media (min-width: 1100px)
+  {
+    .modal-dialog {
+      max-width: 950px;
+      margin: 1.75rem auto;
+    }
+  }

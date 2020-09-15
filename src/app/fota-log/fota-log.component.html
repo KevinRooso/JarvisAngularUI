@@ -1,0 +1,36 @@
+<app-progress-spinner color="accent" [mode]="mode" [value]="value" *ngIf="displayProgressSpinnerInBlock" [diameter]="50"
+  class="center-aligned sq-relative-backdrop">
+</app-progress-spinner>
+<div *ngIf="imeiLog">
+    <ul class="breadcrumb">
+      <li><a [routerLink]="['/home-dashboard']">Home</a></li>
+      <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
+      <li><a (click)="goToFotaList()">{{param2}} Fota List</a></li>  
+      <li><a (click)="goToImeiResult()">Imei Result</a></li>
+      <li><a style="cursor:auto;">Imei Log</a></li>
+    </ul>
+</div>
+<div *ngIf="batchLog">
+  <ul class="breadcrumb">
+    <li><a [routerLink]="['/home-dashboard']">Home</a></li>
+    <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
+    <li><a (click)="goToFotaList()">{{param2}} Fota List</a></li>
+    <li><a (click)="goToCreateBatch()">Create Batch</a></li>
+    <li><a (click)="goToBatchResult()">Imei Result</a></li>
+    <li><a style="cursor:auto;">Batch Log</a></li>
+  </ul>
+</div>
+<div class="container-fluid mt-5">
+    <section class="section-tours">
+ <div class="mat-container mt-4">
+  <app-fota-mat-table
+    [dataUrl]="grid_url"
+    [headerColumns]="Columns"
+    [search]=false
+    (outData)="openBox($event)"
+    [companyName]="param1"
+    [param2]="param2"
+  ></app-fota-mat-table>
+  </div>
+  </section>
+</div>

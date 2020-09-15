@@ -43,6 +43,7 @@ import { BatchLogComponent } from './fota/batch-log/batch-log.component';
 import { BatchDetailsComponent } from './fota/batch-details/batch-details.component';
 import { TopicPreviewComponent } from './topic-preview/topic-preview.component';
 import { CreateFirmwareComponent } from './firmware/create-firmware/create-firmware.component';
+import { FotaLogComponent } from './fota-log/fota-log.component';
 
 
 const routes: Routes = [
@@ -80,7 +81,8 @@ const routes: Routes = [
   { path: 'fota', component: FotaComponent, canActivate: [AuthguardGuard]},
   { path: 'fota-detail', component: FotaDetailComponent, canActivate: [AuthguardGuard]},
   { path: 'fota-detail/batch', component: BatchDetailsComponent, canActivate: [AuthguardGuard]},
-  { path: 'fota-detail/log', component: BatchLogComponent, canActivate: [AuthguardGuard]},
+  { path: 'fota-detail/result', component: BatchLogComponent, canActivate: [AuthguardGuard]},
+  { path: 'fota-detail/log', component: FotaLogComponent, canActivate: [AuthguardGuard]},
   { path: 'topic-detail', component: TopicManagementComponent, canActivate: [AuthguardGuard]},
   { path: 'topic-preview', component: TopicPreviewComponent, canActivate: [AuthguardGuard]},
   { path: 'firmware', component: FirmwareComponent, canActivate: [AuthguardGuard]},

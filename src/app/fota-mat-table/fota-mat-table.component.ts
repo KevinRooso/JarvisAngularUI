@@ -46,15 +46,34 @@ export class FotaMatTableComponent  {
     status: null
   };
 
+  // IMEI PUSH modal
+
+  imeiDetail: any = {
+    imei: '',
+    tcu: '',
+    bms: '',
+    cfg: ''
+  };
+
+  onlyImei = true;
+
+
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild('closePush', { static: true }) closePush;
+  @ViewChild('closeDetail', { static: true }) closeDetail;
+  
 
   @Input('dataUrl') dataUrl: string;
   @Input('headerColumns') headerColumns: any[];
   @Input('search') searchEnable: boolean = false;
   @Input('companyName') companyName:string;
   @Input('param2') param2?: string;
+  @Input('bid') bid?: string;
   @Output() outData = new EventEmitter();
+  modalImei: any;
+  paramObj: any;
+  paramRecieved = false;
 
   constructor(private _httpClient: HttpClient,
     private _service: ServiceService, private router: Router) {
@@ -169,19 +188,92 @@ console.log( data.body.content);
     return new Array(i);
   }
 
+
+/*             FOTA MODAL FUNCTIONS                      */
+
+
   //Create Batch Datatable
 
   batchDetails(row){
     this.batchRow = row;
   }
 
-  getImeiStatus(row){
-    console.log(row);
-    this.router.navigate(['/fota-detail/log'],{ queryParams: {selectedItem: this.companyName,cname: this.param2,imei: row.imeiNo, bid: 0} });
-  }
-
   logBatch(row){
     this.router.navigate(['/fota-detail/batch'],{ queryParams: {selectedItem: this.companyName,cname: this.param2, bid: row.id} });
+  }
+
+  resultBatch(row){
+    this.router.navigate(['/fota-detail/result'],{ queryParams: {selectedItem: this.companyName,cname: this.param2, bid: row.id} });
+  }
+
+  //Fota Dashboard Datatable
+
+  getImeiStatus(row){
+    console.log(row);
+    this.router.navigate(['/fota-detail/result'],{ queryParams: {selectedItem: this.companyName,cname: this.param2,imei: row.imeiNo, bid: 0} });
+  }
+
+  //FOTA Result 
+
+  logImei(row){
+    console.log(row);
+    this.router.navigate(['/fota-detail/log'],{ queryParams: {selectedItem: this.companyName,cname: this.param2,imei: row.imeiNumber, bid: this.bid} });
+  }
+
+  getImeiDetail(row){
+    this.imeiDetail = row;
+    this.modalImei = row.imeiNo;
+  }
+
+  getImeiParam(eventObj){
+    this.paramObj = eventObj;
+    console.log(this.paramObj);
+    this.paramRecieved = true;
+  }
+
+  runImeiFota(){   
+    const formData = new FormData();
+    formData.append('request',JSON.stringify(this.paramObj));    
+    this._service.runFotaSingleImei(formData,this.companyName,this.imeiDetail.imeiNo).subscribe(
+      res=> {
+        console.log(res);
+        alert("FOTA Pushed");
+        this.closePush.nativeElement.click();
+        this.paramRecieved = false;
+      }
+    )
+  }
+
+  runBatch(){
+    console.log(this.batchRow);
+    const formData = new FormData();
+    formData.append('request',JSON.stringify(this.paramObj));        
+    this._service.runBatch(this.batchRow.id,formData).subscribe(
+      res=> {
+        console.log(res);
+        alert("Batch Executed");
+        this.closeDetail.nativeElement.click();
+        this.paramRecieved = false;
+      },
+      err => {
+        alert("Error in Batch Execution");
+        this.closeDetail.nativeElement.click();
+      }
+    )
+  }
+
+  deleteBatch(){
+    this._service.deleteBatchById(this.batchRow.id).subscribe(
+      res=> {
+        console.log(res);
+        alert("Batch Deleted");
+        this.closeDetail.nativeElement.click();
+      },
+      err => {
+        alert("Error in Deleting Batch");
+        this.closeDetail.nativeElement.click();
+      }
+    )
   }
 
 }

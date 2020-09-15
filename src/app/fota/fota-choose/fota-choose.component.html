@@ -11,7 +11,7 @@
    </div>
    <div class="row">
        <div class="col-md-4">
-        <form [formGroup]="firstFormGroup" [ngClass]="(onlyImei)?'form-font-2':'form-font-1'">
+        <form [formGroup]="firstFormGroup" class="form-font-2">
             <div class="form-row mt-2">
               <div class="col-md-3 col-form-label">
                 <label class="mt-3">Version</label>
@@ -36,7 +36,7 @@
           <mat-form-field appearance="fill">
               <mat-label>Select Command</mat-label>
               <mat-select formControlName="command" [disabled]="!tcuChe">
-                <mat-option *ngFor="let com of commandsArray" [value]="com.name">
+                <mat-option *ngFor="let com of tcuCommandArray" [value]="com.id">
                   {{com.displayName}}
                 </mat-option>
               </mat-select>
@@ -46,7 +46,7 @@
         </form>
       </div>
       <div class="col-md-4">
-        <form [formGroup]="secondFormGroup" [ngClass]="(onlyImei)?'form-font-2':'form-font-1'">
+        <form [formGroup]="secondFormGroup" class="form-font-2">
             <div class="form-row mt-2">
               <div class="col-md-3 col-form-label">
                 <label class="mt-3">Version</label>
@@ -72,7 +72,7 @@
               <mat-label>Select Command</mat-label>
               <mat-select formControlName="command" [disabled]="!bmsChe">
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let com of commandsArray"  [value]="com.name">
+                <mat-option *ngFor="let com of bmsCommandArray"  [value]="com.id">
                   {{com.displayName}}
                 </mat-option>
               </mat-select>
@@ -82,7 +82,7 @@
         </form>
       </div>
       <div class="col-md-4" *ngIf="cfgSelected | async">
-        <form [formGroup]="thirdFormGroup" [ngClass]="(onlyImei)?'form-font-2':'form-font-1'">
+        <form [formGroup]="thirdFormGroup" class="form-font-2">
             <div class="form-row mt-2">
               <div class="col-md-3 col-form-label">
                 <label class="mt-3">Version</label>
@@ -106,7 +106,7 @@
           <mat-form-field appearance="fill">
               <mat-label>Select Command</mat-label>
               <mat-select formControlName="command" [disabled]="!cfgChe">
-                <mat-option *ngFor="let com of commandsArray"  [value]="com.name">
+                <mat-option *ngFor="let com of cfgCommandArray"  [value]="com.id">
                   {{com.displayName}}
                 </mat-option>
               </mat-select>
@@ -120,7 +120,7 @@
        <div class="col-md-5"></div>
        <div class="col-md-7">
         <button *ngIf="!onlyImei" [disabled]="batchConfirm" class="text-center btn btn-dark btn-size px-4" (click)="submitBatchParam()">
-          CONFIRM AND PROCEED TO CSV
+          CONFIRM
         </button>
         <button *ngIf="onlyImei" [disabled]="imeiConfirm" class="text-center btn btn-dark btn-size w-25" (click)="submitImeiParam()">
             CONFIRM

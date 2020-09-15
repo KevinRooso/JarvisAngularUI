@@ -26,8 +26,7 @@ export class BatchDetailsComponent implements OnInit {
   , { 'columnName': 'batchId', 'displayName': 'BATCH ID', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'orgId', 'displayName': 'ORG ID', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'imeiNumber', 'displayName': 'IMEI', "active": true, "hyperlink": false, "action": false }  
-  , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateformat":true,"hyperlink": false, "action": false }  
-   , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'imeiList'}
+  , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateFormat":true,"hyperlink": false, "action": false }     
 ];
 
 
@@ -45,7 +44,7 @@ export class BatchDetailsComponent implements OnInit {
         this.param2 = params.cname;
         this.param3 = params.bid;
 
-        this.grid_url = this.service.api_user_url2 + `/api/bms/view/packs/${params.bid}`
+        this.grid_url = this.service.api_user_url2 + `/api/bms/view/packs/${this.param1}/${params.bid}`
         // this.getBatchDetails(this.param3);                
       }
     );

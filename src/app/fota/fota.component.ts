@@ -51,7 +51,7 @@ export class FotaComponent implements OnInit {
     , { 'columnName': 'bin', 'displayName': 'BIN', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'tcu', 'displayName': 'TCU', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'bms', 'displayName': 'BMS', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'cfg', 'displayName': 'CFG', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'bmsConfigurationVersion', 'displayName': 'CFG', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'status', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false }  
      , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'dashboard'}
   ];
@@ -111,44 +111,38 @@ export class FotaComponent implements OnInit {
     this.paramRecieved = true;
   }
 
-  runImeiFota(){
-    console.log(this.imeiDetail);
-    console.log(this.paramObj);
-    const formData = new FormData();
-    formData.append('request',JSON.stringify(this.paramObj));
-    this.displayProgressSpinnerInBlock = true;
-    this.service.runFotaForSingleImei(this.param1,this.imeiDetail.imei,formData).subscribe(
-      res=> {
-        alert("Fota pushed");
-        this.getAssets(this.param1);
-        this.closePush.nativeElement.click();
-        this.paramRecieved = false;
-        this.displayProgressSpinnerInBlock = false;
-      },
-      err=> {
-        if(err.status == 400){
-          alert("First Create Topics of " + this.param2);
-          this.closePush.nativeElement.click();
-          this.paramRecieved = false;
-          this.displayProgressSpinnerInBlock = false;
-        }
-        else{
-          alert("Unable to Push Fota");
-          this.closePush.nativeElement.click();          
-          this.paramRecieved = false;
-          this.displayProgressSpinnerInBlock = false;
-        }        
-      }
-    );
-  }
+  // runImeiFota(){
+  //   console.log(this.imeiDetail);
+  //   console.log(this.paramObj);
+  //   const formData = new FormData();
+  //   formData.append('request',JSON.stringify(this.paramObj));
+  //   this.displayProgressSpinnerInBlock = true;
+  //   this.service.runFotaForSingleImei(this.param1,this.imeiDetail.imei,formData).subscribe(
+  //     res=> {
+  //       alert("Fota pushed");
+  //       this.getAssets(this.param1);
+  //       this.closePush.nativeElement.click();
+  //       this.paramRecieved = false;
+  //       this.displayProgressSpinnerInBlock = false;
+  //     },
+  //     err=> {
+  //       if(err.status == 400){
+  //         alert("First Create Topics of " + this.param2);
+  //         this.closePush.nativeElement.click();
+  //         this.paramRecieved = false;
+  //         this.displayProgressSpinnerInBlock = false;
+  //       }
+  //       else{
+  //         alert("Unable to Push Fota");
+  //         this.closePush.nativeElement.click();          
+  //         this.paramRecieved = false;
+  //         this.displayProgressSpinnerInBlock = false;
+  //       }        
+  //     }
+  //   );
+  // }
 
   getImeiStatus(row){
-    // this.service.getImeiStatus(row.imei).subscribe(
-    //   res=> {
-    //     this.imeiStatus = res;
-    //     this.imeiStatus.imei = row.imei;
-    //   }
-    // )
     this.router.navigate(['/fota-detail/log'],{ queryParams: {selectedItem: this.param1,cname: this.param2,imei: row.imei, bid: 0} });
   }
 

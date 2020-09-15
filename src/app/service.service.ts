@@ -342,9 +342,9 @@ export class ServiceService {
     return this.http.get<any>(this.api_user_url2 + `/get_asset_data_/${orgId}`);
   }
 
-  runFotaForSingleImei(orgId,imei,obj): Observable<any> {
-    return this.http.post<any>(this.api_user_url2 + `/single_imei_run/${orgId}/${imei}`,obj);
-  }
+  // runFotaForSingleImei(orgId,imei,obj): Observable<any> {
+  //   return this.http.post<any>(this.api_user_url2 + `/single_imei_run/${orgId}/${imei}`,obj);
+  // }
 
   deleteBatch(batchId: any) : Observable<any>{
     return this.http.delete<any>(this.api_user_url2 + `/delete_batch_ByBatchId/${batchId}`); 
@@ -396,6 +396,26 @@ export class ServiceService {
 
   getBatchByOrgId(orgId): Observable<any> {
     return this.http.post<any>(this.api_user_url2 + `/getBatchByOrgId/${orgId}`,'');
+  }
+
+  getAllCommands(): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + `/api/bms/commands`);
+  }
+
+  runFotaSingleImei(request,orgId,imei): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/excute/single/${orgId}/${imei}`,request);
+  }
+
+  createBatch(file,orgId,bid): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/create/batch/${orgId}?batchId=${bid}`,file);
+  }
+
+  runBatch(bid,request): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/execute/batch/${bid}`,request);
+  }
+
+  deleteBatchById(bid): Observable<any> {
+    return this.http.delete<any>(this.api_user_url2 + `/api/bms/delete/batch/${bid}`);
   }
 
   /*  */
