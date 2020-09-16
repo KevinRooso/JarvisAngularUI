@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -50,7 +51,7 @@ export class FirmwareComponent implements OnInit {
         res.forEach((i, index)=>{
           let obj = {
             seq: index+1,
-            name: i.clientname,
+            name: i.clientName,
             type: i.firmwaretype,
             version: i.firmwareversion,
             username: i.username,

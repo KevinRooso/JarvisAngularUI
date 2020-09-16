@@ -13,8 +13,8 @@
           </form>
         </div>
       </div>
-      <div class="col-md-3 text-right">
-        <button class="btn btn-dark py-2" style="font-size: 15px;" [hidden]="isTopicDone" (click)="createTopic()">
+      <div class="col-md-3 text-right"><!--[hidden]="isTopicDone"-->
+        <button class="btn btn-dark py-2" style="font-size: 15px;"  [hidden]="isTopicDone" (click)="createTopic()">
          Generate MQTT Topics
         </button>
       </div>
@@ -27,7 +27,7 @@
           </div>
           <div class="card-body p-0">
             <ul class="list-group" *ngFor="let pub of publishTopics">
-              <li class="list-group-item lh-3">{{pub.topicname}}</li>
+              <li class="list-group-item lh-3">{{pub.topicName}}</li>
             </ul>
           </div>
         </div>
@@ -39,7 +39,7 @@
           </div>
           <div class="card-body p-0">
             <ul class="list-group" *ngFor="let sub of subscribeTopics">
-              <li class="list-group-item lh-3">{{sub.topicname}}</li>
+              <li class="list-group-item lh-3">{{sub.topicName}}</li>
             </ul>
           </div>
         </div>
