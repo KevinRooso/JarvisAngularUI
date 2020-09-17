@@ -56,6 +56,7 @@ export class TopicPreviewComponent implements OnInit {
     this.service.createTopicByOrgId(this.param1,cname).subscribe(
       _res=> {
         console.log("Topics created");
+        alert("Topics Generated");
         this.closeModal2.nativeElement.click();
         this.router.navigate(['/topic-detail']);        
       }

@@ -382,12 +382,12 @@ export class ServiceService {
     return this.http.get<any>(this.api_user_url2 + `/api/bms/firmwares/`);
   }
 
-  firmwareExists(orgId,firmwaretype,firmwareversion): Observable<any> {
-    return this.http.post<any>(this.api_user_url2 + `/api/bms/compare/${orgId}/${firmwaretype}/${firmwareversion}`,'');
+  firmwareExists(orgId,firmwareType,firmwareVersion): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/compare/${orgId}/${firmwareType}/${firmwareVersion}`,'');
   }
 
-  createFirmware(orgId,firmwaretype,firmwareversion,file): Observable<any> {
-    return this.http.post<any>(this.api_user_url2 + `/api/bms/create/${orgId}/${firmwaretype}/${firmwareversion}`,file);
+  createFirmware(orgId,firmwareType,firmwareVersion,file): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/create/${orgId}/${firmwareType}/${firmwareVersion}`,file);
   }
 
   retryFota(orgId,compType,imei): Observable<any>{

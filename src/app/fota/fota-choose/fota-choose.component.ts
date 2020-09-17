@@ -224,6 +224,9 @@ export class FotaChooseComponent implements OnInit, OnChanges {
     this.tcuCheck.checked = false;
     this.bmsCheck.checked = false;
     this.cfgCheck.checked = false;
+    this.bmsChe = false;
+    this.tcuChe = false;
+    this.cfgChe = false;
     this.isBms = true;
     this.imeiConfirm = false;
     this.batchConfirm = false;

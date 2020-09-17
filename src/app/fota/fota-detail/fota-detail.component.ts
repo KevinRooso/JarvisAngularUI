@@ -18,6 +18,7 @@ export class FotaDetailComponent implements OnInit {
   dataSource: any;
   logDataSource: any;
   bDone = false;
+  bFlag = 0;
 
   batchRow = {
     batchName: null,
@@ -38,19 +39,21 @@ export class FotaDetailComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('closeDetail', { static: true }) closeDetail;
   @ViewChild('closeLog', { static: true }) closeLog;
+  @ViewChild('batchCsv', { static: true }) batchFile;
   fotaData:any[] = [];
 
  logData: any[] = [];
 
  
  Columns: any[] = [
+  { 'columnName': 'sequence', 'displayName': 'S.NO', "active": true, "hyperlink": false, "action": false ,"sortDisabled": true},
   { 'columnName': 'id', 'displayName': 'BATCH ID', "active": true, "hyperlink": false, "action": false}
   , { 'columnName': 'orgId', 'displayName': 'ORG ID', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'count', 'displayName': 'COUNT', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'status', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'execute', 'displayName': 'EXECUTE', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateFormat":true,"hyperlink": false, "action": false }  
-   , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'batchList'}
+   , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'batchList',"sortDisabled": true}
 ];
 
   paramObj:any=null;
@@ -76,17 +79,17 @@ export class FotaDetailComponent implements OnInit {
       }
     );
         
-    this.getBatches();
-    this.logDataSource = new MatTableDataSource(this.logData);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // // this.getBatches();
+    // this.logDataSource = new MatTableDataSource(this.logData);
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   uploadedFile(event) {
     this.fileUploaded = event.target.files[0] as File;
     this.uploaded = true; 
     const fileType = this.fileUploaded.type;
-    console.log(fileType);
+    console.log(fileType);    
     if (fileType === 'text/csv') {
       this.fileValid = true;      
     }   
@@ -131,6 +134,10 @@ export class FotaDetailComponent implements OnInit {
       res=> {
         console.log(res);
         alert("Batch Created");
+        this.fileValid = false;
+        this.bFlag++;
+        console.log("BFLAG",this.bFlag);
+        this.batchFile.nativeElement.value = "";        
       }
     );    
     // this.displayProgressSpinnerInBlock = true;

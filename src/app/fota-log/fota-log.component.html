@@ -5,7 +5,7 @@
     <ul class="breadcrumb">
       <li><a [routerLink]="['/home-dashboard']">Home</a></li>
       <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
-      <li><a (click)="goToFotaList()">{{param2}} Fota List</a></li>  
+      <li><a (click)="goToFotaList()">{{param2 | titlecase}} Fota List</a></li>  
       <li><a (click)="goToImeiResult()">Imei Result</a></li>
       <li><a style="cursor:auto;">Imei Log</a></li>
     </ul>
@@ -14,15 +14,15 @@
   <ul class="breadcrumb">
     <li><a [routerLink]="['/home-dashboard']">Home</a></li>
     <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
-    <li><a (click)="goToFotaList()">{{param2}} Fota List</a></li>
+    <li><a (click)="goToFotaList()">{{param2 | titlecase}} Fota List</a></li>
     <li><a (click)="goToCreateBatch()">Create Batch</a></li>
-    <li><a (click)="goToBatchResult()">Imei Result</a></li>
+    <li><a (click)="goToBatchResult()">Batch Result</a></li>
     <li><a style="cursor:auto;">Batch Log</a></li>
   </ul>
 </div>
 <div class="container-fluid mt-5">
     <section class="section-tours">
- <div class="mat-container mt-4">
+ <div class="mat-container mt-4 mb-5">
   <app-fota-mat-table
     [dataUrl]="grid_url"
     [headerColumns]="Columns"

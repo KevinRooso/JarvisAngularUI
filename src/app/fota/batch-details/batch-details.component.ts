@@ -22,6 +22,7 @@ export class BatchDetailsComponent implements OnInit {
   displayProgressSpinnerInBlock: boolean = false;
 
    Columns: any[] = [
+    { 'columnName': 'sequence', 'displayName': 'S.NO', "active": true, "hyperlink": false, "action": false ,"sortDisabled": true},
   { 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": false, "action": false}
   , { 'columnName': 'batchId', 'displayName': 'BATCH ID', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'orgId', 'displayName': 'ORG ID', "active": true, "hyperlink": false, "action": false }

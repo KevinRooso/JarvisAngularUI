@@ -2,7 +2,7 @@
   <ul class="breadcrumb">
     <li><a [routerLink]="['/home-dashboard']">Home</a></li>
     <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
-    <li><a style="cursor:auto;">{{param2}} Fota List</a></li>
+    <li><a style="cursor:auto;">{{ param2 | titlecase }} Fota List</a></li>
   </ul>
 </div>
 <app-progress-spinner color="accent" [mode]="mode" [value]="value" *ngIf="displayProgressSpinnerInBlock" [diameter]="50"
@@ -169,7 +169,7 @@
     </div>
   </div> -->
 
-<div class="mat-container">
+<div class="mat-container mb-5">
 <app-fota-mat-table
   [dataUrl]="grid_url"
   [headerColumns]="Columns"

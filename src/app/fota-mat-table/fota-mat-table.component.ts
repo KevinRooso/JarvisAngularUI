@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ViewChild, Inject, Input, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, Inject, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, Observable, of as observableOf } from 'rxjs';
@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
   templateUrl: './fota-mat-table.component.html',
   styleUrls: ['./fota-mat-table.component.scss']
 })
-export class FotaMatTableComponent  {
+export class FotaMatTableComponent{
   value: any = [];
   datacolumns;
   displayedColumns: any[] = [];
@@ -70,10 +70,14 @@ export class FotaMatTableComponent  {
   @Input('companyName') companyName:string;
   @Input('param2') param2?: string;
   @Input('bid') bid?: string;
+  @Input('batchSubmit') batchSubmit?: any;
   @Output() outData = new EventEmitter();
   modalImei: any;
   paramObj: any;
   paramRecieved = false;
+  modalBatch: any;
+
+  firstChange = false;
 
   constructor(private _httpClient: HttpClient,
     private _service: ServiceService, private router: Router) {
@@ -86,6 +90,8 @@ export class FotaMatTableComponent  {
 
   ngOnInit(): void {
 
+    this.firstChange = true;
+
     this.headerColumns.forEach(el => {
       if (el.active) {
         this.value.push(el.displayName);        
@@ -96,6 +102,13 @@ export class FotaMatTableComponent  {
 
   }
 
+  ngOnChanges(){
+    if(this.firstChange){
+      this.ngAfterViewInit();
+      console.log("BatchSubmit",this.batchSubmit);
+      // this.batchSubmit = false;
+    }    
+  }
 
   sendOutData(id) {
     this.outData.emit({ code: id })
@@ -196,6 +209,7 @@ console.log( data.body.content);
 
   batchDetails(row){
     this.batchRow = row;
+    this.modalBatch = row.id;
   }
 
   logBatch(row){
@@ -223,12 +237,19 @@ console.log( data.body.content);
   getImeiDetail(row){
     this.imeiDetail = row;
     this.modalImei = row.imeiNo;
+    console.log(this.paginator);
   }
 
   getImeiParam(eventObj){
     this.paramObj = eventObj;
     console.log(this.paramObj);
     this.paramRecieved = true;
+  }
+
+  resetParamReceieved(){
+    this.paramRecieved = false;
+    this.modalImei = null;
+    this.modalBatch = null;    
   }
 
   runImeiFota(){   
@@ -240,6 +261,7 @@ console.log( data.body.content);
         alert("FOTA Pushed");
         this.closePush.nativeElement.click();
         this.paramRecieved = false;
+        this.ngAfterViewInit();
       }
     )
   }
@@ -254,6 +276,7 @@ console.log( data.body.content);
         alert("Batch Executed");
         this.closeDetail.nativeElement.click();
         this.paramRecieved = false;
+        this.ngAfterViewInit();
       },
       err => {
         alert("Error in Batch Execution");
@@ -268,6 +291,7 @@ console.log( data.body.content);
         console.log(res);
         alert("Batch Deleted");
         this.closeDetail.nativeElement.click();
+        this.ngAfterViewInit();      
       },
       err => {
         alert("Error in Deleting Batch");

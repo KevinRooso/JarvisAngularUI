@@ -5,7 +5,7 @@ class="center-aligned sq-relative-backdrop">
   <ul class="breadcrumb">
     <li><a [routerLink]="['/home-dashboard']">Home</a></li>
     <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
-    <li><a (click)="goToFotaList()">{{param2}} Fota List</a></li>
+    <li><a (click)="goToFotaList()">{{param2 | titlecase}} Fota List</a></li>
     <li><a style="cursor:auto;">Create Batch</a></li>
   </ul>
 </div>
@@ -36,7 +36,7 @@ class="center-aligned sq-relative-backdrop">
             <label>Batch CSV</label>
           </div>
           <div class="col-md-5 col-form-label">
-            <input type="file" class="form-control-file" (change)="uploadedFile($event)" placeholder="Upload file" accept=".csv">
+            <input #batchCsv style="font-size: 12px;" type="file" class="form-control-file" (change)="uploadedFile($event)" placeholder="Upload file" accept=".csv">
           </div>
         </div>
         <div class="form-row mt-2">
@@ -190,5 +190,6 @@ class="center-aligned sq-relative-backdrop">
     (outData)="openBox($event)"
     [companyName]="param1"
     [param2]="param2"
+    [batchSubmit]="bFlag"    
   ></app-fota-mat-table>
   </div>

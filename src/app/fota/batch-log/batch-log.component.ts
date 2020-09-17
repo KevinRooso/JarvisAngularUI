@@ -30,8 +30,9 @@ export class BatchLogComponent implements OnInit {
   grid_url: string;
 
   Columns: any[] = [
+    { 'columnName': 'sequence', 'displayName': 'S.NO', "active": true, "hyperlink": false, "action": false ,"sortDisabled": true},
     { 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": false, "action": false}
-    , { 'columnName': 'batchId', 'displayName': 'BATCH ID', "active": true, "hyperlink": false, "action": false }    
+    // , { 'columnName': 'batchId', 'displayName': 'BATCH ID', "active": true, "hyperlink": false, "action": false }    
     , { 'columnName': 'imeiNumber', 'displayName': 'IMEI', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'componentType', 'displayName': 'TYPE', "active": true, "hyperlink": false, "action": false }  
     , { 'columnName': 'componentCommand', 'displayName': 'COMMAND', "active": true, "hyperlink": false, "action": false }
@@ -39,7 +40,7 @@ export class BatchLogComponent implements OnInit {
     , { 'columnName': 'executionStatus', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false }    
     , { 'columnName': 'nextRunOrder', 'displayName': 'NEXT RUN', "active": true, "hyperlink": false, "action": false }    
     , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateFormat":true,"hyperlink": false, "action": false }  
-     , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'executionList'}
+     , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'executionList',"sortDisabled": true}
   ];
 
   constructor(private service: ServiceService,private router1: ActivatedRoute,private router: Router) { }

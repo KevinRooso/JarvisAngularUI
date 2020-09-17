@@ -74,7 +74,7 @@ export class CreateFirmwareComponent implements OnInit {
     let version = this.createFirmwareGroup.controls['fVersion'].value;
     this.service.firmwareExists(orgId,type,version).subscribe(
       res=>{
-        if(res.message === 'exists'){
+        if(res == true){
           this.fwareExists = true;
         }else{
           this.fwareExists = false;
@@ -99,6 +99,7 @@ export class CreateFirmwareComponent implements OnInit {
     this.service.createFirmware(orgId,type,version,formdata).subscribe(
       res=> {
         console.log("created",res);
+        alert("Firmware Generated");
         this.closeModal.nativeElement.click();
         this.router.navigate(['firmware']);
       }

@@ -47,13 +47,14 @@ export class FotaComponent implements OnInit {
   grid_url: string;
 
   Columns: any[] = [    
-     { 'columnName': 'imeiNo', 'displayName': 'IMEI', "active": true, "hyperlink": false, "action": false }
+    { 'columnName': 'sequence', 'displayName': 'S.NO', "active": true, "hyperlink": false, "action": false,"sortDisabled": true },
+    { 'columnName': 'imeiNo', 'displayName': 'IMEI', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'bin', 'displayName': 'BIN', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'tcu', 'displayName': 'TCU', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'bms', 'displayName': 'BMS', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'bmsConfigurationVersion', 'displayName': 'CFG', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'status', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false }  
-     , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'dashboard'}
+     , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'dashboard',"sortDisabled": true}
   ];
 
   constructor(private router:Router, private router1: ActivatedRoute,

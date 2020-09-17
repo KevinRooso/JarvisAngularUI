@@ -29,10 +29,10 @@
     </div>
   </div>
 
-  <div class="example-table-container mb-1">
-  <div style="display: inline-block;padding: 8px 0px;" *ngIf="searchEnable">
+  <div class="example-table-container" style="margin-bottom: 7rem;">
+  <!-- <div style="display: inline-block;padding: 8px 0px;" *ngIf="searchEnable">
     <span style="font-size: 20px;font-weight: 400;">{{companyName}} Assets Table</span>
-  </div>
+  </div> -->
 
     <div class="panel" *ngIf="searchEnable">
       <div class="xn-search">
@@ -87,29 +87,25 @@
           {{ column.displayName }}
         </th>
 
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element;let i = dataIndex;">
           <span *ngIf="!column.action; else elseBlock">
+            <span *ngIf="column.columnName == 'sequence'">
+              {{(i+1) + (paginator.pageSize * paginator.pageIndex)}}
+            </span>
             <span *ngIf="!column.dateFormat">
-                {{ element[column.columnName] }}
+                {{ element[column.columnName] }}                                                
               </span>
               <span *ngIf="column.dateFormat">
                 {{ element[column.columnName] | date: 'dd-MM-yyyy HH:mm:ss'}}
               </span>                      
           </span>
-          <ng-template #elseBlock>
-            <button
-              *ngIf="column.displayName == 'Action'"
-              mat-icon-button
-              (click)="getColumnValue(element.id, 'edit',element)"
-            >
-              <mat-icon>edit</mat-icon>
-            </button>
+          <ng-template #elseBlock>            
             <span *ngIf="column.purpose == 'dashboard'">
-              <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="getImeiDetail(element)" data-toggle="modal" data-target="#imeiModal">
+              <button style="font-size: 10px;" [disabled]="element.status == 'Running'" class="btn btn-outline-dark mr-3" (click)="getImeiDetail(element)" data-toggle="modal" data-target="#imeiModal">
                 PUSH FOTA
               </button>
               <button style="font-size: 10px;" class="btn btn-outline-dark" (click)="getImeiStatus(element)">
-                DETAIL
+                RESULTS
               </button>
             </span>
             <span *ngIf="column.purpose == 'batchList'">
@@ -135,7 +131,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr
         mat-row
-        *matRowDef="let element; columns: displayedColumns"
+        *matRowDef="let element; columns: displayedColumns;let i = dataIndex;"
         class="example-element-row"
       ></tr>
     </table>
@@ -176,7 +172,7 @@
           <div class="heading-shadow py-3 px-4">
             <h5 class="modal-title">DETAILS</h5>
           </div>
-          <button type="button" #closeDetail class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <button type="button" #closeDetail (click)="resetParamReceieved()" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -224,7 +220,7 @@
                   <div class="card">
                     <div class="card-header">UPDATE FOTA</div>
                     <div class="card-body">
-                    <app-fota-choose (batchInfo)="getImeiParam($event)" [imei]="batchRow.id"></app-fota-choose>
+                    <app-fota-choose (batchInfo)="getImeiParam($event)" [imei]="modalBatch"></app-fota-choose>
                     </div>
                   </div>
               </div>
@@ -253,7 +249,7 @@
         <div class="heading-shadow py-3 px-4">
           <h5 class="modal-title">DETAILS</h5>
         </div>
-        <button type="button" #closePush class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+        <button type="button" #closePush (click)="resetParamReceieved()" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

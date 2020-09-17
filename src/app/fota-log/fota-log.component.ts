@@ -18,6 +18,7 @@ export class FotaLogComponent implements OnInit {
   batchLog = false;
 
   Columns: any[] = [
+    { 'columnName': 'sequence', 'displayName': 'S.NO', "active": true, "hyperlink": false, "action": false ,"sortDisabled": true},
     { 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": false, "action": false}
     // , { 'columnName': 'batchId', 'displayName': 'BATCH ID', "active": true, "hyperlink": false, "action": false }    
     , { 'columnName': 'imeiNumber', 'displayName': 'IMEI', "active": true, "hyperlink": false, "action": false }
