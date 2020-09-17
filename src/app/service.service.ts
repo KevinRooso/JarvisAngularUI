@@ -371,23 +371,23 @@ export class ServiceService {
   }
 
   createTopicByOrgId(orgId,cname): Observable<any> {
-    return this.http.post<any>(this.api_user_url2 + `/createTopic/${orgId}?clientname=${cname}`,'');   
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/createTopic/${orgId}?clientName=${cname}`,'');   
   }
 
   displayTopicByOrgId(orgId): Observable<any> {
-    return this.http.get<any>(this.api_user_url2 + `/displayTopicsByOrgId/${orgId}`);
+    return this.http.get<any>(this.api_user_url2 + `/api/bms/displayTopicsByOrgId/${orgId}`);
   }
 
   getFirmwareList(): Observable<any> {
-    return this.http.get<any>(this.api_user_url2 + '/getAllFirmware');
+    return this.http.get<any>(this.api_user_url2 + `/api/bms/firmwares/`);
   }
 
   firmwareExists(orgId,firmwaretype,firmwareversion): Observable<any> {
-    return this.http.post<any>(this.api_user_url2 + `/compareFirmware/${orgId}/${firmwaretype}/${firmwareversion}`,'');
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/compare/${orgId}/${firmwaretype}/${firmwareversion}`,'');
   }
 
   createFirmware(orgId,firmwaretype,firmwareversion,file): Observable<any> {
-    return this.http.post<any>(this.api_user_url2 + `/createFirmware/${orgId}/${firmwaretype}/${firmwareversion}`,file);
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/create/${orgId}/${firmwaretype}/${firmwareversion}`,file);
   }
 
   retryFota(orgId,compType,imei): Observable<any>{
