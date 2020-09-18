@@ -44,12 +44,13 @@
           <div class="col-sm-9 col-form-label">
             <mat-form-field appearance="fill">
               <mat-label>Select version</mat-label>
-              <mat-select formControlName="fVersion">
+              <!--<mat-select formControlName="fVersion">
                 <mat-option>--</mat-option>
                 <mat-option *ngFor="let ver of versionArray" [value]="ver">
                   {{ver}}
                 </mat-option>
-              </mat-select>
+              </mat-select>-->
+              <input matInput formControlName="fVersion">
               <mat-error *ngIf="checkError('fVersion', 'required')">(Firmware Version is required)</mat-error>
             </mat-form-field>
           </div>
@@ -110,3 +111,6 @@
     </div>
   </div>
 </div>
+<app-progress-spinner color="accent" [mode]="mode" [value]="value" *ngIf="displayProgressSpinnerInBlock" [diameter]="50"
+  class="center-aligned sq-relative-backdrop">
+</app-progress-spinner>

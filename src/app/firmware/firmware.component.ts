@@ -91,8 +91,8 @@ export class FirmwareComponent implements OnInit {
           let obj = {
             seq: index + 1,
             name: i.clientName,
-            type: i.firmwaretype,
-            version: i.firmwareversion,
+            type: i.firmwareType,
+            version: i.firmwareVersion,
             username: i.username,
             createdDate: i.createdate
           };
