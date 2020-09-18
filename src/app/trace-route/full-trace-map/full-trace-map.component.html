@@ -58,10 +58,10 @@
      </div>
     </div> -->
     <div class="row">
-      <!-- <div class="col-md-1"></div> -->
-      <div class="col-md-12">
+      <div class="col-md-2"></div>
+      <div class="col-md-10">
        <div class="panel panel-default">
-           <div class="panel-heading ui-draggable-handle">
+           <!-- <div class="panel-heading ui-draggable-handle">
              <div class="panel-title-box" style="width: 100%;">
               <div class="row">
                 <div class="col-sm-6 pt-4">
@@ -97,7 +97,7 @@
               </div>
 
            </div>
-       </div>
+       </div> -->
        <div class="panel-body" style="padding: 0px;">
        <div class="map-container">
            <app-trace-map [assetId]="assetId" [pingDate]="latestRecord.created_date"
@@ -109,3 +109,31 @@
       </div>
       </section>
   </div>
+<div id="myDiv">
+  <p style="font-size: 14px; margin-bottom: 5px;"><b>Battery IMEI : </b><br>{{batteryInfo.imeiNo}}</p>
+  <p style="font-size: 14px; margin-bottom: 5px;"><b>Battery BIN  : </b><br>{{batteryInfo.bin}}</p>
+  <mat-form-field class="w-100" style="font-size: 16px;">
+                    <input
+                      data-step="1"
+                      data-intro="Select Any Date!"
+                      matInput
+                      type="text"
+                      ngxDaterangepickerMd
+                      [(ngModel)]="selected"
+                      [showCustomRangeLabel]="true"
+                      [alwaysShowCalendars]="false"
+                      [ranges]="ranges"
+                      (datesUpdated)="datesUpdated($event)"
+                      [linkedCalendars]="true"
+                      [timePicker]="true"
+                      [timePickerSeconds]="true"
+                      [timePickerIncrement]="15"
+                      [timePicker24Hour]="true"
+                      [locale]="{ format: 'DD-MM-YYYY HH:mm:ss', firstDay: 1 }"
+                      [showClearButton]="true"
+                      placeholder="Select Date..."
+                      [minDate]="mindate"
+                      [maxDate]="maxdate"
+                    />
+                  </mat-form-field>
+</div>

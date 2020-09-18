@@ -36,7 +36,7 @@ class="center-aligned sq-relative-backdrop">
             <label>Batch CSV</label>
           </div>
           <div class="col-md-5 col-form-label">
-            <input #batchCsv style="font-size: 12px;" type="file" class="form-control-file" (change)="uploadedFile($event)" placeholder="Upload file" accept=".csv">
+            <input #batchCsv style="font-size: 12px;" type="file" class="form-control-file" (change)="uploadedFile($event)" placeholder="Upload file" accept=".csv,text/csv">
           </div>
         </div>
         <div class="form-row mt-2">
@@ -165,7 +165,7 @@ class="center-aligned sq-relative-backdrop">
               </div>
            </div>
           </div>
-          <div class="row m-2 mt-5" *ngIf="isRunning()">            
+          <div class="row m-2 mt-5" *ngIf="isRunning()">
             <div class="col-sm-12 text-right">
               <button class="float-right btn-size btn btn-dark ml-4 px-3" (click)="deleteBatch()">
                 DELETE BATCH
@@ -190,6 +190,6 @@ class="center-aligned sq-relative-backdrop">
     (outData)="openBox($event)"
     [companyName]="param1"
     [param2]="param2"
-    [batchSubmit]="bFlag"    
+    [batchSubmit]="bFlag"
   ></app-fota-mat-table>
   </div>

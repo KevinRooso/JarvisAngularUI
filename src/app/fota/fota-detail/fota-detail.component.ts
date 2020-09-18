@@ -13,7 +13,7 @@ export class FotaDetailComponent implements OnInit {
 
   fileUploaded: File;
   uploaded = false;
-  displayedColumns: string[] = ['seq', 'id' ,'batchName', 'count', 'date','status','detail'];  
+  displayedColumns: string[] = ['seq', 'id' ,'batchName', 'count', 'date','status','detail'];
   logColumns: string[] = ['seq', 'imei', 'batchid', 'orgName','type','topic','status','command','response','time'];
   dataSource: any;
   logDataSource: any;
@@ -44,7 +44,7 @@ export class FotaDetailComponent implements OnInit {
 
  logData: any[] = [];
 
- 
+
  Columns: any[] = [
   { 'columnName': 'sequence', 'displayName': 'S.NO', "active": true, "hyperlink": false, "action": false ,"sortDisabled": true},
   { 'columnName': 'id', 'displayName': 'BATCH ID', "active": true, "hyperlink": false, "action": false}
@@ -52,7 +52,7 @@ export class FotaDetailComponent implements OnInit {
   , { 'columnName': 'count', 'displayName': 'COUNT', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'status', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false }
   , { 'columnName': 'execute', 'displayName': 'EXECUTE', "active": true, "hyperlink": false, "action": false }
-  , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateFormat":true,"hyperlink": false, "action": false }  
+  , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateFormat":true,"hyperlink": false, "action": false }
    , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'batchList',"sortDisabled": true}
 ];
 
@@ -66,19 +66,19 @@ export class FotaDetailComponent implements OnInit {
   constructor(private formbuilder:FormBuilder, private service: ServiceService, private router1: ActivatedRoute,
     private router: Router) {
     this.batchForm = this.formbuilder.group({
-      description: new FormControl(''),      
-    });        
+      description: new FormControl(''),
+    });
   }
 
   ngOnInit() {
     this.router1.queryParams.subscribe(
       params => {
         this.param1 = params.selectedItem;
-        this.param2 = params.cname;        
+        this.param2 = params.cname;
         this.grid_url = this.service.api_user_url2 + '/api/bms/view/batches/' + params.selectedItem
       }
     );
-        
+
     // // this.getBatches();
     // this.logDataSource = new MatTableDataSource(this.logData);
     // this.dataSource.paginator = this.paginator;
@@ -87,20 +87,22 @@ export class FotaDetailComponent implements OnInit {
 
   uploadedFile(event) {
     this.fileUploaded = event.target.files[0] as File;
-    this.uploaded = true; 
+    this.uploaded = true;
     const fileType = this.fileUploaded.type;
-    console.log(fileType);    
-    if (fileType === 'text/csv') {
-      this.fileValid = true;      
-    }   
+
+    let data1 = this.fileUploaded.name.split('.')
+    console.log(data1[1]);
+    if (data1[1] === 'csv') {
+      this.fileValid = true;
+    }
   }
 
   getBatches(){
-    this.displayProgressSpinnerInBlock = true;    
+    this.displayProgressSpinnerInBlock = true;
     this.service.getBatchByOrgId(this.param1).subscribe(
       res => {
         this.fotaData = [];
-        res.forEach((i, index)=>{          
+        res.forEach((i, index)=>{
           let obj:any = {
             seq: index + 1,
             batchName: i.batch_org_name,
@@ -108,9 +110,9 @@ export class FotaDetailComponent implements OnInit {
             count: i.count,
             date: i.start_date,
             id: i.batch_id,
-            status: i.status          
-          };     
-          this.fotaData.push(obj);          
+            status: i.status
+          };
+          this.fotaData.push(obj);
         });
     this.dataSource = new MatTableDataSource(this.fotaData);
     this.dataSource.paginator = this.paginator;
@@ -128,7 +130,7 @@ export class FotaDetailComponent implements OnInit {
   submitBatch(){
     if(this.fileValid)
     {
-    const formData = new FormData();    
+    const formData = new FormData();
     formData.append('file', this.fileUploaded);
     this.service.createBatch(formData,this.param1,0).subscribe(
       res=> {
@@ -137,9 +139,9 @@ export class FotaDetailComponent implements OnInit {
         this.fileValid = false;
         this.bFlag++;
         console.log("BFLAG",this.bFlag);
-        this.batchFile.nativeElement.value = "";        
+        this.batchFile.nativeElement.value = "";
       }
-    );    
+    );
     // this.displayProgressSpinnerInBlock = true;
     // this.service.uploadBatchDetails(formData,this.param1).subscribe(
     //   res => {
@@ -150,8 +152,8 @@ export class FotaDetailComponent implements OnInit {
     //       this.paramRecieved = false;
     //     }
     //     if(res.status === 203){
-    //       alert("DUPLICATE BATCH");          
-    //     }                        
+    //       alert("DUPLICATE BATCH");
+    //     }
     //   },
     //   err => {
     //     this.displayProgressSpinnerInBlock = false;
@@ -166,12 +168,12 @@ export class FotaDetailComponent implements OnInit {
     }else{
       this.displayProgressSpinnerInBlock = false;
       alert("Please Upload Valid CSV");
-    }  
+    }
   }
 
-  getParams(eventObj){  
+  getParams(eventObj){
     this.paramObj = eventObj;
-    this.paramRecieved = true;       
+    this.paramRecieved = true;
   }
 
   batchDetails(row){
@@ -181,7 +183,7 @@ export class FotaDetailComponent implements OnInit {
 
   deleteBatch(){
     let bid = this.batchRow.id;
-    this.displayProgressSpinnerInBlock = true;    
+    this.displayProgressSpinnerInBlock = true;
     this.service.deleteBatch(bid).subscribe(
       res=> {
         this.displayProgressSpinnerInBlock = false;
@@ -193,7 +195,7 @@ export class FotaDetailComponent implements OnInit {
         if(res.status === 204){
           alert("BATCH CANT BE DELETED");
           this.closeDetail.nativeElement.click();
-        }      
+        }
       },
       err=> {
         this.displayProgressSpinnerInBlock = false;
@@ -219,7 +221,7 @@ export class FotaDetailComponent implements OnInit {
     this.router.navigate(['/fota-detail/batch'],{ queryParams: {selectedItem: this.param1,cname: this.param2, bid: bid} });
   }
 
-  isRunning(){    
+  isRunning(){
     return !(this.batchRow.status === 'running' || this.batchRow.status === 'done');
   }
 
