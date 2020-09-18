@@ -44,9 +44,9 @@ export class TraceRouteComponent implements OnInit {
     let assetUrl = `/assests-detail/${event.columnValue}`;
     let pDate = event.pingDate.replace('T',' ');   
 
-    if (event.columnName == "location") {
-      this.getAddressFromLatLng(event.columnValue);      
-    }
+    // if (event.columnName == "location") {
+    //   this.getAddressFromLatLng(event.columnValue);      
+    // }
 
 
   }

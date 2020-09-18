@@ -27,6 +27,10 @@ export class MatTableComponent {
   manualPage = null;
   totalPagesNumber: number;
 
+  //Trace Map
+  traceImei: any;
+  traceOrg: any;
+
 
   exampleDatabase: ExampleHttpDatabase | null;
   dataSource = new MatTableDataSource<any[]>();
@@ -39,11 +43,12 @@ export class MatTableComponent {
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild('closeTrace', { static: true }) closeTrace;
 
   @Input('dataUrl') dataUrl: string;
   @Input('headerColumns') headerColumns: any[];
   @Input('search') searchEnable: boolean = false;
-  @Input('companyName') companyName:string;
+  @Input('companyName') companyName:string;  
   @Output() outData = new EventEmitter();
 
   constructor(private _httpClient: HttpClient,
@@ -123,6 +128,8 @@ console.log( data.content);
   }
   getColumnValue(id, columnName,row) {
     console.log(row);
+    this.traceImei = row.imeiNo;
+    this.traceOrg = row.orgId;
     if(row.modifiedDate!=null){
     this.outData.emit({ columnName: columnName, columnValue: id, pingDate: row.modifiedDate })
   }
@@ -157,6 +164,11 @@ console.log( data.content);
 
   counter(i: number) {
     return new Array(i);
+  }
+
+  traceOverview(){
+    this.closeTrace.nativeElement.click();
+    this.router.navigate([`/trace-route/${this.traceImei}`],{ queryParams: {cname:this.companyName, selectedItem: this.traceOrg}} );
   }
 
 }
