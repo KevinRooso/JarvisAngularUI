@@ -173,30 +173,30 @@
 <div class="modal fade" id="traceModal" tabindex="-1" role="dialog" aria-labelledby="traceModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="top:60px">
     <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none; padding: 0;">          
-        <div class="heading-shadow py-3 px-4">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <!-- <div class="py-3 px-4">
           <h5 class="modal-title">DETAILS</h5>
-        </div>
+        </div> -->
         <button type="button" #closeTrace (click)="resetParamReceieved()" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body p-0 pt-5">          
-          <div class="row mt-3 m-2">
+      <div class="modal-body">
+          <div class="row m-2">
             <div class="col-md-12">
                 <div class="card">
-                  <div class="card-header">CURRENT LOCATION</div>
+                  <!-- <div class="card-header">CURRENT LOCATION</div> -->
                   <div class="card-body p-0">
-                    <app-battery-locate-map [cname]="traceOrg" [bin]="traceImei"></app-battery-locate-map>                  
+                    <app-battery-locate-map [cname]="traceOrg" [bin]="traceImei"></app-battery-locate-map>
                   </div>
                 </div>
             </div>
           </div>
-          <div class="row my-3 m-2">
+          <div class="row m-2">
             <div class="col-md-12">
               <button (click)="traceOverview()" mat-raised-button class="profilebtn" color="primary" type="submit"
               class="theme-btn mt-4 float-right">Trace Route Overview</button>
-            </div>          
+            </div>
           </div>
       </div>
     </div>
