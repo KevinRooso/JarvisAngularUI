@@ -93,13 +93,13 @@
               {{(i+1) + (paginator.pageSize * paginator.pageIndex)}}
             </span>
             <span *ngIf="!column.dateFormat">
-                {{ element[column.columnName] }}                                                
+                {{ element[column.columnName] }}
               </span>
               <span *ngIf="column.dateFormat">
                 {{ element[column.columnName] | date: 'dd-MM-yyyy HH:mm:ss'}}
-              </span>                      
+              </span>
           </span>
-          <ng-template #elseBlock>            
+          <ng-template #elseBlock>
             <span *ngIf="column.purpose == 'dashboard'">
               <button style="font-size: 10px;" [disabled]="element.status == 'Running'" class="btn btn-outline-dark mr-3" (click)="getImeiDetail(element)" data-toggle="modal" data-target="#imeiModal">
                 PUSH FOTA
@@ -128,7 +128,7 @@
               <button style="font-size: 10px;" class="btn btn-outline-dark mr-4" (click)="statusDetails(element)" data-toggle="modal" data-target="#statusModal">
                 STATUS
               </button>
-            </span>            
+            </span>
           </ng-template>
         </td>
       </ng-container>
@@ -162,7 +162,7 @@
         (page)="clearManualPage()"
       ></mat-paginator>
     </div>
-  </div>  
+  </div>
 </div>
 
 
@@ -230,7 +230,7 @@
                   </div>
               </div>
             </div>
-            <div class="row m-2 mt-5">            
+            <div class="row m-2 mt-5">
               <div class="col-sm-12 text-right">
                 <button class="float-right btn-size btn btn-dark ml-4 px-3" (click)="deleteBatch()">
                   DELETE BATCH
@@ -243,14 +243,14 @@
       </div>
     </div>
   </div>
-  </div>   
+  </div>
 
 <!-- FOTA PUSH SINGLE IMEI -->
 
 <div class="modal fade" id="imeiModal" tabindex="-1" role="dialog" aria-labelledby="imeiModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="top:60px">
     <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none; padding: 0;">          
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
         <div class="heading-shadow py-3 px-4">
           <h5 class="modal-title">DETAILS</h5>
         </div>
@@ -327,18 +327,65 @@
 <!-- FOTA STATUS INDICATOR-->
 
 <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="top:60px">
+  <div class="modal-dialog" role="document" style="top: 20%;text-align: center;width: 36%;">
     <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none; padding: 0;">          
-        <div class="heading-shadow py-3 px-4">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <div class="py-3 px-4">
           <h5 class="modal-title">STATUS</h5>
         </div>
         <button type="button" #closeStatus (click)="resetParamReceieved()" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body p-0 pt-5">
-
+      <div class="modal-body py-5">
+        <div>
+          <ul class="list-inline" id="menu">
+            <li>
+              <button mat-mini-fab matTooltip="Start" class="green-color"></button>
+            </li>
+            <li>
+              <button mat-mini-fab matTooltip="Pending" class="yellow-color"></button>
+            </li>
+            <li>
+              <button mat-mini-fab matTooltip="Running" class="gray-color"></button>
+            </li>
+            <li>
+              <button mat-mini-fab matTooltip="Done" class="gray-color"></button>
+            </li>
+            <li>
+              <button mat-mini-fab matTooltip="Expired" class="gray-color"></button>
+            </li>
+            <li>
+              <button mat-mini-fab matTooltip="Error" class="gray-color"></button>
+            </li>
+          </ul>
+        </div>
+        <!-- <section>
+          <div class="example-button-row">
+            <div class="example-flex-container">
+              <div class="example-button-container">
+                <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                  <mat-icon>menu</mat-icon>
+                </button>
+              </div>
+              <div class="example-button-container">
+                <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+                  <mat-icon>plus_one</mat-icon>
+                </button>
+              </div>
+              <div class="example-button-container">
+                <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+                  <mat-icon>filter_list</mat-icon>
+                </button>
+              </div>
+              <div class="example-button-container">
+                <button mat-mini-fab disabled aria-label="Example icon button with a home icon">
+                  <mat-icon>home</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section> -->
       </div>
     </div>
   </div>

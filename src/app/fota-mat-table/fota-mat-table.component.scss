@@ -414,8 +414,8 @@ table {
       margin: 1.75rem auto;
     }
   }
-  
-  
+
+
   @media (min-width: 1100px)
   {
     .modal-dialog {
@@ -423,3 +423,48 @@ table {
       margin: 1.75rem auto;
     }
   }
+
+  // section {
+  //   display: table;
+  // }
+
+  // .example-label {
+  //   display: table-cell;
+  //   font-size: 14px;
+  //   margin-left: 8px;
+  //   min-width: 120px;
+  // }
+
+  // .example-button-row {
+  //   display: table-cell;
+  //   width: 490px;
+  // }
+
+  // .example-button-row .mat-button-base {
+  //   margin: 8px 8px 8px 0;
+  // }
+
+  // .example-flex-container {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   flex-wrap: wrap;
+  // }
+
+  // .example-button-container {
+  //   display: flex;
+  //   justify-content: center;
+  //   width: 120px;
+  // }
+  ul#menu li {
+    display:inline;
+    margin: 10px;
+  }
+.green-color{
+  background-color: #4bad04 !important;
+}
+.gray-color{
+  background-color: #cecece !important;
+}
+.yellow-color{
+  background-color:#e3ae02 !important;
+}
