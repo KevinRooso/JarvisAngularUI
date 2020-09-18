@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServiceService } from 'src/app/service.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+
+
+
 
 @Component({
   selector: 'app-create-firmware',
@@ -10,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class CreateFirmwareComponent implements OnInit {
   createFirmwareGroup: FormGroup;
-  versionArray = ['1.01','1.03','1.04','1.08','1.10'];  
+  versionArray: any;  
   typeArray = ['TCU','BMS','CFG'];
   nameArray:any[] = [];
   compArray: any[] = [];
@@ -21,11 +25,18 @@ export class CreateFirmwareComponent implements OnInit {
 
   fwareExists = false;
 
+  mode = 'indeterminate';
+  value = 50;
+  color = 'primary';
+  displayProgressSpinnerInBlock: boolean = false;
+
+
   @ViewChild('closeModal2', { static: true }) closeModal;  
   @ViewChild('openConfirmButton', { static: true }) confirmButton;  
 
   constructor(private _formBuilder: FormBuilder,private service: ServiceService,
-    private router: Router) {
+    private router: Router,  private _snackBar: MatSnackBar) {
+      debugger;
     this.createFirmwareGroup = this._formBuilder.group({
       cName: ['', Validators.required],
       fType: ['', Validators.required],
@@ -66,6 +77,7 @@ export class CreateFirmwareComponent implements OnInit {
   }
 
   isFirmwareExist(){
+    debugger;
    this.submitted = true;
    if(this.fileValid){   
     if(this.createFirmwareGroup.valid){
@@ -91,6 +103,7 @@ export class CreateFirmwareComponent implements OnInit {
   }
 
   createFirmware(){
+    this.displayProgressSpinnerInBlock = true;
     let orgId = this.createFirmwareGroup.controls['cName'].value;
     let type = this.createFirmwareGroup.controls['fType'].value;
     let version = this.createFirmwareGroup.controls['fVersion'].value;
@@ -98,8 +111,12 @@ export class CreateFirmwareComponent implements OnInit {
     formdata.append('file',this.fileUploaded);
     this.service.createFirmware(orgId,type,version,formdata).subscribe(
       res=> {
+        this._snackBar.open("Firmware Generated Successfully!!", "undo" , {
+          duration: 2000
+        });
         console.log("created",res);
         alert("Firmware Generated");
+        this.displayProgressSpinnerInBlock = false;
         this.closeModal.nativeElement.click();
         this.router.navigate(['firmware']);
       }

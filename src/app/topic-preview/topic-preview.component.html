@@ -44,7 +44,7 @@
             <div class="row m-5">
               <!-- <div class="col-sm-12"> -->
                 <div class="col-sm-3">
-                  <label>UPDATE CLIENT NAME</label>
+                  <label>Update Client Name</label>
                 </div>
                 <div class="col-sm-9">
                  <form [formGroup]="topicForm">
@@ -96,3 +96,6 @@
     </div>
   </div>
 </div>
+<app-progress-spinner color="accent" [mode]="mode" [value]="value" *ngIf="displayProgressSpinnerInBlock" [diameter]="50"
+  class="center-aligned sq-relative-backdrop">
+</app-progress-spinner>

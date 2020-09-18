@@ -40,8 +40,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatGridListModule} from '@angular/material/grid-list';
 
-
-
 /* Plotly Js Start*/
 
 import * as PlotlyJS from 'plotly.js/dist/plotly.js';
