@@ -36,10 +36,10 @@ export class BatchLogComponent implements OnInit {
     , { 'columnName': 'imeiNumber', 'displayName': 'IMEI', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'componentType', 'displayName': 'TYPE', "active": true, "hyperlink": false, "action": false }  
     , { 'columnName': 'componentCommand', 'displayName': 'COMMAND', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'componentVersion', 'displayName': 'VERSION', "active": true, "hyperlink": false, "action": false }    
-    , { 'columnName': 'executionStatus', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false }    
+    , { 'columnName': 'componentVersion', 'displayName': 'VERSION', "active": true, "hyperlink": false, "action": false }        
     , { 'columnName': 'nextRunOrder', 'displayName': 'NEXT RUN', "active": true, "hyperlink": false, "action": false }    
     , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateFormat":true,"hyperlink": false, "action": false }  
+    , { 'columnName': 'executionStatus', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": true , "purpose": 'statusList'}    
      , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'executionList',"sortDisabled": true}
   ];
 

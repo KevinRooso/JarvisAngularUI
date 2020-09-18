@@ -78,6 +78,7 @@ export class FotaMatTableComponent{
   modalBatch: any;
 
   firstChange = false;
+  statusDetail: any;
 
   constructor(private _httpClient: HttpClient,
     private _service: ServiceService, private router: Router) {
@@ -298,6 +299,11 @@ console.log( data.body.content);
         this.closeDetail.nativeElement.click();
       }
     )
+  }
+
+  statusDetails(row){
+    this.statusDetail = row;
+    console.log(this.statusDetail);
   }
 
 }

@@ -120,10 +120,15 @@
               </button>
             </span>
             <span *ngIf="column.purpose == 'executionList'">
-              <button class="btn btn-outline-dark mr-3" (click)="logImei(element)" >
+              <button style="font-size: 10px;"  class="btn btn-outline-dark mr-3" (click)="logImei(element)" >
                 LOG
               </button>
             </span>
+            <span *ngIf="column.purpose == 'statusList'">
+              <button style="font-size: 10px;" class="btn btn-outline-dark mr-4" (click)="statusDetails(element)" data-toggle="modal" data-target="#statusModal">
+                STATUS
+              </button>
+            </span>            
           </ng-template>
         </td>
       </ng-container>
@@ -314,6 +319,26 @@
             </div>
             </div>
           </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOTA STATUS INDICATOR-->
+
+<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="top:60px">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">          
+        <div class="heading-shadow py-3 px-4">
+          <h5 class="modal-title">STATUS</h5>
+        </div>
+        <button type="button" #closeStatus (click)="resetParamReceieved()" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-0 pt-5">
+
       </div>
     </div>
   </div>
