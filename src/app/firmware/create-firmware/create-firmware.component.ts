@@ -35,8 +35,7 @@ export class CreateFirmwareComponent implements OnInit {
   @ViewChild('openConfirmButton', { static: true }) confirmButton;  
 
   constructor(private _formBuilder: FormBuilder,private service: ServiceService,
-    private router: Router,  private _snackBar: MatSnackBar) {
-      debugger;
+    private router: Router,  private _snackBar: MatSnackBar) {      
     this.createFirmwareGroup = this._formBuilder.group({
       cName: ['', Validators.required],
       fType: ['', Validators.required],

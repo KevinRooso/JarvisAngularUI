@@ -4,7 +4,7 @@
 <div *ngIf="imeiLog">
     <ul class="breadcrumb">
       <li><a [routerLink]="['/home-dashboard']">Home</a></li>
-      <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
+      <li><a [routerLink]="['/assets-dashbaord/fota']">Fota Dashboard</a></li>
       <li><a (click)="goToFotaList()">{{param2 | titlecase}} Fota List</a></li>  
       <li><a (click)="goToImeiResult()">Imei Result</a></li>
       <li><a style="cursor:auto;">Imei Log</a></li>
@@ -13,7 +13,7 @@
 <div *ngIf="batchLog">
   <ul class="breadcrumb">
     <li><a [routerLink]="['/home-dashboard']">Home</a></li>
-    <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
+    <li><a [routerLink]="['/assets-dashbaord/fota']">Fota Dashboard</a></li>
     <li><a (click)="goToFotaList()">{{param2 | titlecase}} Fota List</a></li>
     <li><a (click)="goToCreateBatch()">Create Batch</a></li>
     <li><a (click)="goToBatchResult()">Batch Result</a></li>

@@ -4,7 +4,7 @@ class="center-aligned sq-relative-backdrop">
 <div>
   <ul class="breadcrumb">
     <li><a [routerLink]="['/home-dashboard']">Home</a></li>
-    <li><a [routerLink]="['/assets-dashbaord']" [queryParams]="{fota: 'true'}">Fota Dashboard</a></li>
+    <li><a [routerLink]="['/assets-dashbaord/fota']">Fota Dashboard</a></li>
     <li><a (click)="goToFotaList()">{{param2 | titlecase}} Fota List</a></li>
     <li><a style="cursor:auto;">Create Batch</a></li>
   </ul>
