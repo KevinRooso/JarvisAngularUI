@@ -123,6 +123,8 @@ import { BatchDetailsComponent } from './fota/batch-details/batch-details.compon
 import { TopicPreviewComponent } from './topic-preview/topic-preview.component';
 import { FotaMatTableComponent } from './fota-mat-table/fota-mat-table.component';
 import { FotaLogComponent } from './fota-log/fota-log.component';
+import { HomeLayoutComponent } from './layouts/home-layout.component';
+import { LoginLayoutComponent } from './layouts/login-layout.component';
 
 
 // PlotlyModule.plotlyjs = PlotlyJS;
@@ -135,7 +137,8 @@ PlotlyViaCDNModule.plotlyVersion = '1.49.4';
     AppComponent,
     NavBarComponent,
     AssetsManagerComponent,
-
+    HomeLayoutComponent,
+    LoginLayoutComponent,
     LoginComponent,
     SubComponentTreeComponent,
     AddAssetComponent,
