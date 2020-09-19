@@ -15,10 +15,13 @@ export class AssetManagementComponent implements OnInit {
   constructor(private _service: ServiceService, private route:Router,private route1: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route1.queryParams.subscribe(params => {
-      this.param1 = params.map;
-      this.param2 = params.fota;
-    });
+    let final = this.route.url.substr(this.route.url.lastIndexOf('/') + 1);
+    if(final == 'map'){
+      this.param1 = true;
+    }
+    if(final == 'fota'){
+      this.param2 = true;
+    }
 
     if(localStorage.getItem("assetData")==null){
       this._service.batteryDataCount()
@@ -36,16 +39,6 @@ export class AssetManagementComponent implements OnInit {
       console.log("hello", this.ImageList);
     }
   }
-
-  /* ImageList: any = [
-    { "image": "https://www.olacabs.com/webstatic/img/ola-logo.svg" },
-    { "image": "https://bounceshare.com/newbounce/images/logo.png" },
-    { "image": "https://d1a3f4spazzrp4.cloudfront.net/uberex/duc/images/logos/Uber_Logotype_Digital_black.png" },
-    { "image": "https://okinawascooters.com/wp-content/uploads/2018/02/logo.png" },
-    { "image": "https://image4.owler.com/logo/zoomcar_owler_20181128_091331_original.png" },
-    { "image": "https://www.getsmarte.in/wp-content/uploads/2018/02/logo-green-01.png.pagespeed.ce.IqrEuXzUYv.png" },
-    { "image": "https://www.mahindraelectric.com/images/mahindra-logo.png"}
-  ] */
 
   viewDatails(id,org_name){
     if(this.param1)
