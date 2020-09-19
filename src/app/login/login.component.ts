@@ -76,9 +76,11 @@ export class LoginComponent implements OnInit {
       })
   }
 
-  getOrgInfo(){
+  getOrgInfo(){ 
+    let roles = ['asset_mgt_view','trace_route_view','fota_mgt_view','user_mgt_view','topic_mgt_view','firmware_mgt_view'];   
     this._service.getOrgDetailsByToken().subscribe(res=> {
       console.log("ORG-INFO!!!!",res);
+      this._service.setUserRoles(roles);
       if(res.id === 1){
         this._service.isFotaSelected(true);
       }else{

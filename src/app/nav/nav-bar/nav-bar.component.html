@@ -20,19 +20,19 @@
             <span class="fa fa-microchip"></span>
           </a>
         </li>
-        <li class="">
-          <a routerLink="/assets-dashbaord" [queryParams]="{map: 'true'}" routerLinkActive="active-link" #tooltip="matTooltip"
+        <li class="" *ngIf="hasRole('trace_route_view')">
+          <a routerLink="/assets-dashbaord/map" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Trace Route" matTooltipPosition="right" class="icons">
             <span class="fa fa-map"></span>
           </a>
         </li>
-        <li class="">
-          <a routerLink="/assets-dashbaord" [queryParams]="{fota: 'true'}" routerLinkActive="active-link" #tooltip="matTooltip"
+        <li class="" *ngIf="hasRole('fota_mgt_view')">
+          <a routerLink="/assets-dashbaord/fota" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Fota" matTooltipPosition="right" class="icons">
             <span class="fa fa-database"></span>
           </a>
         </li>
-        <li class="" *ngIf="flag | async">
+        <li class="" *ngIf="hasRole('user_mgt_view')">
           <a routerLink="/customers-dashboard" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Customer Management" matTooltipPosition="right" class="icons">
             <span class="fa fa-users"></span>

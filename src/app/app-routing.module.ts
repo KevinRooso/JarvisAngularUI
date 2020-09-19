@@ -44,6 +44,7 @@ import { BatchDetailsComponent } from './fota/batch-details/batch-details.compon
 import { TopicPreviewComponent } from './topic-preview/topic-preview.component';
 import { CreateFirmwareComponent } from './firmware/create-firmware/create-firmware.component';
 import { FotaLogComponent } from './fota-log/fota-log.component';
+import { RolesGuardService } from './roles-guard.service';
 
 
 const routes: Routes = [
@@ -60,9 +61,28 @@ const routes: Routes = [
   { path: 'bmap', component: BubbleMapComponent ,canActivate: [AuthguardGuard] },
   { path: 'add-cust', component: AddOrganisationComponent ,canActivate: [AuthguardGuard]},
   { path: 'home-dashboard', component: HomeDashboardComponent,canActivate: [AuthguardGuard] },
-  { path: 'customers-dashboard', component: CustomerDashboardComponent,canActivate: [AuthguardGuard,RoleguardService] },
-  { path: 'assets-dashbaord', component: AssetManagementComponent,canActivate: [AuthguardGuard] },
-  { path: 'ppage',component: PartnersPageComponent,canActivate: [AuthguardGuard]},
+
+  { path: 'customers-dashboard', 
+    component: CustomerDashboardComponent,
+    canActivate: [AuthguardGuard,RoleguardService,RolesGuardService],
+    data : {role : 'user_mgt_view'} },
+
+  { path: 'assets-dashbaord',
+    component: AssetManagementComponent,
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role : 'asset_mgt_view'} },
+
+    { path: 'assets-dashbaord/map',
+    component: AssetManagementComponent,
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role : 'trace_route_view'} },
+
+    { path: 'assets-dashbaord/fota',
+    component: AssetManagementComponent,
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role : 'fota_mgt_view'} },
+
+  // { path: 'ppage',component: PartnersPageComponent,canActivate: [AuthguardGuard]},
   { path: 'clientdata',component: ClientDataComponent,canActivate: [AuthguardGuard]},
   { path: 'assests-data',component: AssetsDatatableComponent,canActivate: [AuthguardGuard]},
   { path: 'assests-detail/:id',component: AssetsDetailViewComponent,canActivate: [AuthguardGuard]},
@@ -76,17 +96,62 @@ const routes: Routes = [
   { path: 'setting',component: SettingComponent, canActivate: [AuthguardGuard]},
   { path: 'wizard',component: WizardsComponent, canActivate: [AuthguardGuard]},
   { path: 'asset-model', component: AssetModelComponent},
-  { path: 'trace-route', component: TraceRouteComponent},
-  { path: 'trace-route/:imei', component: FullTraceMapComponent},
-  { path: 'fota', component: FotaComponent, canActivate: [AuthguardGuard]},
-  { path: 'fota-detail', component: FotaDetailComponent, canActivate: [AuthguardGuard]},
-  { path: 'fota-detail/batch', component: BatchDetailsComponent, canActivate: [AuthguardGuard]},
-  { path: 'fota-detail/result', component: BatchLogComponent, canActivate: [AuthguardGuard]},
-  { path: 'fota-detail/log', component: FotaLogComponent, canActivate: [AuthguardGuard]},
-  { path: 'topic-detail', component: TopicManagementComponent, canActivate: [AuthguardGuard]},
-  { path: 'topic-preview', component: TopicPreviewComponent, canActivate: [AuthguardGuard]},
-  { path: 'firmware', component: FirmwareComponent, canActivate: [AuthguardGuard]},
-  { path: 'crearte-firmware', component: CreateFirmwareComponent, canActivate: [AuthguardGuard]},
+
+  { path: 'trace-route',
+    component: TraceRouteComponent,
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role : 'trace_route_view'} },
+
+  { path: 'trace-route/:imei',
+    component: FullTraceMapComponent,
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role: 'trace_route_view'}},
+
+  { path: 'fota',
+    component: FotaComponent,
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role: 'fota_mgt_view'}},
+
+  { path: 'fota-detail',
+    component: FotaDetailComponent,
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role: 'fota_mgt_view'}},
+    
+  { path: 'fota-detail/batch',
+    component: BatchDetailsComponent, 
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role: 'fota_mgt_view'}},
+    
+  { path: 'fota-detail/result',
+   component: BatchLogComponent,
+   canActivate: [AuthguardGuard,RolesGuardService],
+   data: {role: 'fota_mgt_view'}},
+
+  { path: 'fota-detail/log',
+    component: FotaLogComponent,
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role: 'fota_mgt_view'}},
+
+  { path: 'topic-detail',
+   component: TopicManagementComponent,
+   canActivate: [AuthguardGuard,RolesGuardService],
+   data: {role: 'topic_view'}},
+
+  { path: 'topic-preview', 
+    component: TopicPreviewComponent, 
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role: 'topic_view'}},
+
+  { path: 'firmware',
+    component: FirmwareComponent,
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role: 'firmware_mgt_view'}},
+
+  { path: 'crearte-firmware',
+    component: CreateFirmwareComponent, 
+    canActivate: [AuthguardGuard,RolesGuardService],
+    data: {role: 'firmware_mgt_view'}},
+
   { path: '**', component: PageNotFoundComponent}
 
 ];

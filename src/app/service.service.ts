@@ -16,19 +16,23 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class ServiceService {
 
   user:any;
+  roles:any = [''];
 
   constructor(private http: HttpClient, private _router:Router) {
     const helper = new JwtHelperService();
+    
+    // this.roles = ['asset_mgt_view','trace_route_view','fota_mgt_view','user_mgt_view','topic_mgt_view','firmware_mgt_view'];
+    // this.setUserRoles(this.roles);
     if(localStorage.getItem('REFRESH_TOKEN')!==null){
     var refreshExpired = helper.isTokenExpired(localStorage.getItem('REFRESH_TOKEN'));
     this.user = helper.decodeToken(localStorage.getItem('REFRESH_TOKEN')).sub;
     }    
-    if(!refreshExpired){
-      this.isLoginSubject.next(true);
-
-    }else{
+    if(!refreshExpired){      
+      this.isLoginSubject.next(true);      
+    }else{            
       this.logout()
     }
+
 
   }
 
@@ -92,6 +96,23 @@ export class ServiceService {
     this.user = helper.decodeToken(localStorage.getItem('REFRESH_TOKEN')).sub;   
     return !(this.user == 'demo@exicom.in' || this.user == 'bigbasket@exicom.in');
   }
+
+  setUserRoles(roles){
+    // this.getAllRoles(token).subscribe( res=> this.roles = res.roles;)
+    this.roles = roles;
+  }
+
+  getUserRoles(){
+    // let roles = ['asset_mgt_view','trace_route_view','fota_mgt_view','user_mgt_view','topic_view','firmware_mgt_view'];
+    return this.roles;
+  }
+  
+  isUserRole(role){
+    let roles = this.getUserRoles();
+    let flag = false;
+    return roles.includes(role);  
+  }
+
   isUserExicom(){
     const helper = new JwtHelperService();         
     this.user = helper.decodeToken(localStorage.getItem('REFRESH_TOKEN')).sub;   

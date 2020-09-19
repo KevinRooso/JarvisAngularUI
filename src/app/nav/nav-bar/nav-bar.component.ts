@@ -52,7 +52,7 @@ export class NavBarComponent implements OnInit {
     //Token and Fota check
     if(localStorage.getItem('JWT_TOKEN') !== null){
       this.getOrgInfo();
-    }
+    }    
   }
 
   ngOnChanges(){    
@@ -64,6 +64,7 @@ export class NavBarComponent implements OnInit {
     //   this.flag = false;
     // }
   }
+  
 
   logout() {    
     localStorage.removeItem('currentUser');
@@ -86,6 +87,11 @@ export class NavBarComponent implements OnInit {
         this._service.isFotaSelected(false);
       }
     });
-  } 
+  }
+  
+  hasRole(role){
+    console.log("navbar role", role);
+    return this._service.getUserRoles().includes(role);
+  }
 
 }
