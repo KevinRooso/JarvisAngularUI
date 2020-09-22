@@ -1,0 +1,56 @@
+.org-mat-card {
+  max-width: 550px;
+}
+
+.input-full-width{
+  width: 100%;
+}
+
+#file-label {
+  display: inline-flex;
+  vertical-align: middle;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+#file-label mat-icon {
+  font-size: 18px;
+  text-align: center;
+}
+
+#file-label a {
+  cursor: pointer;
+}
+.align-self-flex-end{
+  align-self: flex-end;
+  text-align:left;
+}
+.wrapper{
+  background: #fff;
+  text-align: -webkit-center;
+  // min-height: 900px;
+  height: auto;
+  // margin-bottom: 5rem;
+  border-radius: 5px;
+}
+.logo-image{
+  width: 100%;
+    max-height: 150px;
+    border-radius: 3px;
+}
+.input-full-width{
+  margin-top: 0.5rem;
+}
+.mat-dialog-container{
+  position: relative;
+  top: 50px !important;
+}
+.table-borderless{
+  border: none;
+}
+.table td, .table th{
+  border-top: 0px solid #dee2e6;
+}
+.table thead th{
+  border-bottom: 0px solid;
+}

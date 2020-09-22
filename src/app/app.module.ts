@@ -125,6 +125,8 @@ import { FotaMatTableComponent } from './fota-mat-table/fota-mat-table.component
 import { FotaLogComponent } from './fota-log/fota-log.component';
 import { HomeLayoutComponent } from './layouts/home-layout.component';
 import { LoginLayoutComponent } from './layouts/login-layout.component';
+import { AddRoleComponent } from './role-management/add-role/add-role.component';
+import { RoleListComponent } from './role-management/role-list/role-list.component';
 
 
 // PlotlyModule.plotlyjs = PlotlyJS;
@@ -220,7 +222,11 @@ PlotlyViaCDNModule.plotlyVersion = '1.49.4';
 
     FotaMatTableComponent,
 
-    FotaLogComponent
+    FotaLogComponent,
+
+    AddRoleComponent,
+
+    RoleListComponent
   ],
   imports: [
     MatGridListModule,

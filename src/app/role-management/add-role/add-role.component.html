@@ -1,0 +1,113 @@
+<app-progress-spinner color="accent" [mode]="mode" [value]="value" *ngIf="displayProgressSpinnerInBlock" [diameter]="50"
+  class="center-aligned sq-relative-backdrop">
+</app-progress-spinner>
+
+<div class="wrapper">
+  <div class="py-4">
+    <!-- <mat-card class="org-mat-card"> -->
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+        <!-- <div class="row">
+          <div class="col-sm-4">
+            <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput />
+            <img [src]="
+                url ? url : 'https://www.w3schools.com/howto/img_avatar.png'
+              " class="logo-image" />
+          </div>
+          <div class="col-sm-4 align-self-flex-end">
+            <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+              Select File
+            </button>
+          </div>
+        </div> -->
+
+        <mat-form-field class="input-full-width">
+          <input matInput type="text" formControlName="username" placeholder="Role Name" />
+        </mat-form-field>
+
+        <mat-form-field class="input-full-width">
+          <input matInput type="text" formControlName="password" placeholder="External Role Name" />
+        </mat-form-field>
+
+        <mat-card class="my-3">
+          <h4>Permissions</h4>
+          <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>Role Name</th>
+                    <th>Create</th>
+                    <th>Read</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Admin</td>
+                    <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+                    <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+                    <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+                    <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+                </tr>
+                <tr>
+                  <td>Marketing</td>
+                  <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+                  <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+                  <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+                  <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+              </tr>
+              <tr>
+                <td>Customer</td>
+                <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+                <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+                <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+                <td> <mat-checkbox class="example-margin" color="accent"></mat-checkbox></td>
+            </tr>
+            </tbody>
+        </table>
+
+        </mat-card>
+
+        <!-- <mat-form-field class="input-full-width">
+          <input matInput type="text" formControlName="phone_number" placeholder="Phone Number" maxlength="14"/>
+        </mat-form-field> -->
+
+        <!-- <mat-form-field class="input-full-width">
+          <input matInput type="email" formControlName="email" placeholder="Email ID" />
+        </mat-form-field> -->
+
+        <!-- <mat-form-field class="input-full-width">
+          <mat-label>Organization</mat-label>
+          <mat-select formControlName="orgId">
+            <mat-option [value]="org.id" *ngFor="let org of org_List | async">
+              {{ org.orgName }}</mat-option>
+          </mat-select>
+        </mat-form-field><br /> -->
+
+        <!-- <mat-form-field class="input-full-width">
+          <mat-label>UserszfcasfvasdgvsDGbsdgb Type</mat-label>
+          <mat-select formControlName="userType">
+            <mat-option [value]="role.roleValue" *ngFor="let role of userTypeList ">{{ role.roleName }}</mat-option>
+          </mat-select>
+        </mat-form-field><br /> -->
+
+        <!-- <mat-form-field class="input-full-width">
+          <input matInput type="text" formControlName="city" placeholder="City" />
+        </mat-form-field> -->
+
+        <!-- <mat-form-field class="input-full-width">
+          <input matInput type="text" formControlName="pincode" placeholder="Pin Code"  maxlength="6"/>
+        </mat-form-field> -->
+
+        <!-- <mat-form-field class="input-full-width">
+          <input matInput type="text" formControlName="country" placeholder="Country" />
+        </mat-form-field> -->
+        <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true" class="text-left mr-2">
+          Close
+        </button>
+        <button mat-raised-button color="primary" type="submit" class="text-left">
+          Save Changes
+        </button>
+      </form>
+    <!-- </mat-card> -->
+  </div>
+</div>
