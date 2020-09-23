@@ -97,20 +97,12 @@ export class ServiceService {
     return !(this.user == 'demo@exicom.in' || this.user == 'bigbasket@exicom.in');
   }
 
-  setUserRoles(roles){
-    // this.getAllRoles(token).subscribe( res=> this.roles = res.roles;)
+  setUserRoles(roles){    
     this.roles = roles;
   }
-
-  getUserRoles(){
-    // let roles = ['asset_mgt_view','trace_route_view','fota_mgt_view','user_mgt_view','topic_view','firmware_mgt_view'];
-    return this.roles;
-  }
   
-  isUserRole(role){
-    let roles = this.getUserRoles();
-    let flag = false;
-    return roles.includes(role);  
+  isUserRole(role){    
+    return this.roles.includes(role);  
   }
 
   isUserExicom(){
@@ -437,6 +429,12 @@ export class ServiceService {
 
   deleteBatchById(bid): Observable<any> {
     return this.http.delete<any>(this.api_user_url2 + `/api/bms/delete/batch/${bid}`);
+  }
+
+  // User Management
+
+  getCurrentRolesList(): Observable<any> {
+    return this.http.get<any>(this.api_user_url + '/api/admin/menu/bar');
   }
 
   /*  */

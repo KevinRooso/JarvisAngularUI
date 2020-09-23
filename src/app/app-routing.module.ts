@@ -56,6 +56,7 @@ const routes: Routes = [
     component: HomeLayoutComponent,
     canActivate: [AuthguardGuard],
     children: [
+      { path: '', component: HomeDashboardComponent},
       { path: 'navbar', component: NavBarComponent },
       // { path: 'custmgmt',component: CustomerManagementComponent},
       { path: 'mattable', component: MatTableComponent },
@@ -165,14 +166,14 @@ const routes: Routes = [
         path: 'topic-detail',
         component: TopicManagementComponent,
         canActivate: [AuthguardGuard, RolesGuardService],
-        data: { role: 'topic_view' }
+        data: { role: 'topic_mgt_view' }
       },
 
       {
         path: 'topic-preview',
         component: TopicPreviewComponent,
         canActivate: [AuthguardGuard, RolesGuardService],
-        data: { role: 'topic_view' }
+        data: { role: 'topic_mgt_view' }
       },
 
       {
@@ -195,7 +196,7 @@ const routes: Routes = [
     path: '',
     component: LoginLayoutComponent,
     children: [
-      { path: '', component: LoginComponent },
+      //{ path: '', component: LoginComponent },
       { path: 'login', component: LoginComponent }
     ]
   },

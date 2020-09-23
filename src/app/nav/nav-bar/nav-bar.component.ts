@@ -17,7 +17,15 @@ export class NavBarComponent implements OnInit {
   url: Observable<any>;
   flag: Observable<boolean>;
   fotaFlag: Observable<boolean>;
-  token:any;
+  token:any;  
+
+  //Roles
+  assetRole = false;
+  traceRole = false;
+  fotaRole = false;
+  userRole = false
+  topicRole = false;
+  firmwareRole = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -50,9 +58,11 @@ export class NavBarComponent implements OnInit {
     this.fotaFlag = this._service.isFotaObservable();    
 
     //Token and Fota check
-    if(localStorage.getItem('JWT_TOKEN') !== null){
-      this.getOrgInfo();
-    }    
+    // if(localStorage.getItem('JWT_TOKEN') !== null){
+    //   this.getOrgInfo();
+    // }
+    
+    this.getRoleInfo();    
   }
 
   ngOnChanges(){    
@@ -78,20 +88,40 @@ export class NavBarComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(base64Image);
   }
 
-  getOrgInfo(){
-    this._service.getOrgDetailsByToken().subscribe(res=> {
-      console.log("ORG-INFO!!!!",res);
-      if(res.id === 1){
-        this._service.isFotaSelected(true);
-      }else{
-        this._service.isFotaSelected(false);
+  getRoleInfo(){
+    this._service.getCurrentRolesList().subscribe(
+      res=> {
+        console.log("Role Info",res);
+        let rolesList = [];
+        res.body.forEach(i=> {
+          rolesList.push(i.name);
+        });
+        console.log("Roles List",rolesList);        
+        this.setRoles(rolesList);
+        this._service.setUserRoles(rolesList);
       }
-    });
+    );
   }
-  
-  hasRole(role){
-    console.log("navbar role", role);
-    return this._service.getUserRoles().includes(role);
+
+  setRoles(roles){
+    if(roles.includes('trace_route_view')){
+      this.traceRole = true;
+    }
+    if(roles.includes('fota_mgt_view')){
+      this.fotaRole = true;
+    }
+    if(roles.includes('user_mgt_view')){
+      this.userRole = true;
+    }
+    if(roles.includes('topic_mgt_view')){
+      this.topicRole = true;
+    }
+    if(roles.includes('firmware_mgt_view')){
+      this.firmwareRole = true;
+    }
+    if(roles.includes('asset_mgt_view')){
+      this.assetRole = true;
+    }
   }
 
 }

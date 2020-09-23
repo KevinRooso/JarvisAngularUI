@@ -1,11 +1,11 @@
 <div class="page-container">
 
-  <div *ngIf="isLoggedIn | async" class="page-sidebar">
+  <div class="page-sidebar">
     <div class="sidebar-container">
       <ul class="sidenav-vertical">
         <li class="profile" style="visibility: hidden;">
           <a class="profile-mini" #tooltip="matTooltip" matTooltip="User Name" matTooltipPosition="right">
-            <img [src]="(url |async)" alt="Avatar" class="avatar" />
+            <img [src]="" alt="Avatar" class="avatar" />
           </a>
         </li>
         <li class="">
@@ -14,37 +14,37 @@
             <span class="fa fa-desktop"></span>
           </a>
         </li>
-        <li class="">
+        <li class="" *ngIf="assetRole">
           <a routerLink="/assets-dashbaord" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Asset Explorer" matTooltipPosition="right" class="icons">
             <span class="fa fa-microchip"></span>
           </a>
         </li>
-        <li class="" *ngIf="hasRole('trace_route_view')">
+        <li class="" *ngIf="traceRole">
           <a routerLink="/assets-dashbaord/map" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Trace Route" matTooltipPosition="right" class="icons">
             <span class="fa fa-map"></span>
           </a>
         </li>
-        <li class="" *ngIf="hasRole('fota_mgt_view')">
+        <li class="" *ngIf="fotaRole">
           <a routerLink="/assets-dashbaord/fota" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Fota" matTooltipPosition="right" class="icons">
             <span class="fa fa-database"></span>
           </a>
         </li>
-        <li class="" *ngIf="hasRole('user_mgt_view')">
+        <li class="" *ngIf="userRole">
           <a routerLink="/customers-dashboard" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Customer Management" matTooltipPosition="right" class="icons">
             <span class="fa fa-users"></span>
           </a>
         </li>
-        <li class="" *ngIf="(fotaFlag | async) && (flag | async)">
+        <li class="" *ngIf="topicRole">
           <a routerLink="/topic-detail" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Topic Management" matTooltipPosition="right" class="icons">
             <span class="fa fa-file"></span>
           </a>
         </li>
-        <li class="" *ngIf="(fotaFlag | async) && (flag | async)">
+        <li class="" *ngIf="firmwareRole">
           <a routerLink="/firmware" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Firmware Release" matTooltipPosition="right" class="icons">
             <span class="fa fa-microchip"></span>
