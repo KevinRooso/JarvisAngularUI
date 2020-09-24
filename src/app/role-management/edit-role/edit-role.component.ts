@@ -6,11 +6,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-add-role',
-  templateUrl: './add-role.component.html',
-  styleUrls: ['./add-role.component.scss']
+  selector: 'app-edit-role',
+  templateUrl: './edit-role.component.html',
+  styleUrls: ['./edit-role.component.scss']
 })
-export class AddRoleComponent implements OnInit {
+export class EditRoleComponent implements OnInit {
   checked = false;
   userForm: FormGroup;
   private base64textString: String = "";
@@ -30,18 +30,20 @@ export class AddRoleComponent implements OnInit {
   displayProgressSpinnerInBlock: boolean = false;
   roleForm: FormGroup;
 
+  // Html arrays
   permissionData: any[]= [];
   permissionGroup: any[]= [];
 
+  // TS arrays
   permissionArr:any[]= [];
+  currentPermArr:any[] = [];
 
-  // tslint:disable-next-line:variable-name
   constructor(private _formBuilder: FormBuilder, private service: ServiceService, @Inject(MAT_DIALOG_DATA) public data,
-    private sanitizer: DomSanitizer, public dialogRef: MatDialogRef<AddRoleComponent>) {
+    private sanitizer: DomSanitizer, public dialogRef: MatDialogRef<EditRoleComponent>) {
 
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     
     this.service.getPrivilegeList().subscribe(
       res=> {
@@ -50,6 +52,7 @@ export class AddRoleComponent implements OnInit {
           this.permissionGroup.push(i.groupName);
         })
         this.permissionGroup = [...new Set(this.permissionGroup)];        
+        this.getRoleData(this.data.id);
       }
     );
     this.roleForm = this._formBuilder.group({
@@ -57,38 +60,40 @@ export class AddRoleComponent implements OnInit {
     });
   }  
 
-  onSubmit(userForm: any) {
-  if(this.permissionArr.length > 0){
-    if(this.roleForm.valid){
-    //this.displayProgressSpinnerInBlock = true;
-    let obj: any = {
-      id: 0,
-      name: this.roleForm.controls['name'].value,    
-      privilegeList: this.permissionArr
-    }        
-    this.service.createRole(obj).subscribe(
-      res=> {
-        alert("Role Created");
-        this.dialogRef.close();
-      },
-      err => {
-        alert("Error in creating Role");
-        this.dialogRef.close();
-      }
-    );
-   }else{
-     alert("Fill Role name");
-   }  
-  }else{
-    alert("Select atleast one permission");
+  onSubmit() {
+    if(this.permissionArr.length > 0){
+      if(this.roleForm.valid){
+      //this.displayProgressSpinnerInBlock = true;
+      let obj: any = {
+        id: this.data.id,
+        name: this.roleForm.controls['name'].value,        
+        privilegeList: this.permissionArr
+      }    
+      this.service.createRole(obj).subscribe(
+        res=> {
+          console.log("role", res);
+          alert("Role Updated");
+          this.dialogRef.close();
+        },
+        err => {
+          alert("Error in updating Role");
+          this.dialogRef.close();
+        }
+      );
+     }else{
+       alert("Fill Role name");
+     }  
+    }else{
+      alert("Select atleast one permission");
+    }
   }
- }
 
   closeDialog() {
     this.dialogRef.close();
   }
 
-  changePermission(event){    
+  changePermission(event){
+    console.log(event);
     if(event.checked){
       this.permissionArr.push(event.source.value);
     }
@@ -99,6 +104,26 @@ export class AddRoleComponent implements OnInit {
         }
       });
     }
+  }
+
+  getRoleData(id){
+    this.service.getRoleData(id).subscribe(
+      res=> {        
+        this.roleForm.controls['name'].setValue(res.body.displayName);
+        this.currentPermArr = res.body.permission;
+        this.permissionArr = this.currentPermArr.map(i=> i = i.id);
+      }
+    )
+  }
+
+  defaultChecked(id) {
+    let flag = false;
+    this.permissionArr.forEach((item) => {
+      if (item === id) {
+        flag = true;
+      }
+    });
+    return flag;
   }
 
 }

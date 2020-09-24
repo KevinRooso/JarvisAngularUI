@@ -127,6 +127,9 @@ import { HomeLayoutComponent } from './layouts/home-layout.component';
 import { LoginLayoutComponent } from './layouts/login-layout.component';
 import { AddRoleComponent } from './role-management/add-role/add-role.component';
 import { RoleListComponent } from './role-management/role-list/role-list.component';
+import { RoleMatTableComponent } from './role-mat-table/role-mat-table.component';
+import { EditRoleComponent } from './role-management/edit-role/edit-role.component';
+import { ShowPermissionComponent } from './role-management/show-permission/show-permission.component';
 
 
 // PlotlyModule.plotlyjs = PlotlyJS;
@@ -226,7 +229,13 @@ PlotlyViaCDNModule.plotlyVersion = '1.49.4';
 
     AddRoleComponent,
 
-    RoleListComponent
+    RoleListComponent,
+
+    RoleMatTableComponent,
+
+    EditRoleComponent,
+
+    ShowPermissionComponent    
   ],
   imports: [
     MatGridListModule,

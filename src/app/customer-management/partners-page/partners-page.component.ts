@@ -21,7 +21,7 @@ export class PartnersPageComponent implements OnInit {
 
   ngOnInit() {
     this.gridRelaod = true;
-    this.grid_url = this._service.api_user_url + '/organistaion/getAllActiveOrganisations/'
+    this.grid_url = this._service.api_user_url + '/organistaion/getAllActiveOrganisations'
     this.Columns = [
       { 'columnName': 'orgName', 'displayName': 'Name', "active": true, "hyperlink": true, "action": false,"sortDisabled":false },
       { 'columnName': 'organisationCode', 'displayName': 'Code', "active": true, "hyperlink": false, "action": false ,"sortDisabled":false},

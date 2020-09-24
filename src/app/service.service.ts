@@ -437,6 +437,18 @@ export class ServiceService {
     return this.http.get<any>(this.api_user_url + '/api/admin/menu/bar');
   }
 
+  getPrivilegeList(): Observable<any>{
+    return this.http.get<any>(this.api_user_url + '/api/admin/privileges');
+  }
+
+  createRole(obj): Observable<any> {
+    return this.http.post<any>(this.api_user_url + '/api/admin/role',obj);
+  }
+
+  getRoleData(id): Observable<any> {
+    return this.http.get<any>(this.api_user_url + `/api/admin/role/${id}`);
+  }
+
   /*  */
   tranfromArray(columnName: any[], dataList: any, x: string, y: string) {
     let filterdata: any = {};

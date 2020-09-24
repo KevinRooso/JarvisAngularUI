@@ -48,6 +48,8 @@ import { RolesGuardService } from './roles-guard.service';
 import { LoginLayoutComponent } from './layouts/login-layout.component';
 import { HomeLayoutComponent } from './layouts/home-layout.component';
 import { AddRoleComponent } from './role-management/add-role/add-role.component';
+import { EditRoleComponent } from './role-management/edit-role/edit-role.component';
+import { ShowPermissionComponent } from './role-management/show-permission/show-permission.component';
 
 
 const routes: Routes = [
@@ -108,6 +110,8 @@ const routes: Routes = [
       { path: 'graphOld', component: AssetsVisualizeComponent, canActivate: [AuthguardGuard] },
       { path: 'add-user', component: AddUserComponent, canActivate: [AuthguardGuard] },
       { path: 'add-role', component: AddRoleComponent, canActivate: [AuthguardGuard] },
+      { path: 'edit-role', component: EditRoleComponent, canActivate: [AuthguardGuard] },
+      { path: 'show-permission', component: ShowPermissionComponent, canActivate: [AuthguardGuard] },
       { path: 'view-asset', component: AssetModelView },
       { path: 'setting', component: SettingComponent, canActivate: [AuthguardGuard] },
       { path: 'wizard', component: WizardsComponent, canActivate: [AuthguardGuard] },

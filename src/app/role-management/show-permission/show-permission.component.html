@@ -1,0 +1,20 @@
+<app-progress-spinner color="accent" [mode]="mode" [value]="value" *ngIf="displayProgressSpinnerInBlock" [diameter]="50"
+  class="center-aligned sq-relative-backdrop">
+</app-progress-spinner>
+
+<div class="wrapper">
+  <div class="py-4">        
+        <mat-card class="my-3">
+          <h4>Permissions</h4>
+          <span *ngFor="let perm of permissionArr">
+              <span class="perm-font mx-2">
+                {{perm.name}},
+              </span>              
+          </span>
+        </mat-card>
+        <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true" class="text-left mr-2">
+            Close
+        </button>              
+    <!-- </mat-card> -->
+  </div>
+</div>

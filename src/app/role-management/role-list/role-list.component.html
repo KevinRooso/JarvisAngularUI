@@ -4,13 +4,13 @@
       <h2>Roles Table</h2>
     </div>
     <div class="text-right">
-      <button mat-mini-fab color="primary" matTooltip="Add User" class="theme-btn" (click)="openDialog(null)">
+      <button mat-mini-fab color="primary" matTooltip="Add Role" class="theme-btn" (click)="openDialog(null)">
       <i class="material-icons">person_add</i>
     </button>
     </div>
   </div>
 
   <div class="mat-container mb-5">
-    <app-mat-table *ngIf="gridRelaod" [dataUrl]="grid_url" [headerColumns]="Columns" (outData)="openBox($event)" ></app-mat-table>
+    <app-role-mat-table *ngIf="gridRelaod" [dataUrl]="grid_url" [headerColumns]="Columns" (outData)="openBox($event)" ></app-role-mat-table>
   </div>
 

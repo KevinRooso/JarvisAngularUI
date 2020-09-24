@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 //import { AddUserComponent } from 'src/app/components/add-user/add-user.component';
 import { ServiceService } from 'src/app/service.service';
 import { AddRoleComponent } from '../add-role/add-role.component';
+import { EditRoleComponent } from '../edit-role/edit-role.component';
 
 @Component({
   selector: 'app-role-list',
@@ -16,19 +17,17 @@ export class RoleListComponent implements OnInit {
   gridRelaod: boolean;
 
   Columns: any[] = [
-    { 'columnName': 'username', 'displayName': 'User Name', "active": true, "hyperlink": true, "action": false }
-    , { 'columnName': 'organisationCode', 'User ID/Email': 'Code', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'email', 'displayName': 'email', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'phoneNumber', 'displayName': 'phone Number', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'city', 'displayName': 'city', "active": true, "hyperlink": false, "action": false }
-  /*   , { 'columnName': 'modifiedDate', 'displayName': 'modified Date', "active": true, "hyperlink": false, "action": false } */
-    , { 'columnName': 'id', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true }
+    { 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": true, "action": false }    
+    , { 'columnName': 'displayName', 'displayName': 'NAME', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'isInternal', 'displayName': 'SYSTEM GENERATED', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'permission', 'displayName': 'PERMISSIONS', "active": true, "hyperlink": false, "action": true,"purpose": 'Permission', "sortDisabled":true}
+    , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true,"purpose": 'Edit' ,"sortDisabled":true}
   ];
 
   grid_url: string;
 
   constructor(private _service: ServiceService, public dialog: MatDialog, ) {
-    this.grid_url = this._service.api_user_url + '/user/getAllActiveUsers'
+    this.grid_url = this._service.api_user_url + '/api/admin/roles'
   }
 
   ngOnInit() {
@@ -42,7 +41,7 @@ export class RoleListComponent implements OnInit {
     console.log(event.columnValue);
 
     if (event.columnName == 'edit') {
-      this.openDialog(event.columnValue);
+      this.openEditDialog(event.columnValue);
     }
 
 
@@ -52,6 +51,22 @@ export class RoleListComponent implements OnInit {
 
     this.gridRelaod = false;
     const dialogRef = this.dialog.open(AddRoleComponent, {
+      disableClose: true,
+     width: '700px',
+      // height: '100vh',
+    position: { top: '50px' },
+      data: { "id": id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.gridRelaod = true;
+    });
+  }
+
+  openEditDialog(id): void {
+    this.gridRelaod = false;
+    const dialogRef = this.dialog.open(EditRoleComponent, {
       disableClose: true,
      width: '700px',
       // height: '100vh',
