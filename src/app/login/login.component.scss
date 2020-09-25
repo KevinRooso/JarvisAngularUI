@@ -121,3 +121,54 @@ height: 40px;
 .footer-sec a {
   text-decoration: none;
 }
+
+.modal-footer{
+  justify-content: center;
+  // border-top: none;
+}
+
+.modal-dialog{
+  display: block;
+  position: relative;
+  padding: 16px;
+  border-radius: 4px;
+}
+
+.modal-remove {
+  background: #fff;
+  border: 2px solid #e3e3e3;
+  border-radius: 50%;
+  font-size: 24px !important;
+  height: 50px;
+  width: 50px;
+  opacity: 1 !important;
+  z-index: 999;
+}
+
+.close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
+
+.modal-header .close {
+  padding: 1rem 1rem;
+  margin: -3rem -3rem -1rem auto;
+}
+
+
+.modal-body input {
+    text-align: center;
+  }
+
+  ::-webkit-input-placeholder {
+    text-align: center;
+  }
+
+  :-moz-placeholder {
+    text-align: center;
+  }
