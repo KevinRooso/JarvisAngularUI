@@ -45,11 +45,11 @@ export class ProfileViewComponent implements OnInit {
       .subscribe(
 
         res => {
-          const base64Image = 'data:image/png;base64,' + res.result.userImage;
+          const base64Image = 'data:image/png;base64,' + res.body.userImage;
           this.url = this.transform(base64Image);
           console.log(res);
 
-          this.userData = res.result;
+          this.userData = res.body;
         }
       );
 

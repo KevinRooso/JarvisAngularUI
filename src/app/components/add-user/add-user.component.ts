@@ -17,8 +17,8 @@ export class AddUserComponent implements OnInit {
   url: any;
   usereditObject: any;
 
-  org_List: Observable<any[]>;
-  userId:any;
+  orgList:any[] = [];
+  userId:any = 0;
   status:any;
 
   submitResponse: any = true;
@@ -33,7 +33,7 @@ export class AddUserComponent implements OnInit {
   mode = 'indeterminate';
   value = 50;
   color = 'primary';
-  displayProgressSpinnerInBlock: boolean = false;
+  displayProgressSpinnerInBlock: boolean = false;  
 
 
   // tslint:disable-next-line:variable-name
@@ -43,23 +43,17 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.org_List = this.service.getOrganisationData();
-    //  this.getOrganisationData();
+    
+    //  this.getOrganisationData();    
     this.getUserDetails(this.data.id);
+    this.getOrgList();
     this.userForm = this._formBuilder.group({
-      username: ['', [Validators.required]],
+      // uname: ['', [Validators.required]],
       phone_number: ['', [Validators.required,Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
       email: ['', [Validators.required, Validators.email]],
-      image_name: [''],
-      user_image: [''],
-      userType: [''],
-      city: ['', [Validators.required]],
-      pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
-      country: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      orgId: ['', [Validators.required]]
-    });
+      fullName: ['', [Validators.required]],
+      userType: ['',[Validators.required]]      
+    });    
   }
 
   onFileChanged(event) {
@@ -85,25 +79,15 @@ export class AddUserComponent implements OnInit {
   }
   onSubmit(userForm: any) {
     if(this.userForm.valid){
-
-  
-
+      
     this.displayProgressSpinnerInBlock = true;
     let obj: any = {};
-
-    obj.id = this.userId;
-    obj.active =this.status;
-    obj.username = this.userForm.get('username').value;
+    
+    obj.id = this.userId;    
     obj.phoneNumber = this.userForm.get('phone_number').value;
     obj.email = this.userForm.get('email').value;
-    obj.imageName = this.userForm.get('image_name').value;
-    obj.userImage = this.base64textString;
     obj.userType = this.userForm.get('userType').value;
-    obj.city = this.userForm.get('city').value;
-    obj.pincode = this.userForm.get('pincode').value;
-    obj.country = this.userForm.get('country').value;
-    obj.password = this.userForm.get('password').value;
-    obj.orgId = this.userForm.get('orgId').value;
+    obj.fullName = this.userForm.get('fullName').value;    
     console.log(obj);
     this.service.saveUserDetails(obj)
       .subscribe(res => {
@@ -116,6 +100,8 @@ export class AddUserComponent implements OnInit {
         alert("Not Save Please Try Again !!!!")
         this.displayProgressSpinnerInBlock = false;
       })
+    }else{
+      alert("Please Fill all fields");
     }
   }
 
@@ -126,24 +112,19 @@ export class AddUserComponent implements OnInit {
         console.log(res);
         this.usereditObject = res.result;
         this.userId= res.result.id;
-        this.status= res.result.active;
-        this.base64textString = res.result.userImage;
-        var base64Image = 'data:image/png;base64,' + res.result.userImage;
-        this.url = this.transform(base64Image);
 
-        this.userForm.patchValue({
-          username: res.result.username,
+        let userType;
+        if(res.result.userType == null){
+          userType = "";
+        }else{
+          userType = res.result.userType;
+        }
+
+        this.userForm.patchValue({          
           phone_number: res.result.phoneNumber,
-          email: res.result.email,
-          image_name: res.result.imageName,
-          user_image: res.result.userImage,
-          userType: res.result.userType,
-          city: res.result.city,
-          pincode: res.result.pincode,
-          country: res.result.country,
-          password:  res.result.password,
-          orgId:  res.result.orgId
-
+          email: res.result.email,          
+          userType: userType,
+          fullName: res.result.fullName
         });
 
 
@@ -171,7 +152,14 @@ export class AddUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
-
+  getOrgList(){
+    this.service.getOrganisationData().subscribe(
+      res=> {        
+        this.orgList = res;
+        console.log(this.orgList);
+      }
+    )
+  }
 
   ngOnDestory() {
     this.userDetailsSub.unsubscribe();

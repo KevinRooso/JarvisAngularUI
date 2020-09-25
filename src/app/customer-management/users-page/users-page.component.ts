@@ -14,13 +14,13 @@ export class UsersPageComponent implements OnInit {
   gridRelaod: boolean;
 
   Columns: any[] = [
-    { 'columnName': 'username', 'displayName': 'User Name', "active": true, "hyperlink": true, "action": false }
-    , { 'columnName': 'organisationCode', 'User ID/Email': 'Code', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'email', 'displayName': 'email', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'phoneNumber', 'displayName': 'phone Number', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'city', 'displayName': 'city', "active": true, "hyperlink": false, "action": false }
+    { 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": true, "action": false }    
+    , { 'columnName': 'email', 'displayName': 'Email', "active": true, "hyperlink": false, "action": false }
+    // , { 'columnName': 'fullName', 'displayName': 'Full Name', "active": true, "hyperlink": false, "action": false }        
+    , { 'columnName': 'userType', 'displayName': 'User Type', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'phoneNumber', 'displayName': 'Phone Number', "active": true, "hyperlink": false, "action": false }
   /*   , { 'columnName': 'modifiedDate', 'displayName': 'modified Date', "active": true, "hyperlink": false, "action": false } */
-    , { 'columnName': 'id', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true }
+    , { 'columnName': 'action', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true , "sortDisabled": true}
   ];
 
   grid_url: string;

@@ -24,9 +24,9 @@ export class PartnersPageComponent implements OnInit {
     this.grid_url = this._service.api_user_url + '/organistaion/getAllActiveOrganisations'
     this.Columns = [
       { 'columnName': 'orgName', 'displayName': 'Name', "active": true, "hyperlink": true, "action": false,"sortDisabled":false },
-      { 'columnName': 'organisationCode', 'displayName': 'Code', "active": true, "hyperlink": false, "action": false ,"sortDisabled":false},
-      { 'columnName': 'fota', 'displayName': 'fota', "active": true, "hyperlink": false, "action": false ,"sortDisabled":false},
-      { 'columnName': 'anonymous', 'displayName': 'Anonymous', "active": true, "hyperlink": false, "action": false,"sortDisabled":false },
+      { 'columnName': 'email', 'displayName': 'Email', "active": true, "hyperlink": false, "action": false ,"sortDisabled":false},
+      { 'columnName': 'city', 'displayName': 'City', "active": true, "hyperlink": false, "action": false ,"sortDisabled":false},
+      { 'columnName': 'contactNo', 'displayName': 'Contact No', "active": true, "hyperlink": false, "action": false,"sortDisabled":true },
      /*  { 'columnName': 'outgoingTopic', 'displayName': 'Publish Topic', "active": true, "hyperlink": false, "action": false ,"sortDisabled":false}, */
       { 'columnName': 'createdName', 'displayName': 'Created By', "active": true, "hyperlink": false, "action": false ,"sortDisabled":true},
       { 'columnName': 'id', 'displayName': 'Action', "active": true, "hyperlink": true, "action": true,"sortDisabled":true }
