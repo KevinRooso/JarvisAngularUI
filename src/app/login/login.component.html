@@ -1,10 +1,6 @@
-<!-- <div class="loading-indicator" *ngIf="progressSpinner == true">
-        <mat-progress-spinner mode="indeterminate" color="accent"></mat-progress-spinner>
-      </div> -->
 <div id="back">
   <div class="backRight"></div>
 </div>
-
 <div class="backRight">
   <div id="slideBox" class="topLayer ">
     <div class="left">
@@ -13,112 +9,117 @@
           <img class="logo" src="./assets/logo.png" alt="Logo" class="logo" />
         </a>
       </div>
-
-      <!-- Login form code -->
       <mat-card id="login-container" style="margin: 15px; margin-top: 50px;" class="mat-elevation-z8">
-      <form [formGroup]="loginFrom" (ngSubmit)="onSubmit()">
-        <div >
-          <h2 class="primary" style="text-align: center;">Login</h2>
-
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email address" formControlName="username"
-              required
-            />
-            <mat-error>
-              Please enter email id
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="example-full-width">
-            <input matInput  placeholder="Password" [type]="hide ? 'password' : 'text'"
-              formControlName="password"
-              required
-            />
-            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          <!--   <mat-error>
-              Please enter password
-            </mat-error> -->
-          </mat-form-field>
-
-          <mat-slide-toggle color="primary">
-            <span class="toggle-btn">Remember me</span>
-          </mat-slide-toggle>
-          <br />
-
+        <form [formGroup]="loginFrom" (ngSubmit)="onSubmit()">
           <div>
-            <button mat-raised-button type="button" class="Sign-Up-btn">
-              Sign Up
-            </button>
-            <button
-              mat-raised-button
-              type="submit"
-              color="primary"
-              class="Login-btn"
+            <h2 class="primary" style="text-align: center;">Login</h2>
 
-            >
-              Login
-            </button>
-          </div>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Email address" formControlName="username" required />
+              <mat-error>
+                Please enter email id
+              </mat-error>
+            </mat-form-field>
 
-          <div class="footer-sec">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password"
+                required />
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </mat-form-field>
+
+            <mat-slide-toggle color="primary">
+              <span class="toggle-btn">Remember me</span>
+            </mat-slide-toggle>
             <br />
-            <br />
-            <hr />
-            <a class="primary">Forgot Password?</a>
-            <br />
-          </div>
-        </div>
-      </form>
-    </mat-card>
 
-      <!-- <div class="container"> -->
-      <div class="login-card">
-       <!--  <mat-toolbar color="primary" style="border-radius: 4px;"
-          >Sign In</mat-toolbar
-        > -->
-        <mat-card>
-          <div style="margin-top:40px ">
-           <!--  <form [formGroup]="loginFrom" (ngSubmit)="onSubmit()">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Enter User Name</mat-label>
-                <input
-                  matInput
-                  placeholder="Username"
-                  formControlName="username"
-                  name="username"
-                  required
-                />
-                <mat-error>Please Enter Username</mat-error>
-              </mat-form-field>
-
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Enter Password</mat-label>
-                <input
-                  matInput
-                  placeholder="Password"
-                  type="password"
-                  formControlName="password"
-                  name="password"
-                  required
-                />
-                <mat-error>Please Enter Password</mat-error>
-              </mat-form-field>
-
-              <button
-                [disabled]="!loginFrom.valid"
-                class="login-button"
-                mat-raised-button
-                type="submit"
-                color="primary"
-              >
+            <div class="py-3">
+              <button mat-raised-button type="button" class="Sign-Up-btn" data-toggle="modal"
+                data-target="#exampleModal">
+                Sign Up
+              </button>
+              <button mat-raised-button type="submit" color="primary" class="Login-btn">
                 Login
               </button>
-            </form> -->
+            </div>
+
+            <div class="footer-sec">
+              <hr />
+              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Launch demo modal
+              </button> -->
+
+              <a href="#" data-toggle="modal" data-target="#exampleModal">Forgot Password?</a>
+            </div>
+          </div>
+        </form>
+      </mat-card>
+      <!-- <div class="login-card">
+        <mat-card>
+          <div style="margin-top:40px ">
           </div>
         </mat-card>
-      </div>
+      </div> -->
     </div>
-    <!-- End -->
   </div>
 </div>
-<!-- </div> -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" style="z-index: 9999;background-color:rgb(49 49 49 / 70%);">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none;">
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+        <button type="button" class="close modal-remove" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="text-center">
+                <p style="font-size: 16px; margin: 1rem 0;">If you have forgotten your password you can reset it here.</p>
+                <div class="panel-body">
+                  <fieldset>
+                    <div class="form-group my-3">
+                      <input class="form-control input-lg" placeholder="E-mail Address" name="email" type="email" style="line-height: 2.5;">
+                    </div>
+
+                    <div>
+                      <button mat-raised-button class="my-3" type="submit" color="primary" (click)="verifyPWD()">
+                        Send My Password
+                      </button>
+                    </div>
+
+                    <!-- <input class="btn btn-lg btn-primary my-3" value="Send My Password" type="submit"> -->
+                  </fieldset>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <div class="modal-footer text-center" *ngIf="verifyME" style="display: grid;">
+        <div>
+          <p style="font-size: 16px; margin: 1rem 0;">Verify the passowrd that shared in your mail</p>
+        </div>
+       <div>
+        <fieldset>
+          <div class="form-group my-3">
+            <input class="form-control input-sm" placeholder="Verify Password" name="email" type="text" style="line-height: 2.5;">
+          </div>
+
+          <div>
+            <button mat-raised-button class="my-3" type="submit" color="primary" (click)="closeModal()" data-dismiss="modal" aria-hidden="true">
+              Verify
+            </button>
+          </div>
+          <!-- <input class="btn btn-lg btn-primary  my-3" value="Verify" type="submit" data-dismiss="modal" aria-hidden="true"> -->
+        </fieldset>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,13 +10,15 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  verifyME = false;
   constructor(private _builder: FormBuilder, private _service: ServiceService, private _router: Router) { }
 
   public loginFrom: FormGroup;
-  public hide: boolean = true; 
+  public hide: boolean = true;
 
   ngOnInit() {
     // Initilize the Form Control
+    this.verifyME = false;
     this.loginFrom = this._builder.group({
       username: ['', Validators.required],
       password: ['', [Validators.required]]
@@ -27,7 +29,7 @@ export class LoginComponent implements OnInit {
       const valid = this._service.isTokenExpired()
         .subscribe(res => {
           console.log(res);
-          this._service.login();          
+          this._service.login();
           this._router.navigate(['/home-dashboard'])
         }, error => {
           console.log(error);
@@ -39,6 +41,12 @@ export class LoginComponent implements OnInit {
 
     }
   }
+  verifyPWD(){
+    this.verifyME = true;
+  }
+  closeModal(){
+    this.verifyME = false;
+  }
   /**
    * To Submit Login Info
    * Getting Form Value
@@ -49,7 +57,7 @@ export class LoginComponent implements OnInit {
     // Getting User Login From Value
     // sending User fill information to service to validate
     console.log(this.loginFrom.value);
-    console.log(this.loginFrom.valid);    
+    console.log(this.loginFrom.valid);
 
     this._service.setUserLogin(this.loginFrom.value)
       .subscribe(res => {
@@ -63,7 +71,7 @@ export class LoginComponent implements OnInit {
         //Update Subject As User is Login
         this._service.login();
         //Update Subject As User is Admin Check
-        this._service.isUserAdminSub();                              
+        this._service.isUserAdminSub();
         //After update local Storage, It will re-direct to User Dashboard
         this._router.navigate(['/home-dashboard'])
 
@@ -71,8 +79,8 @@ export class LoginComponent implements OnInit {
         // Error Reposnse Messge Handling
         //Showing Response Message to user know password is Authentication field
         alert("Wrong Credentials");
-        console.log(error);        
+        console.log(error);
       })
-  } 
+  }
 
 }
