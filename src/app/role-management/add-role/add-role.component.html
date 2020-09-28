@@ -3,42 +3,52 @@
 </app-progress-spinner>
 
 <div class="wrapper">
-  <div class="py-4">        
-      <form [formGroup]="roleForm">      
+  <div class="">
+      <form [formGroup]="roleForm">
         <mat-form-field class="input-full-width">
           <input matInput type="text" formControlName="name" placeholder="Role Name" />
         </mat-form-field>
 
-        <mat-card class="my-3">
+        <mat-card class="my-3 p-4" style="height: 280px;overflow-y: auto;">
           <h4>Permissions</h4>
           <div class="row mt-4">
             <div class="col-md-3">
-              Module
+             <h5>Module Name</h5>
             </div>
             <div class="col-md-1"></div>
-            <div class="col-md-2">              
-              <mat-checkbox style="margin-left: 28px;" (change)="selectAll(1,$event)" color="accent"></mat-checkbox>
+            <div class="col-md-2">
+              <mat-checkbox style="margin-left: 28px;" (change)="selectAll(1,$event)" color="primary"></mat-checkbox>
             </div>
             <div class="col-md-2">
-              <mat-checkbox (change)="selectAll(2,$event)" class="check-margin" color="accent"></mat-checkbox>
+              <mat-checkbox (change)="selectAll(2,$event)" class="check-margin" color="primary"></mat-checkbox>
             </div>
             <div class="col-md-2">
-              <mat-checkbox (change)="selectAll(3,$event)" class="check-margin" color="accent"></mat-checkbox>
+              <mat-checkbox (change)="selectAll(3,$event)" class="check-margin" color="primary"></mat-checkbox>
             </div>
             <div class="col-md-2">
-              <mat-checkbox (change)="selectAll(0,$event)" class="check-margin" color="accent"></mat-checkbox>
+              <mat-checkbox (change)="selectAll(0,$event)" class="check-margin" color="primary"></mat-checkbox>
             </div>
           </div>
           <div class="row my-2" *ngFor="let group of permissionGroup;let i = index;">
-            <div class="col-md-4">
+            <div class="col-md-4 text-left">
               {{group}}
             </div>
             <div class="col-md-2" *ngFor="let per of permissionData | slice:(4*i):(4*i)+4">
-              <span> {{per.displayName}} &nbsp;</span>
-              <mat-checkbox #permCheck [value]="per.id" (change)="changePermission($event)" class="example-margin" color="accent"></mat-checkbox>
+              <span> {{per.displayName | titlecase}} &nbsp;</span>
+              <mat-checkbox #permCheck [value]="per.id" (change)="changePermission($event)" class="example-margin" color="primary"></mat-checkbox>
             </div>
           </div>
-          <!-- <table class="table table-borderless">            
+          <!-- <table class="table table-borderless">
+          <table class="table table-borderless">
+          <thead>
+                <tr>
+                    <th>Module Name</th>
+                    <th>Read</th>
+                    <th>Create</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
             <tbody>
               <tr *ngFor="let group of permissionGroup;let i = index;">
                 <td>{{group}}</td>
@@ -50,13 +60,15 @@
             </tbody>
         </table> -->
 
-        </mat-card>  
-        <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true" class="text-left mr-2">
-          Close
-        </button>
-        <button mat-raised-button color="primary" (click)="onSubmit(roleForm)" class="text-left">
-          Save Changes
-        </button>
+        </mat-card>
+        <div class="py-2">
+          <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true" class="text-left mr-2">
+            Close
+          </button>
+          <button mat-raised-button color="primary" (click)="onSubmit(roleForm)" class="text-left">
+            Save Changes
+          </button>
+        </div>
       </form>
     <!-- </mat-card> -->
   </div>

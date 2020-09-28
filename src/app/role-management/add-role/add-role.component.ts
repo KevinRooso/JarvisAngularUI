@@ -21,7 +21,7 @@ export class AddRoleComponent implements OnInit {
 
   org_List: Observable<any[]>;
   userId:any;
-  status:any;  
+  status:any;
 
   submitResponse: any = true;
 
@@ -46,18 +46,18 @@ export class AddRoleComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     this.service.getPrivilegeList().subscribe(
       res=> {
         this.permissionData = res.body;
         res.body.map(i=>{
           this.permissionGroup.push(i.groupName);
         })
-        this.permissionGroup = [...new Set(this.permissionGroup)];        
+        this.permissionGroup = [...new Set(this.permissionGroup)];
       }
     );
     this.roleForm = this._formBuilder.group({
-      name: ['',[Validators.required]]      
+      name: ['',[Validators.required]]
     });
   }
 
@@ -75,9 +75,9 @@ export class AddRoleComponent implements OnInit {
     //this.displayProgressSpinnerInBlock = true;
     let obj: any = {
       id: 0,
-      name: this.roleForm.controls['name'].value,    
+      name: this.roleForm.controls['name'].value,
       privilegeList: this.permissionArr
-    }        
+    }
     this.service.createRole(obj).subscribe(
       res=> {
         alert("Role Created");
@@ -90,7 +90,7 @@ export class AddRoleComponent implements OnInit {
     );
    }else{
      alert("Fill Role name");
-   }  
+   }
   }else{
     alert("Select atleast one permission");
   }
@@ -100,7 +100,7 @@ export class AddRoleComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  changePermission(event){    
+  changePermission(event){
     if(event.checked){
       this.permissionArr.push(event.source.value);
     }

@@ -3,18 +3,18 @@
 </app-progress-spinner>
 
 <div class="wrapper">
-  <div class="py-4">        
+  <div class="py-4">
         <mat-card class="my-3">
           <h4>Permissions</h4>
           <span *ngFor="let perm of permissionArr">
               <span class="perm-font mx-2">
                 {{perm.name}},
-              </span>              
+              </span>
           </span>
         </mat-card>
         <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true" class="text-left mr-2">
             Close
-        </button>              
+        </button>
     <!-- </mat-card> -->
   </div>
 </div>

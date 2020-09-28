@@ -145,7 +145,7 @@ font-weight: 400;
 }
 
 .lh-3 {
-  line-height: 3;
+  line-height: 2.2;
 }
 
 @media (min-width: 850px)
@@ -163,4 +163,11 @@ font-weight: 400;
   max-width: 950px;
   margin: 1.75rem auto;
 }
+}
+.card-header {
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgb(29 33 39);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  color: #fff;
 }
