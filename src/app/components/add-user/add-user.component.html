@@ -5,63 +5,31 @@
 <div class="wrapper">
   <div class="py-4">
     <mat-card class="org-mat-card">
-      <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
-        <div class="row">
-          <div class="col-sm-4">
-            <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput />
-            <img [src]="
-                url ? url : 'https://www.w3schools.com/howto/img_avatar.png'
-              " class="logo-image" />
-          </div>
-          <div class="col-sm-4 align-self-flex-end">
-            <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
-              Select File
-            </button>
-          </div>
-        </div>
-
-        <mat-form-field class="input-full-width">
-          <input matInput type="text" formControlName="username" placeholder="UserName" />
-        </mat-form-field>
-
-        <mat-form-field class="input-full-width">
-          <input matInput type="password" formControlName="password" placeholder="Password" />
-        </mat-form-field>
-
-        <mat-form-field class="input-full-width">
-          <input matInput type="text" formControlName="phone_number" placeholder="Phone Number" maxlength="14"/>
-        </mat-form-field>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">      
 
         <mat-form-field class="input-full-width">
           <input matInput type="email" formControlName="email" placeholder="Email ID" />
         </mat-form-field>
 
         <mat-form-field class="input-full-width">
-          <mat-label>Organization</mat-label>
-          <mat-select formControlName="orgId">
-            <mat-option [value]="org.id" *ngFor="let org of org_List | async">
-              {{ org.orgName }}</mat-option>
-          </mat-select>
-        </mat-form-field><br />
-
-        <mat-form-field class="input-full-width">
-          <mat-label>User Type</mat-label>
-          <mat-select formControlName="userType">
-            <mat-option [value]="role.roleValue" *ngFor="let role of userTypeList ">{{ role.roleName }}</mat-option>
-          </mat-select>
-        </mat-form-field><br />
-
-        <mat-form-field class="input-full-width">
-          <input matInput type="text" formControlName="city" placeholder="City" />
+          <input matInput type="text" formControlName="fullName" placeholder="Full Name" />
         </mat-form-field>
 
         <mat-form-field class="input-full-width">
-          <input matInput type="text" formControlName="pincode" placeholder="Pin Code"  maxlength="6"/>
-        </mat-form-field>
+          <input matInput type="text" formControlName="phone_number" placeholder="Phone Number" maxlength="14"/>
+        </mat-form-field>        
+        
+          <!-- <mat-label>Organization</mat-label> -->
 
-        <mat-form-field class="input-full-width">
-          <input matInput type="text" formControlName="country" placeholder="Country" />
-        </mat-form-field>
+        <div class="input-full-width select-margin">
+          <select class="form-control" formControlName="userType">
+            <option value="" disabled selected>Select User Type</option>
+            <option [value]="role.roleValue" *ngFor="let role of userTypeList ">
+              {{ role.roleName }}
+            </option>
+          </select>
+         </div>
+
         <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true" class="text-left mr-2">
           Close
         </button>

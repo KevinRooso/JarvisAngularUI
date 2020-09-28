@@ -42,7 +42,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.profileName = this._service.getUserDetailsByToken().pipe(map(res => { return res.result.username }));
+    this.profileName = this._service.getUserDetailsByToken().pipe(map(res => { return res.body.username }));
     this.url = this._service.getUserDetailsByToken().pipe(map(res => {
       var base64Image = 'data:image/png;base64,' + res.result.userImage;
       return this.transform(base64Image);

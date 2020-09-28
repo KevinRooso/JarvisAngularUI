@@ -6,59 +6,27 @@
   <div class="py-4">
     <mat-card class="org-mat-card">
       <form [formGroup]="orgForm" (ngSubmit)="onSubmit(orgForm)">
-        <div class="row">
-          <div class="col-sm-4">
-            <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput />
-            <img [src]="
-                url ? url : 'https://www.w3schools.com/howto/img_avatar.png'
-              " class="logo-image" />
-          </div>
-          <div class="col-sm-4 align-self-flex-end">
-            <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
-              Select File
-            </button>
-          </div>
-        </div>
         <mat-form-field class="input-full-width">
           <input matInput type="text" formControlName="orgName" placeholder="Name" />
-        </mat-form-field>
-
-        <mat-form-field class="input-full-width">
-          <input matInput type="text" formControlName="orgType" placeholder="Organization Type" />
-        </mat-form-field>
-
-        <mat-form-field class="input-full-width">
-          <input matInput type="text" formControlName="organisationCode" placeholder="Organization Code" />
-        </mat-form-field>
-
+        </mat-form-field>        
+       
         <mat-form-field class="input-full-width">
           <input matInput type="email" formControlName="email" placeholder="Email Id" />
-        </mat-form-field>
+        </mat-form-field>        
 
         <mat-form-field class="input-full-width">
           <input matInput  formControlName="contactNo" placeholder="Phone Number" maxlength="14" />
-        </mat-form-field>
+        </mat-form-field>        
 
         <mat-form-field class="input-full-width">
-          <input matInput type="text" formControlName="city" placeholder="City" />
-        </mat-form-field>
-
-        <mat-form-field class="input-full-width">
-          <input matInput type="text" formControlName="country" placeholder="Country" />
-        </mat-form-field>
-
-        <mat-form-field class="input-full-width">
-          <input matInput type="text" formControlName="topic" placeholder="topic" />
-          <mat-icon matSuffix matTooltip="Announcement to be made" matTooltipPosition="after">announcement</mat-icon>
+          <input matInput type="text" formControlName="city" placeholder="City" />          
         </mat-form-field>
 
         <mat-form-field class="input-full-width">
           <input matInput type="text" formControlName="logourl" placeholder="Image Url" />
           <mat-icon matSuffix matTooltip="Announcement to be made" matTooltipPosition="after">announcement</mat-icon>
         </mat-form-field>
-
-        <mat-slide-toggle class="input-full-width" formControlName="isAnonymous">isAnonymous!</mat-slide-toggle>
-        <mat-slide-toggle class="input-full-width" formControlName="fota">FOTA</mat-slide-toggle><br />
+       
         <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true" class="text-left mr-2">
           Close
         </button>

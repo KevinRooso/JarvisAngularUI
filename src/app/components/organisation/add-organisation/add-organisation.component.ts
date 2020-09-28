@@ -15,6 +15,8 @@ export class AddOrganisationComponent implements OnInit {
   loading = false;
   submitted = false;
 
+  checkError:any;
+
   /* Get OrgId to open with  details */
   id: number;
 
@@ -24,8 +26,7 @@ export class AddOrganisationComponent implements OnInit {
   color = 'primary';
   displayProgressSpinnerInBlock: boolean = false;
 
-
-
+  
 
   orgeditObject: any;
   selectedFile: File
@@ -35,7 +36,6 @@ export class AddOrganisationComponent implements OnInit {
     private _router: Router, private service: ServiceService, private sanitizer: DomSanitizer,
     public dialogRef: MatDialogRef<AddOrganisationComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
-
 
 
   }
@@ -49,42 +49,48 @@ export class AddOrganisationComponent implements OnInit {
 
 
     this.orgForm = this._formBuilder.group({
-      orgName: ['', Validators.required],
-      orgType: ['', Validators.required],
-      organisationCode: ['', Validators.required],
-      isAnonymous: ['', []],
-      fota: ['', []],
-      topic: ['', []],
-      country: ['', [Validators.required]],
+      orgName: ['', Validators.required],      
       city: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       contactNo: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
       logourl: ['', []]
     });
+
+    this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
+          return this.orgForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.orgForm.controls[controlName].hasError(errorName);
+      }
+    };
   }
 
   onSubmit(orgForm) {
+    this.submitted = true;
     if (this.orgForm.valid) {
-
+      
       this.displayProgressSpinnerInBlock = true;
       let obj: any = {};
       if (this.orgeditObject != null && this.orgeditObject != undefined) {
         obj.id = this.orgeditObject.id;
+      }else{
+        obj.id = 0;
       }
       //  obj = this.orgeditObject;
 
       obj.orgName = this.orgForm.get('orgName').value;
-      obj.orgType = this.orgForm.get('orgType').value;
-      obj.organisationCode = this.orgForm.get('organisationCode').value;
-      obj.topic = this.orgForm.get('topic').value;
-      obj.orgImg = this.base64textString;
-      obj.anonymous = this.orgForm.get('isAnonymous').value;
       obj.contactNo = this.orgForm.get('contactNo').value;
       obj.email = this.orgForm.get('email').value;
-      obj.country = this.orgForm.get('country').value;
+      // obj.country = this.orgForm.get('country').value;
       obj.city = this.orgForm.get('city').value;
-      obj.fota = this.orgForm.get('fota').value;
+      // obj.fota = this.orgForm.get('fota').value;
       obj.imgUrl = this.orgForm.get('logourl').value;
+      obj.imageName = this.orgForm.get('logourl').value;
+      obj.parentId = 1;
+
+      console.log(obj);
       this.service.saveOrgDetails(obj)
         .subscribe(res => {
          
@@ -96,6 +102,8 @@ export class AddOrganisationComponent implements OnInit {
         }, (err) => { console.log(err.error); alert(err.error.error);
           this.displayProgressSpinnerInBlock = false;
         })
+    }else{
+      alert("Please Fill all fields");
     }
   }
 
@@ -137,35 +145,16 @@ export class AddOrganisationComponent implements OnInit {
         this.url = this.transform(base64Image);
 
         this.orgForm.get('orgName').setValue(res.orgName);
-        this.orgForm.get('orgType').setValue(res.orgType);
-        this.orgForm.get('organisationCode').setValue(res.organisationCode);
-        this.orgForm.get('isAnonymous').setValue(res.anonymous);
-        this.orgForm.get('fota').setValue(res.fota);
-        this.orgForm.get('topic').setValue(res.topic);
+        // this.orgForm.get('orgType').setValue(res.orgType);
+        // this.orgForm.get('organisationCode').setValue(res.organisationCode);
+        // this.orgForm.get('isAnonymous').setValue(res.anonymous);
+        // this.orgForm.get('fota').setValue(res.fota);
+        // this.orgForm.get('topic').setValue(res.topic);
         this.orgForm.get('city').setValue(res.city);
         this.orgForm.get('email').setValue(res.email);
         this.orgForm.get('contactNo').setValue(res.contactNo);
         this.orgForm.get('logourl').setValue(res.imgUrl);
-        this.orgForm.get('country').setValue(res.country);
-
-        // this.orgForm.patchValue({orgName: res.orgName, organisationCode: res.organisationCodees});
-
-
-        /*  this.orgForm = this._formBuilder.group({
-           orgName: [res.orgName],
-           orgType: [res.orgType],
-           organisationCode: [res.organisationCode],
-           isAnonymous: [res.anonymous],
-           fota: [true],
-           topic: [res.topic],
-           country: [res.country],
-           city: [res.city],
-           email: [res.email],
-           contactNo: [res.contactNo],
-           logourl:[res.imgUrl]
- 
-         });
-  */
+        // this.orgForm.get('country').setValue(res.country);
       })
 
   }

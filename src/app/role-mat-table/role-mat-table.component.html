@@ -69,7 +69,7 @@
               <mat-icon>edit</mat-icon>
             </button> -->
             <span *ngIf="column.purpose == 'Permission'">
-              <span *ngFor="let per of element[column.columnName]; let i = index;">
+              <!-- <span *ngFor="let per of element[column.columnName]; let i = index;">
                 <span *ngIf="i <= 2">                  
                 <span *ngIf="isLast || i == 2;else defaultBlock">
                   {{per.name}}
@@ -79,8 +79,8 @@
                   {{per.name}},                
                 </ng-template>
                </span>
-              </span>
-              <!-- {{element[column.columnName].length}} -->
+              </span> -->
+              {{element[column.columnName].length}}
             </span>
 
             <span *ngIf="column.purpose == 'Edit'">
