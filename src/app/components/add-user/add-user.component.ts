@@ -124,7 +124,7 @@ export class AddUserComponent implements OnInit {
           phone_number: res.result.phoneNumber,
           email: res.result.email,          
           userType: userType,
-          fullName: res.result.fullName
+          fullName: res.result.fullname
         });
 
 

@@ -1,9 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Inject, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators, NgModel } from '@angular/forms';
 import { ServiceService } from 'src/app/service.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
+import { MatCheckbox } from '@angular/material';
+import { Icu } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-add-role',
@@ -35,6 +37,8 @@ export class AddRoleComponent implements OnInit {
 
   permissionArr:any[]= [];
 
+  @ViewChildren("permCheck") permCheck: QueryList<any>;
+
   // tslint:disable-next-line:variable-name
   constructor(private _formBuilder: FormBuilder, private service: ServiceService, @Inject(MAT_DIALOG_DATA) public data,
     private sanitizer: DomSanitizer, public dialogRef: MatDialogRef<AddRoleComponent>) {
@@ -55,8 +59,16 @@ export class AddRoleComponent implements OnInit {
     this.roleForm = this._formBuilder.group({
       name: ['',[Validators.required]]      
     });
-  }  
+  }
 
+  // ngAfterViewInit(){
+  //   this.permCheck.changes.subscribe(c=>{
+  //     c.toArray().forEach(item=>{
+  //       console.log(item);
+  //     })
+  //   })
+  // }
+  
   onSubmit(userForm: any) {
   if(this.permissionArr.length > 0){
     if(this.roleForm.valid){
@@ -100,5 +112,23 @@ export class AddRoleComponent implements OnInit {
       });
     }
   }
+
+  selectAll(no,event){
+    if(event.checked){        
+    this.permissionArr = this.permissionArr.filter(i=> i % 4 != no);    
+    let parr = this.permissionData.filter(i => i.id % 4 == no).map(i=>i = i.id);
+    this.permissionArr = this.permissionArr.concat(parr);
+    console.log(this.permissionArr);
+        
+    this.permCheck.toArray().filter(i=>i.value % 4 == no).map(i=>i.checked = true);
+
+    }else{
+      this.permissionArr = this.permissionArr.filter(i=> i % 4 != no);      
+      console.log(this.permissionArr);
+
+      this.permCheck.toArray().filter(i=>i.value % 4 == no).map(i=>i.checked = false);
+    }
+  }
+  
 
 }

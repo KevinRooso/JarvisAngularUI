@@ -74,7 +74,7 @@ export class RoleMatTableComponent implements OnInit {
     this.outData.emit({ code: id })
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit() {      
     this.exampleDatabase = new ExampleHttpDatabase(this._httpClient, this._service, this.router);
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -93,18 +93,19 @@ export class RoleMatTableComponent implements OnInit {
           this.resultsLength = data.body.totalElements;
           this.totalPagesNumber = data.body.totalPages;
           this.dataSource.paginator = this.paginator;
-console.log( data.content);
+console.log( data.body.content);
 
           return data.body.content;
         }),
-        catchError(() => {
+        catchError((err) => {          
+          console.log(err);
           this.isLoadingResults = false;
           // Catch if the GitHub API has reached its rate limit. Return empty data.
           this.isRateLimitReached = true;
           return observableOf([]);
         })
       ).subscribe(data => this.dataSource = data);
-
+    
   }
 
   updateColumn(event: Event) {

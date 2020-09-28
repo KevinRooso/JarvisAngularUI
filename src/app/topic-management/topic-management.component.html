@@ -6,9 +6,9 @@
           <form [formGroup]="clientForm">
           <mat-form-field>
             <mat-label>Select Client</mat-label>
-            <select formControlName="org" (change)="changeTopic()" matNativeControl>            
-              <option *ngFor="let client of clientList" [value]="client.id">{{client.orgName}}</option>
-            </select>
+            <mat-select formControlName="org" (change)="changeTopic()">            
+              <mat-option *ngFor="let client of clientList" [value]="client.id">{{client.orgName}}</mat-option>
+            </mat-select>
           </mat-form-field>
           </form>
         </div>

@@ -14,13 +14,16 @@ export class UsersPageComponent implements OnInit {
   gridRelaod: boolean;
 
   Columns: any[] = [
-    { 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": true, "action": false }    
+    { 'columnName': 'seq', 'displayName': 'S.No', "active": true, "hyperlink": true, "action": false , "sortDisabled": true}
+    // { 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": true, "action": false }    
     , { 'columnName': 'email', 'displayName': 'Email', "active": true, "hyperlink": false, "action": false }
-    // , { 'columnName': 'fullName', 'displayName': 'Full Name', "active": true, "hyperlink": false, "action": false }        
+    , { 'columnName': 'fullName', 'displayName': 'Full Name', "active": true, "hyperlink": false, "action": false }        
     , { 'columnName': 'userType', 'displayName': 'User Type', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'phoneNumber', 'displayName': 'Phone Number', "active": true, "hyperlink": false, "action": false }
+    // , { 'columnName': 'phoneNumber', 'displayName': 'Phone Number', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'createdName', 'displayName': 'Created By', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'createdAt', 'displayName': 'Created Date', "active": true, "hyperlink": false, "action": false , "dateFormat":true}
   /*   , { 'columnName': 'modifiedDate', 'displayName': 'modified Date', "active": true, "hyperlink": false, "action": false } */
-    , { 'columnName': 'action', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true , "sortDisabled": true}
+    , { 'columnName': 'action', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true , "sortDisabled": true, "purpose": 'Edit'}
   ];
 
   grid_url: string;

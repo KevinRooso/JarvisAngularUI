@@ -51,8 +51,11 @@
           {{ column.displayName }}
         </th>
 
-        <td mat-cell *matCellDef="let element">
-          <span *ngIf="!column.action; else elseBlock">                      
+        <td mat-cell *matCellDef="let element;let i = dataIndex;">
+          <span *ngIf="!column.action; else elseBlock">
+             <span *ngIf="column.columnName == 'seq'">
+              {{(i+1) + (paginator.pageSize * paginator.pageIndex)}}
+              </span>                      
               <span *ngIf="!column.dateFormat">
                 {{ element[column.columnName] }}
               </span>
@@ -69,17 +72,6 @@
               <mat-icon>edit</mat-icon>
             </button> -->
             <span *ngIf="column.purpose == 'Permission'">
-              <!-- <span *ngFor="let per of element[column.columnName]; let i = index;">
-                <span *ngIf="i <= 2">                  
-                <span *ngIf="isLast || i == 2;else defaultBlock">
-                  {{per.name}}
-                  <button mat-stroked-button (click)="openPermModal(element[column.columnName])">See More</button>
-                </span>
-                <ng-template #defaultBlock>
-                  {{per.name}},                
-                </ng-template>
-               </span>
-              </span> -->
               {{element[column.columnName].length}}
             </span>
 
@@ -99,7 +91,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr
         mat-row
-        *matRowDef="let element; columns: displayedColumns"
+        *matRowDef="let element; columns: displayedColumns; let i = dataIndex;"
         class="example-element-row"
       ></tr>
     </table>

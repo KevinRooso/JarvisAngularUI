@@ -17,11 +17,14 @@ export class RoleListComponent implements OnInit {
   gridRelaod: boolean;
 
   Columns: any[] = [
-    { 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": true, "action": false }    
-    , { 'columnName': 'displayName', 'displayName': 'NAME', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'isInternal', 'displayName': 'SYSTEM GENERATED', "active": true, "hyperlink": false, "action": false }
-    , { 'columnName': 'permission', 'displayName': 'PERMISSIONS', "active": true, "hyperlink": false, "action": true,"purpose": 'Permission', "sortDisabled":true}
-    , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true,"purpose": 'Edit' ,"sortDisabled":true}
+    { 'columnName': 'seq', 'displayName': 'S.No', "active": true, "hyperlink": true, "action": false , "sortDisabled": true}
+    // ,{ 'columnName': 'id', 'displayName': 'ID', "active": true, "hyperlink": true, "action": false }    
+    , { 'columnName': 'displayName', 'displayName': 'Name', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'createdName', 'displayName': 'Created By', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'createdAt', 'displayName': 'Created Date', "active": true, "hyperlink": false, "action": false ,"dateFormat":true}
+    // , { 'columnName': 'isInternal', 'displayName': 'SYSTEM GENERATED', "active": true, "hyperlink": false, "action": false }
+    // , { 'columnName': 'permission', 'displayName': 'PERMISSIONS', "active": true, "hyperlink": false, "action": true,"purpose": 'Permission', "sortDisabled":true}
+    , { 'columnName': 'action', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true,"purpose": 'Edit' ,"sortDisabled":true}
   ];
 
   grid_url: string;
