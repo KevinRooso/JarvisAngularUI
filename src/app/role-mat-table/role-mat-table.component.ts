@@ -14,6 +14,7 @@ import { ServiceService } from 'src/app/service.service';
 import { AddOrganisationComponent } from 'src/app/components/organisation/add-organisation/add-organisation.component';
 import { Router } from '@angular/router';
 import { ShowPermissionComponent } from '../role-management/show-permission/show-permission.component';
+import { AssignRoleComponent } from '../role-management/assign-role/assign-role.component';
 
 @Component({
   selector: 'app-role-mat-table',
@@ -166,6 +167,21 @@ console.log( data.body.content);
     position: { top: '50px' },
       data: { "row": row }
     });
+  }
+
+  openAssignModal(row){
+    console.log(row);
+    const dialogRef = this.dialog.open(AssignRoleComponent, {
+      disableClose: true,
+     width: '700px',
+      // height: '100vh',
+    position: { top: '50px' },
+      data: { "row": row }
+    });
+  }
+
+  viewRole(row){
+    this.router.navigate(['/view-role'],{ queryParams: {userId: row.id} });
   }
 
 }

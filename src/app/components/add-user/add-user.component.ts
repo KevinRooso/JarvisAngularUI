@@ -22,11 +22,12 @@ export class AddUserComponent implements OnInit {
   status:any;
 
   submitResponse: any = true;
-  userTypeList: any = [
-    { "roleName": "Admin", "roleValue": 1 },
-    { "roleName": "User", "roleValue": 2 },
-    { "roleName": "Guest", "roleValue": 3 }
+  userTypesList: any = [
+    { "displayName": "Admin", "id": 1 },
+    { "displayName": "User", "id": 2 },
+    { "displayName": "Guest", "id": 3 }
   ]
+  userTypeList: any[] = [];
   userDetailsSub: Subscription;
 
   /* Spinner variable */
@@ -47,6 +48,7 @@ export class AddUserComponent implements OnInit {
     //  this.getOrganisationData();    
     this.getUserDetails(this.data.id);
     this.getOrgList();
+    this.getUserType();
     this.userForm = this._formBuilder.group({
       // uname: ['', [Validators.required]],
       phone_number: ['', [Validators.required,Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
@@ -157,6 +159,14 @@ export class AddUserComponent implements OnInit {
       res=> {        
         this.orgList = res;
         console.log(this.orgList);
+      }
+    )
+  }
+
+  getUserType(){
+    this.service.getCategory(1).subscribe(
+      res=> {
+        this.userTypeList = res.body;
       }
     )
   }

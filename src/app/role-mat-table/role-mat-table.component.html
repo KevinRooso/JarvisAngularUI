@@ -59,7 +59,7 @@
               <span *ngIf="!column.dateFormat">
                 {{ element[column.columnName] }}
               </span>
-              <span *ngIf="column.dateFormat">
+              <span *ngIf="column.dateFormat && element[column.columnName] != 'null'">
                 {{ element[column.columnName] | date: 'dd-MM-yyyy HH:mm:ss'}}
               </span>          
           </span>
@@ -73,6 +73,12 @@
             </button> -->
             <span *ngIf="column.purpose == 'Permission'">
               {{element[column.columnName].length}}
+            </span>
+
+            <span *ngIf="column.purpose == 'Assign'">
+              <button style="font-size: 12px;" mat-button (click)="openAssignModal(element)">
+                View Role
+              </button>                            
             </span>
 
             <span *ngIf="column.purpose == 'Edit'">

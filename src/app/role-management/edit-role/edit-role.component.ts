@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChildren, QueryList } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ServiceService } from 'src/app/service.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -37,6 +37,8 @@ export class EditRoleComponent implements OnInit {
   // TS arrays
   permissionArr:any[]= [];
   currentPermArr:any[] = [];
+
+  @ViewChildren("permCheck") permCheck: QueryList<any>;
 
   constructor(private _formBuilder: FormBuilder, private service: ServiceService, @Inject(MAT_DIALOG_DATA) public data,
     private sanitizer: DomSanitizer, public dialogRef: MatDialogRef<EditRoleComponent>) {
@@ -124,6 +126,21 @@ export class EditRoleComponent implements OnInit {
       }
     });
     return flag;
+  }
+
+  selectAll(no,event){
+    if(event.checked){        
+    this.permissionArr = this.permissionArr.filter(i=> i % 4 != no);    
+    let parr = this.permissionData.filter(i => i.id % 4 == no).map(i=>i = i.id);
+    this.permissionArr = this.permissionArr.concat(parr);    
+        
+    this.permCheck.toArray().filter(i=>i.value % 4 == no).map(i=>i.checked = true);
+
+    }else{
+      this.permissionArr = this.permissionArr.filter(i=> i % 4 != no);
+
+      this.permCheck.toArray().filter(i=>i.value % 4 == no).map(i=>i.checked = false);
+    }
   }
 
 }

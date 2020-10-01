@@ -50,6 +50,8 @@ import { HomeLayoutComponent } from './layouts/home-layout.component';
 import { AddRoleComponent } from './role-management/add-role/add-role.component';
 import { EditRoleComponent } from './role-management/edit-role/edit-role.component';
 import { ShowPermissionComponent } from './role-management/show-permission/show-permission.component';
+import { AssignRoleComponent } from './role-management/assign-role/assign-role.component';
+import { ViewRolesComponent } from './role-management/view-roles/view-roles.component';
 
 
 const routes: Routes = [
@@ -111,7 +113,7 @@ const routes: Routes = [
       { path: 'add-user', component: AddUserComponent, canActivate: [AuthguardGuard] },
       { path: 'add-role', component: AddRoleComponent, canActivate: [AuthguardGuard] },
       { path: 'edit-role', component: EditRoleComponent, canActivate: [AuthguardGuard] },
-      { path: 'show-permission', component: ShowPermissionComponent, canActivate: [AuthguardGuard] },
+      { path: 'assign-role', component: AssignRoleComponent, canActivate: [AuthguardGuard] },
       { path: 'view-asset', component: AssetModelView },
       { path: 'setting', component: SettingComponent, canActivate: [AuthguardGuard] },
       { path: 'wizard', component: WizardsComponent, canActivate: [AuthguardGuard] },
@@ -193,6 +195,12 @@ const routes: Routes = [
         canActivate: [AuthguardGuard, RolesGuardService],
         data: { role: 'firmware_mgt_view' }
       },
+
+      {
+        path: 'view-role',
+        component:ViewRolesComponent,
+        canActivate: [AuthguardGuard]
+      }
 
     ]
   },

@@ -11,16 +11,34 @@
 
         <mat-card class="my-3 p-4" style="height: 280px;overflow-y: auto;">
           <h4>Permissions</h4>
-          <table class="table table-borderless">
-            <!-- <thead>
-                <tr>
-                    <th>Module Name</th>
-                    <th>Read</th>
-                    <th>Create</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </tr>
-            </thead> -->
+          <div class="row mt-4">
+            <div class="col-md-3">
+             <h5>Module Name</h5>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+              <mat-checkbox style="margin-left: 28px;" (change)="selectAll(1,$event)" color="primary"></mat-checkbox>
+            </div>
+            <div class="col-md-2">
+              <mat-checkbox (change)="selectAll(2,$event)" class="check-margin" color="primary"></mat-checkbox>
+            </div>
+            <div class="col-md-2">
+              <mat-checkbox (change)="selectAll(3,$event)" class="check-margin" color="primary"></mat-checkbox>
+            </div>
+            <div class="col-md-2">
+              <mat-checkbox (change)="selectAll(0,$event)" class="check-margin" color="primary"></mat-checkbox>
+            </div>
+          </div>
+          <div class="row my-2" *ngFor="let group of permissionGroup;let i = index;">
+            <div class="col-md-4 text-left">
+              {{group}}
+            </div>
+            <div class="col-md-2" *ngFor="let per of permissionData | slice:(4*i):(4*i)+4">
+              <span> {{per.displayName | titlecase}} &nbsp;</span>
+              <mat-checkbox #permCheck [checked]="defaultChecked(per.id)" [value]="per.id" (change)="changePermission($event)" class="example-margin" color="primary"></mat-checkbox>
+            </div>
+          </div>
+          <!-- <table class="table table-borderless">         
             <tbody>
               <tr *ngFor="let group of permissionGroup;let i = index;">
                 <td>{{group}}</td>
@@ -30,7 +48,7 @@
                 </td>
               </tr>
             </tbody>
-        </table>
+        </table> -->
 
         </mat-card>
         <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true" class="text-left mr-2">

@@ -20,15 +20,15 @@
         </mat-form-field>        
         
           <!-- <mat-label>Organization</mat-label> -->
-
-        <div class="input-full-width select-margin">
-          <select class="form-control" formControlName="userType">
-            <option value="" disabled selected>Select User Type</option>
-            <option [value]="role.roleValue" *ngFor="let role of userTypeList ">
-              {{ role.roleName }}
-            </option>
-          </select>
-         </div>
+        
+          <mat-form-field class="input-full-width mt-3" appearance="fill">
+          <mat-label>Select User Type</mat-label>
+          <mat-select formControlName="userType">            
+            <mat-option [value]="role.id" *ngFor="let role of userTypeList ">
+              {{ role.displayName }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
 
         <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true" class="text-left mr-2">
           Close

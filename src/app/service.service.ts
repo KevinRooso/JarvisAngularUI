@@ -449,6 +449,22 @@ export class ServiceService {
     return this.http.get<any>(this.api_user_url + `/api/admin/role/${id}`);
   }
 
+  getCategory(type): Observable<any>{
+    return this.http.get<any>(this.api_user_url + `/api/bms/category/${type}`);
+  }
+
+  getAssignRolesList(): Observable<any>{
+    return this.http.get<any>(this.api_user_url + `/api/admin/roles?size=1000&sort=id&order=Asc`);
+  }
+
+  assignRole(obj): Observable<any>{ 
+    return this.http.post<any>(this.api_user_url + '/api/admin/role/assign/user',obj);
+  }
+
+  getUserById(id): Observable<any>{
+    return this.http.get<any>(this.api_user_url + `/user/findUserbyId/${id}`);
+  }
+
   /*  */
   tranfromArray(columnName: any[], dataList: any, x: string, y: string) {
     let filterdata: any = {};

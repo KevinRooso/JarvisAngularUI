@@ -6,7 +6,7 @@
           <form [formGroup]="clientForm">
             <mat-form-field>
               <mat-label>Select Client</mat-label>
-              <mat-select formControlName="org" (change)="getFirmwareList()">
+              <mat-select formControlName="org" (selectionChange)="getFirmwareList()">
                 <mat-option *ngFor="let client of clientList" [value]="client.id">{{client.orgName}}</mat-option>
               </mat-select>
             </mat-form-field>
