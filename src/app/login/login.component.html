@@ -80,20 +80,21 @@
               <div class="text-center">
                 <p style="font-size: 16px; margin: 1rem 0;">If you have forgotten your password you can reset it here.</p>
                 <div class="panel-body">
+                  <form autocomplete="off" [formGroup]="emailForm">
                   <fieldset>
                     <div class="form-group my-3">
-                      <input class="form-control input-lg" placeholder="E-mail Address" name="email" type="email" style="line-height: 2.5;">
+                      <input class="form-control input-lg" placeholder="E-mail Address" formControlName="name" type="email" style="line-height: 2.5;">
                     </div>
 
                     <div>
                       <button mat-raised-button class="my-3" type="submit" color="primary" (click)="verifyPWD()">
-                        Send My Password
+                        Send Code
                       </button>
                     </div>
 
                     <!-- <input class="btn btn-lg btn-primary my-3" value="Send My Password" type="submit"> -->
                   </fieldset>
-
+                  </form>
                 </div>
               </div>
             </div>
@@ -103,21 +104,29 @@
       <!-- </div> -->
       <div class="modal-footer text-center" *ngIf="verifyME" style="display: grid;">
         <div>
-          <p style="font-size: 16px; margin: 1rem 0;">Verify the passowrd that shared in your mail</p>
+          <p style="font-size: 16px; margin: 1rem 0;">Reset password using code which is shared in your mail</p>
         </div>
        <div>
+        <form autocomplete="off" [formGroup]="resetForm">
         <fieldset>
           <div class="form-group my-3">
-            <input class="form-control input-sm" placeholder="Verify Password" name="email" type="text" style="line-height: 2.5;">
+            <input class="form-control input-sm" placeholder="Enter Code" formControlName="code" type="text" style="line-height: 2.5;">
+          </div>
+          <div class="form-group my-3">
+            <input class="form-control input-sm" placeholder="Enter Password" formControlName="pwd" type="password" style="line-height: 2.5;">
+          </div>
+          <div class="form-group my-3">
+            <input class="form-control input-sm" placeholder="Confirm Password" formControlName="cpwd" type="password" style="line-height: 2.5;">
           </div>
 
           <div>
             <button mat-raised-button class="my-3" type="submit" color="primary" (click)="closeModal()" data-dismiss="modal" aria-hidden="true">
-              Verify
+              Reset
             </button>
           </div>
           <!-- <input class="btn btn-lg btn-primary  my-3" value="Verify" type="submit" data-dismiss="modal" aria-hidden="true"> -->
         </fieldset>
+        </form>
        </div>
       </div>
     </div>

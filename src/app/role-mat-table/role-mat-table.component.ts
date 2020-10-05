@@ -66,7 +66,7 @@ export class RoleMatTableComponent implements OnInit {
         this.displayedColumns.push(el.columnName);
       }
     });
-    this.datacolumns = new FormControl(this.value);
+    this.datacolumns = new FormControl(this.value);    
 
   }
 
@@ -75,7 +75,8 @@ export class RoleMatTableComponent implements OnInit {
     this.outData.emit({ code: id })
   }
 
-  ngAfterViewInit() {      
+  ngAfterViewInit() {
+    console.log(this.sort);      
     this.exampleDatabase = new ExampleHttpDatabase(this._httpClient, this._service, this.router);
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);

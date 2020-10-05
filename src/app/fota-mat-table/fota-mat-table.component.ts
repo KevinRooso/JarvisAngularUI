@@ -80,6 +80,13 @@ export class FotaMatTableComponent{
   firstChange = false;
   statusDetail: any;
 
+  //Loader
+
+  mode = 'indeterminate';
+  loaderValue = 50;
+  color = 'primary';
+  displayProgressSpinnerInBlock: boolean = false;
+
   constructor(private _httpClient: HttpClient,
     private _service: ServiceService, private router: Router) {
 
@@ -255,14 +262,16 @@ console.log( data.body.content);
 
   runImeiFota(){   
     const formData = new FormData();
-    formData.append('request',JSON.stringify(this.paramObj));    
+    formData.append('request',JSON.stringify(this.paramObj));
+    this.displayProgressSpinnerInBlock = true;
     this._service.runFotaSingleImei(formData,this.companyName,this.imeiDetail.imeiNo).subscribe(
       res=> {
+        this.displayProgressSpinnerInBlock = false;
         console.log(res);
         alert("FOTA Pushed");
         this.closePush.nativeElement.click();
         this.paramRecieved = false;
-        this.ngAfterViewInit();
+        this.ngAfterViewInit();        
       }
     )
   }
@@ -270,31 +279,37 @@ console.log( data.body.content);
   runBatch(){
     console.log(this.batchRow);
     const formData = new FormData();
-    formData.append('request',JSON.stringify(this.paramObj));        
+    formData.append('request',JSON.stringify(this.paramObj));
+    this.displayProgressSpinnerInBlock = true;        
     this._service.runBatch(this.batchRow.id,formData).subscribe(
       res=> {
-        console.log(res);
-        alert("Batch Executed");
         this.closeDetail.nativeElement.click();
+        console.log(res);
+        alert("Batch Executed");        
         this.paramRecieved = false;
+        this.displayProgressSpinnerInBlock = false;        
         this.ngAfterViewInit();
       },
       err => {
         alert("Error in Batch Execution");
         this.closeDetail.nativeElement.click();
+        this.displayProgressSpinnerInBlock = false;
       }
     )
   }
 
   deleteBatch(){
+    this.displayProgressSpinnerInBlock = true;
     this._service.deleteBatchById(this.batchRow.id).subscribe(
-      res=> {
+      res=> {        
+        this.closeDetail.nativeElement.click();
         console.log(res);
         alert("Batch Deleted");
-        this.closeDetail.nativeElement.click();
+        this.displayProgressSpinnerInBlock = false;
         this.ngAfterViewInit();      
       },
       err => {
+        this.displayProgressSpinnerInBlock = false;
         alert("Error in Deleting Batch");
         this.closeDetail.nativeElement.click();
       }

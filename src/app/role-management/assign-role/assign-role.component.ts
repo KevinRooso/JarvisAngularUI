@@ -16,6 +16,12 @@ export class AssignRoleComponent implements OnInit {
   
   roleForm: FormGroup;
 
+    /* Spinner variable */
+  mode = 'indeterminate';
+  value = 50;
+  color = 'primary';
+  displayProgressSpinnerInBlock: boolean = false;
+
   @ViewChild(MatSelect,{static:true}) matSelect: MatSelect;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data,public dialogRef: MatDialogRef<AssignRoleComponent>,
@@ -47,27 +53,34 @@ export class AssignRoleComponent implements OnInit {
   }
 
   getRolesList(){
+    this.displayProgressSpinnerInBlock = true;
     this.service.getAssignRolesList().subscribe(
-      res=> {        
+      res=> {
+        this.displayProgressSpinnerInBlock = false;        
         this.rolesList = res.body.content;
         console.log("Roles", this.rolesList);
+      },err=>{
+        this.displayProgressSpinnerInBlock = false;
       }
     )
   }
 
   onSubmit(){
     if(this.roleForm.valid){      
+      this.displayProgressSpinnerInBlock = true;
       let obj = {
         roleList: this.roleForm.controls['role'].value,
         userId: this.data.row.id
       };
-      console.log(obj);
+      console.log(obj);      
       this.service.assignRole(obj).subscribe(
         _res=> {
+          this.displayProgressSpinnerInBlock = false;
           alert("Roles assigned");
           this.closeDialog();
         },
         _err=> {
+          this.displayProgressSpinnerInBlock = false;
           alert("Error in assigning Roles");
           this.closeDialog();
         }
@@ -78,11 +91,15 @@ export class AssignRoleComponent implements OnInit {
   }
 
   getUserById(id){
+    this.displayProgressSpinnerInBlock = true;
     this.service.getUserById(id).subscribe(
       res=>{
+        this.displayProgressSpinnerInBlock = false;
         this.chosenRoles = res.body.roles.map(i=>i = i.id);
         this.roleForm.controls['role'].setValue(this.chosenRoles);        
         console.log(this.chosenRoles);
+      },err=>{
+        this.displayProgressSpinnerInBlock = false;
       }
     );
   }

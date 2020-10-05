@@ -66,7 +66,9 @@ export class AssetsOverviewComponent implements OnInit {
 
   batteryimage:any;
 
-  graphFirstValue: any;
+  graphFirstValue: any ={
+    events:null
+  };
 
   timeInterval = "30 minute";
   selected = {
@@ -75,7 +77,10 @@ export class AssetsOverviewComponent implements OnInit {
   };
 
   graphData: any;
-  uncount: any;
+  uncount: any ={
+    errors:null,
+    warnings:null
+  };
   TreeData: any = null;
   graph5: string[];
 
@@ -87,13 +92,11 @@ export class AssetsOverviewComponent implements OnInit {
     pdu: "NA"
   };
 
+  mode = 'indeterminate';
+  value = 50;
+  color = 'primary';
+  displayProgressSpinnerInBlock: boolean = false;
 
-  // cardData:any[]=[
-  //   {parameter: 'SoC', value:'100%', timeline:'1 Month Ago'},
-  //   {parameter: 'SoH', value:'80%', timeline:'2 Month Ago'},
-  //   {parameter: 'Current', value:'5A', timeline:'3 Month Ago'},
-  //   {parameter: 'Temperature', value:'20 C', timeline:'4 Month Ago'}
-  // ];
   constructor(private router: Router, private service: ServiceService,private sanitizer: DomSanitizer, public dialog: MatDialog, public progressBar: MatProgressBarModule) {    
    }
 
@@ -108,20 +111,16 @@ export class AssetsOverviewComponent implements OnInit {
     }
 
     //Asset Tree Data
-    this.getAssetTreeData();
+    // this.getAssetTreeData();
 
     //Battery Info for battery map and bin
-    this.service.getBatteryInfoByImei(this.assetId)
-      .subscribe((res) => {
-        // console.log("imei",res);
-        // console.log(res.result);
-        this.batteryInfo = res.result;
-      });
+    // this.getBatteryInfo();
+   
       //Last Ping date      
       this.pdate = this.pdate.replace('_',' '); 
       this.pdate = this.pdate.substring(0,19);
 
-      this.getUserTemplate();     
+      // this.getUserTemplate();     
             
       this.graph1 = ["current","maximum_cell_temperature","timestamp"];
       this.graph2 = ["maximum_cell_voltage","timestamp"];
@@ -135,10 +134,10 @@ export class AssetsOverviewComponent implements OnInit {
       moment(this.pdate).format("YYYY-MM-DD HH:mm:ss")
       );
 
-      this.getBatteryValuesByImei();
+      // this.getBatteryValuesByImei();
 
       //Error and Warning Unique Count
-      this.getUniqueErrorCount();
+      // this.getUniqueErrorCount();
 
   }
   openDialog(id): void {
@@ -163,46 +162,54 @@ export class AssetsOverviewComponent implements OnInit {
   }
 
   getUserTemplate(){
+    this.displayProgressSpinnerInBlock = true;
     this.service.getUserParamTemplate().subscribe(
-      res => {       
-        console.log(res.result);        
-        this.getParamValues(res.result);
-
+      res => {
+        this.displayProgressSpinnerInBlock = false;                
+        this.getParamValues(res.result);        
+      },
+      err=> {
+        this.displayProgressSpinnerInBlock = false;
       }
     )
   }
 
   getBatteryGraphData(startDate,endDate){
+    this.displayProgressSpinnerInBlock = true;
     this.service.getAllBatteryChartData(this.timeInterval, this.assetId,startDate, endDate).subscribe(
       res =>{
+        this.displayProgressSpinnerInBlock = false;
         this.graphFirstValue = res[0];
         this.graphData = res;
         console.log("GraphData",res);
+        this.getBatteryInfo();
+      },
+      err=> {
+        this.displayProgressSpinnerInBlock = false;
       }
     )
   }
 
-  // addValue(cardData){
-  //   this.service.getParamValues(this.assetId).subscribe(
-  //     res=>{getParamValues
-  //       cardData.forEach(item=>{
-  //         console.log("foritem",item);
-  //         Object.keys(res[0]).fgetParamValuesorEach(function(key){            
-  //           if(key==item.columnName){
-  //             item.value = res[0][key];  
-  //             console.log("newItem",item);
-  //           }          
-  //         });
-  //       });
-  //       return cardData;    
-  //     }
-  //   )
-  // }
+  getBatteryInfo(){
+    this.displayProgressSpinnerInBlock = true;
+    this.service.getBatteryInfoByImei(this.assetId)
+    .subscribe((res) => {
+      this.displayProgressSpinnerInBlock = false;
+      this.batteryInfo = res.result;
+      this.getAssetTreeData();
+    },
+    err=>{
+      this.displayProgressSpinnerInBlock = false;
+    });
+  }
 
   getParamValues(result){
     console.log("result");
+    this.displayProgressSpinnerInBlock = true;
     this.service.getParamValues(this.assetId).subscribe(
       res=>{
+        this.displayProgressSpinnerInBlock = false;
+        this.newData=res;
         console.log("Values",res);
         result.forEach(item=>{
           Object.keys(res[0]).forEach(function(key){
@@ -213,8 +220,10 @@ export class AssetsOverviewComponent implements OnInit {
         });
         
         this.cardData = result;
-        console.log("hii",this.cardData);
-        
+        console.log("hii",this.cardData);        
+      },
+      err=>{
+        this.displayProgressSpinnerInBlock = false;
       }
     );
     
@@ -226,22 +235,33 @@ export class AssetsOverviewComponent implements OnInit {
       res=>{
         console.log("sss",res);
         this.newData=res;
+      },
+      err=>{
+        this.displayProgressSpinnerInBlock = false;
       }
     )
   }
 
   getUniqueErrorCount(){
+    this.displayProgressSpinnerInBlock = true;
     this.service.getErrorWarningCount(this.assetId).subscribe(
       res=>{
+        this.displayProgressSpinnerInBlock = false;
         console.log("unique count",res);
         this.uncount = res;
+        this.getUserTemplate();
+      },
+      err=>{
+        this.displayProgressSpinnerInBlock = false;
       }
     )
   }
 
   getAssetTreeData(){
+    this.displayProgressSpinnerInBlock = true;
     this.service.getAssetTreeData(this.assetId).subscribe(
-      res=>{                      
+      res=>{                  
+        this.displayProgressSpinnerInBlock = false;    
         this.TreeData = this.checkProperties(res[0]);
         console.log("TreeData",this.TreeData);
         if(this.TreeData.imeiNo === 0){
@@ -249,6 +269,10 @@ export class AssetsOverviewComponent implements OnInit {
         }else{
           this.isData = true;
         }
+        this.getUniqueErrorCount();
+      },
+      err=>{
+        this.displayProgressSpinnerInBlock = false;
       }
     )
   }

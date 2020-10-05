@@ -1,22 +1,6 @@
-<!-- <mat-card> -->
-<!-- <button><mat-icon>add_box</mat-icon> </button> -->
-<!-- <mat-icon>settings_applications</mat-icon> -->
-<!-- <mat-form-field>
-          <mat-label>Add New Column</mat-label>
-          <mat-select [formControl]="datacolumns" (selectionChange)="updateColumn($event)" multiple>
-            <mat-option *ngFor="let header of headerColumns" [value]="header.displayName" >{{header.displayName}}</mat-option>
-          </mat-select>
-        </mat-form-field> -->
-
-<!-- <mat-select [formControl]="datacolumns" (selectionChange)="updateColumn($event)" multiple >
-            <mat-option *ngFor="let header of headerColumns"  [value]="header.displayName">{{header.displayName}}</mat-option>
-       </mat-select> -->
-
-<!-- <div class="my-3 col-sm-1">
-    <mat-form-field *ngIf="searchEnable">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-  </div> -->
+<app-progress-spinner color="accent" [mode]="mode" [value]="loaderValue" *ngIf="displayProgressSpinnerInBlock" [diameter]="50"
+  class="center-aligned sq-relative-backdrop">
+</app-progress-spinner>
 
 <div class="example-container mat-elevation-z8">
   <div

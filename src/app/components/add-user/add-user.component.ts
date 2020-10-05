@@ -47,7 +47,7 @@ export class AddUserComponent implements OnInit {
     
     //  this.getOrganisationData();    
     this.getUserDetails(this.data.id);
-    this.getOrgList();
+    // this.getOrgList();
     this.getUserType();
     this.userForm = this._formBuilder.group({
       // uname: ['', [Validators.required]],
@@ -108,25 +108,26 @@ export class AddUserComponent implements OnInit {
   }
 
   getUserDetails(id: number) {
-    
+    this.displayProgressSpinnerInBlock = true;
     this.userDetailsSub = this.service.getUserDetails(id)
       .subscribe(res => {
+        this.displayProgressSpinnerInBlock = false;
         console.log(res);
-        this.usereditObject = res.result;
-        this.userId= res.result.id;
+        this.usereditObject = res.body;
+        this.userId= res.body.id;
 
         let userType;
-        if(res.result.userType == null){
+        if(res.body.userType == null){
           userType = "";
         }else{
-          userType = res.result.userType;
+          userType = res.body.userType;
         }
 
         this.userForm.patchValue({          
-          phone_number: res.result.phoneNumber,
-          email: res.result.email,          
+          phone_number: res.body.phoneNumber,
+          email: res.body.email,          
           userType: userType,
-          fullName: res.result.fullname
+          fullName: res.body.fullname
         });
 
 
@@ -144,6 +145,9 @@ export class AddUserComponent implements OnInit {
           orgId: new FormControl({ value: res.result.orgId, disabled: true })
         });
  */
+      },
+      err=>{
+        this.displayProgressSpinnerInBlock = false;
       })
 
   }
@@ -154,19 +158,24 @@ export class AddUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getOrgList(){
-    this.service.getOrganisationData().subscribe(
-      res=> {        
-        this.orgList = res;
-        console.log(this.orgList);
-      }
-    )
-  }
+  // getOrgList(){
+  //   this.service.getOrganisationData().subscribe(
+  //     res=> {        
+  //       this.orgList = res;
+  //       console.log(this.orgList);
+  //     }
+  //   )
+  // }
 
   getUserType(){
+    this.displayProgressSpinnerInBlock = true;
     this.service.getCategory(1).subscribe(
       res=> {
+        this.displayProgressSpinnerInBlock = false;
         this.userTypeList = res.body;
+      },
+      err=>{
+        this.displayProgressSpinnerInBlock = false;
       }
     )
   }

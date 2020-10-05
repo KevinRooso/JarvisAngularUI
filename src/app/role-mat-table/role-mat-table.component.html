@@ -75,10 +75,17 @@
               {{element[column.columnName].length}}
             </span>
 
-            <span *ngIf="column.purpose == 'Assign'">
-              <button style="font-size: 12px;" mat-button (click)="openAssignModal(element)">
-                View Role
-              </button>                            
+            <span *ngIf="column.purpose == 'EditView'">
+              <button mat-icon-button matTooltip="View Role" (click)="openAssignModal(element)">
+                <span class="material-icons">admin_panel_settings</span>
+              </button>
+              <button              
+              mat-icon-button
+              matTooltip="Edit User"
+              (click)="getColumnValue(element.id, 'edit',element)"              
+              >
+              <mat-icon>edit</mat-icon>
+              </button>
             </span>
 
             <span *ngIf="column.purpose == 'Edit'">

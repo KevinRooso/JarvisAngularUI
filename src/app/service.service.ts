@@ -5,6 +5,7 @@ import { LineChartPayload, ChartElement } from './payloads/Greeting-interface';
 import { ColorCode } from './payloads/Color-code';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { tap } from 'rxjs/operators';
 
 
 
@@ -102,7 +103,7 @@ export class ServiceService {
   }
   
   isUserRole(role){    
-    return this.roles.includes(role);  
+    return this.roles.includes(role);
   }
 
   isUserExicom(){
@@ -463,6 +464,16 @@ export class ServiceService {
 
   getUserById(id): Observable<any>{
     return this.http.get<any>(this.api_user_url + `/user/findUserbyId/${id}`);
+  }
+
+  updatePassword(obj): Observable<any>{
+    return this.http.post<any>(this.api_user_url + '/api/bms/password/update',obj);
+  }
+
+  getCurrentRolesByPromise(): Observable<any> {
+    return this.getCurrentRolesList().pipe(tap(res=>{
+      return res;
+    }));
   }
 
   /*  */

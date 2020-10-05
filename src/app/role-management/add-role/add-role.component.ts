@@ -47,13 +47,18 @@ export class AddRoleComponent implements OnInit {
 
   ngOnInit() {
 
+    this.displayProgressSpinnerInBlock = true;
     this.service.getPrivilegeList().subscribe(
       res=> {
+        this.displayProgressSpinnerInBlock = false;
         this.permissionData = res.body;
         res.body.map(i=>{
           this.permissionGroup.push(i.groupName);
         })
         this.permissionGroup = [...new Set(this.permissionGroup)];
+      },
+      err=> {
+        this.displayProgressSpinnerInBlock = false;
       }
     );
     this.roleForm = this._formBuilder.group({
@@ -72,7 +77,7 @@ export class AddRoleComponent implements OnInit {
   onSubmit(userForm: any) {
   if(this.permissionArr.length > 0){
     if(this.roleForm.valid){
-    //this.displayProgressSpinnerInBlock = true;
+    this.displayProgressSpinnerInBlock = true;
     let obj: any = {
       id: 0,
       name: this.roleForm.controls['name'].value,
@@ -80,10 +85,12 @@ export class AddRoleComponent implements OnInit {
     }
     this.service.createRole(obj).subscribe(
       res=> {
+        this.displayProgressSpinnerInBlock = false;
         alert("Role Created");
         this.dialogRef.close();
       },
       err => {
+        this.displayProgressSpinnerInBlock = false;
         alert("Error in creating Role");
         this.dialogRef.close();
       }

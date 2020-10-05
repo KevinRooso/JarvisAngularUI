@@ -11,7 +11,20 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   verifyME = false;
-  constructor(private _builder: FormBuilder, private _service: ServiceService, private _router: Router) { }
+  emailForm: FormGroup;
+  resetForm: FormGroup;
+
+  constructor(private _builder: FormBuilder, private _service: ServiceService, private _router: Router) {
+    this.emailForm = this._builder.group({
+      name: ['', Validators.required]      
+    });
+
+    this.resetForm = this._builder.group({
+      code: ['', Validators.required],
+      pwd: ['', [Validators.required]],
+      cpwd: ['', [Validators.required]]
+    });
+  }
 
   public loginFrom: FormGroup;
   public hide: boolean = true;
@@ -42,6 +55,7 @@ export class LoginComponent implements OnInit {
     }
   }
   verifyPWD(){
+    console.log(this.emailForm.controls['name'].value);  
     this.verifyME = true;
   }
   closeModal(){

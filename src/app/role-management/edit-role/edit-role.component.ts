@@ -47,14 +47,19 @@ export class EditRoleComponent implements OnInit {
 
   ngOnInit() {    
     
+    this.displayProgressSpinnerInBlock = true;
     this.service.getPrivilegeList().subscribe(
       res=> {
+        this.displayProgressSpinnerInBlock = false;
         this.permissionData = res.body;
         res.body.map(i=>{
           this.permissionGroup.push(i.groupName);
         })
         this.permissionGroup = [...new Set(this.permissionGroup)];        
         this.getRoleData(this.data.id);
+      },
+      err=> {
+        this.displayProgressSpinnerInBlock = false;
       }
     );
     this.roleForm = this._formBuilder.group({
@@ -65,7 +70,7 @@ export class EditRoleComponent implements OnInit {
   onSubmit() {
     if(this.permissionArr.length > 0){
       if(this.roleForm.valid){
-      //this.displayProgressSpinnerInBlock = true;
+      this.displayProgressSpinnerInBlock = true;
       let obj: any = {
         id: this.data.id,
         name: this.roleForm.controls['name'].value,        
@@ -73,11 +78,13 @@ export class EditRoleComponent implements OnInit {
       }    
       this.service.createRole(obj).subscribe(
         res=> {
+          this.displayProgressSpinnerInBlock = false;
           console.log("role", res);
           alert("Role Updated");
           this.dialogRef.close();
         },
         err => {
+          this.displayProgressSpinnerInBlock = false;
           alert("Error in updating Role");
           this.dialogRef.close();
         }
@@ -109,11 +116,16 @@ export class EditRoleComponent implements OnInit {
   }
 
   getRoleData(id){
+    this.displayProgressSpinnerInBlock = true;
     this.service.getRoleData(id).subscribe(
-      res=> {        
+      res=> {
+        this.displayProgressSpinnerInBlock = false;        
         this.roleForm.controls['name'].setValue(res.body.displayName);
         this.currentPermArr = res.body.permission;
         this.permissionArr = this.currentPermArr.map(i=> i = i.id);
+      },
+      err=> {
+        this.displayProgressSpinnerInBlock = false;
       }
     )
   }

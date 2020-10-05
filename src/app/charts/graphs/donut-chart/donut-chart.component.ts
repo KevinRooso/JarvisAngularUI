@@ -149,7 +149,7 @@ getDonutHovertemplate(res:any){
   this.cols = 0;
   this.rows = 0;
   if(this._service.isUserAdmin()){
-    res.filter(item=>item.total_asset!=null).forEach(item=>{
+    res.filter(item=>item.total_asset!=null && item.total_asset != 0).forEach(item=>{
       // this.cnames.push(item.org_name);
       donutData.push({
         values: [item.active_asset,item.total_asset-item.active_asset],
@@ -183,7 +183,7 @@ getDonutHovertemplate(res:any){
   }
   else{
     if(res.length === 1){
-      res.filter(item=>item.total_asset!=null).forEach(item=>{      
+      res.filter(item=>item.total_asset!=null && item.total_asset != 0).forEach(item=>{      
         // this.cnames.push(item.org_name);
         donutData.push({
           values: [item.active_asset,item.total_asset-item.active_asset],

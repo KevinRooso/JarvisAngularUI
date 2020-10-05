@@ -8,7 +8,7 @@
       <mat-tab label="Branding">
           <app-brand-page *ngIf="activeTab==0"></app-brand-page>
       </mat-tab>      
-      <mat-tab label="Partners"> <app-partners-page *ngIf="activeTab==1"></app-partners-page> </mat-tab>      
+      <mat-tab label="Partners" *ngIf="orgRole"> <app-partners-page *ngIf="activeTab==1"></app-partners-page> </mat-tab>      
   </mat-tab-group>
   </div>
 

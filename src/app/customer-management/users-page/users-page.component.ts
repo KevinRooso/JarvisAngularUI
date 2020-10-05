@@ -23,8 +23,8 @@ export class UsersPageComponent implements OnInit {
     , { 'columnName': 'createdName', 'displayName': 'Created By', "active": true, "hyperlink": false, "action": false }
     , { 'columnName': 'createdAt', 'displayName': 'Created Date', "active": true, "hyperlink": false, "action": false , "dateFormat":true}
   /*   , { 'columnName': 'modifiedDate', 'displayName': 'modified Date', "active": true, "hyperlink": false, "action": false } */
-    , { 'columnName': 'assign', 'displayName': 'Roles', "active": true, "hyperlink": false, "action": true , "sortDisabled": true, "purpose": 'Assign'}
-    , { 'columnName': 'action', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true , "sortDisabled": true, "purpose": 'Edit'}
+    // , { 'columnName': 'assign', 'displayName': 'Roles', "active": true, "hyperlink": false, "action": true , "sortDisabled": true, "purpose": 'Assign'}
+    , { 'columnName': 'action', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true , "sortDisabled": true, "purpose": 'EditView'}
   ];
 
   grid_url: string;

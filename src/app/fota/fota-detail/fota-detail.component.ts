@@ -132,14 +132,20 @@ export class FotaDetailComponent implements OnInit {
     {
     const formData = new FormData();
     formData.append('file', this.fileUploaded);
+    this.displayProgressSpinnerInBlock = true;
     this.service.createBatch(formData,this.param1,0).subscribe(
       res=> {
+        this.displayProgressSpinnerInBlock = false;
         console.log(res);
         alert("Batch Created");
         this.fileValid = false;
         this.bFlag++;
         console.log("BFLAG",this.bFlag);
         this.batchFile.nativeElement.value = "";
+      },
+      err=> {
+        this.displayProgressSpinnerInBlock = false;
+        alert("Error in Creating Batch");
       }
     );
     // this.displayProgressSpinnerInBlock = true;

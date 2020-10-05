@@ -26,6 +26,7 @@ export class NavBarComponent implements OnInit {
   userRole = false
   topicRole = false;
   firmwareRole = false;
+  orgRole= false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -34,6 +35,7 @@ export class NavBarComponent implements OnInit {
     );
 
   isLoggedIn: Observable<boolean>;
+  
 
   constructor(private breakpointObserver: BreakpointObserver,
     private _service: ServiceService,
@@ -121,6 +123,9 @@ export class NavBarComponent implements OnInit {
     }
     if(roles.includes('asset_mgt_view')){
       this.assetRole = true;
+    }
+    if(roles.includes('orginisation_mgt_view')){
+      this.orgRole = true;
     }
   }
 
