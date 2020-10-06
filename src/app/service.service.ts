@@ -101,6 +101,10 @@ export class ServiceService {
   setUserRoles(roles){    
     this.roles = roles;
   }
+
+  getUserRoles(){
+    return this.roles;
+  }
   
   isUserRole(role){    
     return this.roles.includes(role);

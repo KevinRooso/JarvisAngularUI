@@ -67,6 +67,17 @@ export class NavBarComponent implements OnInit {
     this.getRoleInfo();    
   }
 
+  // ngAfterViewInit(){
+  //   this._service.getCurrentRolesByPromise().pipe(map(res=>{
+  //     let rolesList = [];
+  //     res.body.forEach(i=> {
+  //       rolesList.push(i.name);
+  //     });      
+  //     console.log("Roles List",rolesList);        
+  //     this._service.setUserRoles(rolesList);      
+  //   }));
+  // }
+
   ngOnChanges(){    
     this.flag = this._service.isUserAdminObs();
     this.fotaFlag = this._service.isFotaObservable();     
@@ -98,11 +109,21 @@ export class NavBarComponent implements OnInit {
         res.body.forEach(i=> {
           rolesList.push(i.name);
         });
-        console.log("Roles List",rolesList);        
-        this.setRoles(rolesList);
         this._service.setUserRoles(rolesList);
+        console.log("Roles List",rolesList);        
+        // this.setRoles(rolesList);
       }
     );
+  }
+
+  checkRole(role){    
+    let rolesList = this._service.getUserRoles();
+
+    if(rolesList.includes(role)){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   setRoles(roles){

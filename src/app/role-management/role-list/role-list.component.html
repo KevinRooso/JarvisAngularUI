@@ -3,7 +3,7 @@
     <div class="text-left">
       <h2>Roles Table</h2>
     </div>
-    <div class="text-right">
+    <div class="text-right" *ngIf="createUserRole">
       <button mat-raised-button color="primary" matTooltip="Add Role" class="theme-btn" (click)="openDialog(null)">
         Add Role      
     </button>

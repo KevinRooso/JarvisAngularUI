@@ -110,14 +110,39 @@ const routes: Routes = [
       { path: 'compare', component: ComparePageComponent, canActivate: [AuthguardGuard] },
       { path: 'realtime', component: RealTimeComponent, canActivate: [AuthguardGuard] },
       { path: 'graphOld', component: AssetsVisualizeComponent, canActivate: [AuthguardGuard] },
-      { path: 'add-user', component: AddUserComponent, canActivate: [AuthguardGuard] },
-      { path: 'add-role', component: AddRoleComponent, canActivate: [AuthguardGuard] },
-      { path: 'edit-role', component: EditRoleComponent, canActivate: [AuthguardGuard] },
+
+      { 
+        path: 'add-user',
+        component: AddUserComponent, 
+        canActivate: [AuthguardGuard,RolesGuardService],
+        data: { role: 'user_mgt_create' }
+      },
+
+      { 
+        path: 'add-role', 
+        component: AddRoleComponent, 
+        canActivate: [AuthguardGuard,RolesGuardService],
+        data: { role: 'user_mgt_create'} 
+      },
+
+      { 
+        path: 'edit-role', 
+        component: EditRoleComponent, 
+        canActivate: [AuthguardGuard,RolesGuardService],
+        data: {role: 'user_mgt_update'} 
+      },
+
       { path: 'assign-role', component: AssignRoleComponent, canActivate: [AuthguardGuard] },
-      { path: 'view-asset', component: AssetModelView },
-      { path: 'setting', component: SettingComponent, canActivate: [AuthguardGuard] },
+      { path: 'view-asset', component: AssetModelView },      
       { path: 'wizard', component: WizardsComponent, canActivate: [AuthguardGuard] },
       { path: 'asset-model', component: AssetModelComponent },
+
+      { 
+        path: 'setting',
+        component: SettingComponent,
+        canActivate: [AuthguardGuard,RolesGuardService],
+        data: { role: 'user_mgt_view'}
+      },
 
       {
         path: 'trace-route',

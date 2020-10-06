@@ -14,19 +14,19 @@
             <span class="fa fa-desktop"></span>
           </a>
         </li>
-        <li class="" *ngIf="assetRole">
+        <li class="" *ngIf="checkRole('asset_mgt_view')">
           <a routerLink="/assets-dashbaord" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Asset Explorer" matTooltipPosition="right" class="icons">
             <span class="fa fa-microchip"></span>
           </a>
         </li>
-        <li class="" *ngIf="traceRole">
+        <li class="" *ngIf="checkRole('trace_route_view')">
           <a routerLink="/assets-dashbaord/map" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Trace Route" matTooltipPosition="right" class="icons">
             <span class="fa fa-map"></span>
           </a>
         </li>
-        <li class="" *ngIf="fotaRole">
+        <li class="" *ngIf="checkRole('fota_mgt_view')">
           <a routerLink="/assets-dashbaord/fota" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Fota" matTooltipPosition="right" class="icons">
             <span class="fa fa-database"></span>
@@ -38,13 +38,13 @@
             <span class="fa fa-users"></span>
           </a>
         </li>
-        <li class="" *ngIf="topicRole">
+        <li class="" *ngIf="checkRole('topic_mgt_view')">
           <a routerLink="/topic-detail" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Topic Management" matTooltipPosition="right" class="icons">
             <span class="fa fa-file"></span>
           </a>
         </li>
-        <li class="" *ngIf="firmwareRole">
+        <li class="" *ngIf="checkRole('firmware_mgt_view')">
           <a routerLink="/firmware" routerLinkActive="active-link" #tooltip="matTooltip"
             matTooltip="Firmware Release" matTooltipPosition="right" class="icons">
             <span class="fa fa-microchip"></span>
@@ -55,7 +55,7 @@
     </div>
     <div class="sidebar-footer">
       <ul class="sidenav-vertical">
-        <li class="">
+        <li class="" *ngIf="checkRole('user_mgt_view')">
           <a routerLink="/setting" routerLinkActive="active-link" #tooltip="matTooltip" matTooltip="Profile Settings"
             matTooltipPosition="right" class="icons">
             <span class="fa fa-gears"></span>

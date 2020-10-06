@@ -21,7 +21,8 @@ export class RolesGuardService implements CanActivate{
       let rolesList = [];
       res.body.forEach(i=> {
         rolesList.push(i.name);
-      });      
+      });
+      this.service.setUserRoles(rolesList);      
       if(rolesList.includes(route.data.role)){
         return true;
       }else{

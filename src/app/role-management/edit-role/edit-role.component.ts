@@ -84,8 +84,12 @@ export class EditRoleComponent implements OnInit {
           this.dialogRef.close();
         },
         err => {
-          this.displayProgressSpinnerInBlock = false;
-          alert("Error in updating Role");
+          if(err.status == 'FORBIDDEN'){
+            alert("Not allowed");
+          }else{
+            alert("Error in updating Role");
+          }
+          this.displayProgressSpinnerInBlock = false;          
           this.dialogRef.close();
         }
       );

@@ -99,8 +99,12 @@ export class AddUserComponent implements OnInit {
         this.displayProgressSpinnerInBlock = false;
 
       },error=>{
-        alert("Not Save Please Try Again !!!!")
-        this.displayProgressSpinnerInBlock = false;
+        if(error.status == 'FORBIDDEN'){
+          alert("Not allowed");
+        }else{
+          alert("Not Save Please Try Again !!!!")
+        }
+        this.displayProgressSpinnerInBlock = false;                
       })
     }else{
       alert("Please Fill all fields");

@@ -12,6 +12,8 @@ import { ServiceService } from 'src/app/service.service';
 })
 export class UsersPageComponent implements OnInit {
   gridRelaod: boolean;
+  createUserRole = false;
+  rolesList:any[] = [];
 
   Columns: any[] = [
     { 'columnName': 'seq', 'displayName': 'S.No', "active": true, "hyperlink": true, "action": false , "sortDisabled": true}
@@ -35,6 +37,21 @@ export class UsersPageComponent implements OnInit {
 
   ngOnInit() {
     this.gridRelaod = true;
+    this._service.getCurrentRolesList().subscribe(
+      res=> {
+        let rolesList = [];
+        res.body.forEach(i=> {
+          rolesList.push(i.name);
+        });
+        this._service.setUserRoles(rolesList);
+        
+        if(rolesList.includes('user_mgt_create')){
+          this.createUserRole = true;
+        }else{
+          this.createUserRole = false;
+        }
+      }
+    )    
   }
 
   openBox(event) {

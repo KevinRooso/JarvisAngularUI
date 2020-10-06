@@ -79,23 +79,27 @@
               <button mat-icon-button matTooltip="View Role" (click)="openAssignModal(element)">
                 <span class="material-icons">admin_panel_settings</span>
               </button>
+              <span [matTooltip]="message.editUser">
               <button              
-              mat-icon-button
-              matTooltip="Edit User"
-              (click)="getColumnValue(element.id, 'edit',element)"              
+              mat-icon-button              
+              (click)="getColumnValue(element.id, 'edit',element)"
+              [disabled]="!updateUserRole"              
               >
               <mat-icon>edit</mat-icon>
               </button>
+              </span>
             </span>
 
             <span *ngIf="column.purpose == 'Edit'">
+            <span [matTooltip]="message.editRole">
             <button              
-              mat-icon-button
-              matTooltip="Edit Role"
+              mat-icon-button              
+              [disabled]="!updateUserRole" 
               (click)="getColumnValue(element.id, 'edit',element)"              
             >
               <mat-icon>edit</mat-icon>
             </button>
+            </span>
             </span>
            </ng-template>
         </td>

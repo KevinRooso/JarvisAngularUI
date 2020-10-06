@@ -39,6 +39,15 @@ export class RoleMatTableComponent implements OnInit {
 
   filterString: string = "";
 
+  updateUserRole = false;
+  viewUserRole = false;
+
+  message = {
+    editUser: "Update not allowed",
+    viewRole: null,
+    editRole: "Update not allowed"
+  }
+
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild('closeTrace', { static: true }) closeTrace;
@@ -76,7 +85,8 @@ export class RoleMatTableComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    console.log(this.sort);      
+    console.log(this.sort);
+    this.getRoleCheck();      
     this.exampleDatabase = new ExampleHttpDatabase(this._httpClient, this._service, this.router);
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -183,6 +193,24 @@ console.log( data.body.content);
 
   viewRole(row){
     this.router.navigate(['/view-role'],{ queryParams: {userId: row.id} });
+  }
+
+  getRoleCheck(){
+    this.updateUserRole = false;
+    this.viewUserRole = false;
+    this.message.editUser = "Update not allowed";
+    this.message.editRole = "Update not allowed";
+
+    let rolesList = [];
+    rolesList = this._service.getUserRoles();
+    if(rolesList.includes('user_mgt_update')){
+      this.updateUserRole = true;
+      this.message.editUser = "Edit User";
+      this.message.editRole = "Edit Role";
+    }
+    if(rolesList.includes('user_mgt_view')){
+      this.viewUserRole = true;      
+    }
   }
 
 }

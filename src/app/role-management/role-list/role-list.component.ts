@@ -28,6 +28,7 @@ export class RoleListComponent implements OnInit {
   ];
 
   grid_url: string;
+  createUserRole = false;
 
   constructor(private _service: ServiceService, public dialog: MatDialog, ) {
     this.grid_url = this._service.api_user_url + '/api/admin/roles'
@@ -35,6 +36,21 @@ export class RoleListComponent implements OnInit {
 
   ngOnInit() {
     this.gridRelaod = true;
+    this._service.getCurrentRolesList().subscribe(
+      res=> {
+        let rolesList = [];
+        res.body.forEach(i=> {
+          rolesList.push(i.name);
+        });
+        this._service.setUserRoles(rolesList);
+        
+        if(rolesList.includes('user_mgt_create')){
+          this.createUserRole = true;
+        }else{
+          this.createUserRole = false;
+        }
+      }
+    )
   }
 
   openBox(event) {

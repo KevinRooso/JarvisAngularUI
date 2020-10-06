@@ -90,8 +90,12 @@ export class AddRoleComponent implements OnInit {
         this.dialogRef.close();
       },
       err => {
-        this.displayProgressSpinnerInBlock = false;
-        alert("Error in creating Role");
+        if(err.status == 'FORBIDDEN'){
+          alert("Not allowed");
+        }else{
+          alert("Error in creating Role");
+        }
+        this.displayProgressSpinnerInBlock = false;        
         this.dialogRef.close();
       }
     );

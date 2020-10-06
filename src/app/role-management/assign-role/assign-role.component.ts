@@ -22,6 +22,8 @@ export class AssignRoleComponent implements OnInit {
   color = 'primary';
   displayProgressSpinnerInBlock: boolean = false;
 
+  createUserRole = false;
+
   @ViewChild(MatSelect,{static:true}) matSelect: MatSelect;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data,public dialogRef: MatDialogRef<AssignRoleComponent>,
@@ -35,7 +37,8 @@ export class AssignRoleComponent implements OnInit {
     console.log("DATA Row",this.data.row);
     this.userInfo = this.data.row;
     this.getRolesList();
-    this.getUserById(this.data.row.id);    
+    this.getUserById(this.data.row.id);
+    this.checkRole();
   }
 
   ngAfterViewInit() { 
@@ -102,6 +105,13 @@ export class AssignRoleComponent implements OnInit {
         this.displayProgressSpinnerInBlock = false;
       }
     );
+  }
+
+  checkRole(){
+    let rolesList = this.service.getUserRoles();
+    if(rolesList.includes('user_mgt_create')){
+      this.createUserRole = true;
+    }
   }
 
 }
