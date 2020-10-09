@@ -13,7 +13,7 @@
           </form>
         </div>
       </div>
-      <div class="col-md-3 text-right">
+      <div class="col-md-3 text-right" *ngIf="createFirmwareRole">
         <button class="btn btn-dark btn-size py-2 gen-firmware" (click)="generateFirmware()">
           Generate Firmware
         </button>

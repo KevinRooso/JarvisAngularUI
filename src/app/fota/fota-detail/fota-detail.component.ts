@@ -63,6 +63,9 @@ export class FotaDetailComponent implements OnInit {
   paramRecieved = false;
   grid_url: string;
 
+  createFotaRole = false;
+  message = "Create";
+
   constructor(private formbuilder:FormBuilder, private service: ServiceService, private router1: ActivatedRoute,
     private router: Router) {
     this.batchForm = this.formbuilder.group({
@@ -79,6 +82,7 @@ export class FotaDetailComponent implements OnInit {
       }
     );
 
+    this.getRoleCheck();
     // // this.getBatches();
     // this.logDataSource = new MatTableDataSource(this.logData);
     // this.dataSource.paginator = this.paginator;
@@ -145,7 +149,11 @@ export class FotaDetailComponent implements OnInit {
       },
       err=> {
         this.displayProgressSpinnerInBlock = false;
-        alert("Error in Creating Batch");
+        if(err.status == 'FORBIDDEN'){
+          alert("Not allowed");
+        }else{
+          alert("Error in Creating Batch");
+        }        
       }
     );
     // this.displayProgressSpinnerInBlock = true;
@@ -233,6 +241,26 @@ export class FotaDetailComponent implements OnInit {
 
   goToFotaList(){
     this.router.navigate(['/fota'],{ queryParams: {selectedItem: this.param1,cname: this.param2} });
+  }
+
+  getRoleCheck(){
+    this.service.getCurrentRolesList().subscribe(
+      res=> {
+        let rolesList = [];
+        res.body.forEach(i=> {
+          rolesList.push(i.name);
+        });
+        this.service.setUserRoles(rolesList);
+        
+        if(rolesList.includes('fota_mgt_create')){
+          this.createFotaRole = true;
+          this.message = "Create";
+        }else{
+          this.createFotaRole = false;
+          this.message = "View";
+        }
+      }
+    )
   }
 
 }

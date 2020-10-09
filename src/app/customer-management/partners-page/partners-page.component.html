@@ -2,14 +2,14 @@
         <!-- <a (click)="openDialog($event)" ><mat-icon>add_box</mat-icon></a> -->
         <!-- <button class="btn mb-3" color="primary" (click)="openDialog($event)">Add New User</button> -->
 
-        <div class="page-title">
+        <div class="page-title my-2">
           <div class="text-left">
             <h2>Partners Table</h2>
             <!-- <span class="fa fa-arrow-circle-o-left"></span>  -->
           </div>
-          <div class="text-right">
-            <button mat-mini-fab color="primary" id="add-button" matTooltip="Add Partner" class="theme-btn" (click)="openDialog(null)">
-              <i class="material-icons">group_add</i>
+          <div class="text-right" *ngIf="createOrgRole">
+            <button mat-raised-button color="primary" matTooltip="Add Partner" class="theme-btn" (click)="openDialog(null)">
+              Add Partner
             </button>
           </div>
         </div>

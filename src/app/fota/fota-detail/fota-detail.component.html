@@ -6,7 +6,7 @@ class="center-aligned sq-relative-backdrop">
     <li><a [routerLink]="['/home-dashboard']">Home</a></li>
     <li><a [routerLink]="['/assets-dashbaord/fota']">Fota Dashboard</a></li>
     <li><a (click)="goToFotaList()">{{param2 | titlecase}} Fota List</a></li>
-    <li><a style="cursor:auto;">Create Batch</a></li>
+    <li><a style="cursor:auto;">{{message}} Batch</a></li>
   </ul>
 </div>
 <!-- <div class="row m-2 mt-4">
@@ -22,7 +22,7 @@ class="center-aligned sq-relative-backdrop">
   </div>
 </div> -->
 
-<div class="row m-2 mt-4">
+<div class="row m-2 mt-4" *ngIf="createFotaRole">
 <div class="col-md-12">
   <div class="card">
     <div class="card-header">

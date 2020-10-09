@@ -13,7 +13,7 @@
           </form>
         </div>
       </div>
-      <div class="col-md-3 text-right"><!--[hidden]="isTopicDone"-->
+      <div *ngIf="createTopicRole" class="col-md-3 text-right"><!--[hidden]="isTopicDone"-->
         <button class="btn btn-dark py-2" style="font-size: 15px;"  [hidden]="isTopicDone" (click)="createTopic()">
          Generate MQTT Topics
         </button>

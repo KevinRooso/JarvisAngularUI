@@ -67,17 +67,21 @@ const routes: Routes = [
       { path: 'assets-manager', component: AssetsManagerComponent, canActivate: [AuthguardGuard] },
       { path: 'map', component: LiveMapComponent, canActivate: [AuthguardGuard] },
       { path: 'treeView', component: SubComponentTreeComponent, canActivate: [AuthguardGuard] },
-      { path: 'graph/:id', component: LineChartsComponent, canActivate: [AuthguardGuard] },
-      { path: 'compare-graph', component: CompareLineChartComponent, canActivate: [AuthguardGuard] },
       { path: 'bmap', component: BubbleMapComponent, canActivate: [AuthguardGuard] },
       { path: 'add-cust', component: AddOrganisationComponent, canActivate: [AuthguardGuard] },
       { path: 'home-dashboard', component: HomeDashboardComponent, canActivate: [AuthguardGuard] },
 
+      { 
+        path: 'graph/:id', 
+        component: LineChartsComponent, 
+        canActivate: [AuthguardGuard,RolesGuardService],
+        data: { role: 'asset_mgt_view' }
+      },
+
       {
         path: 'customers-dashboard',
         component: CustomerDashboardComponent,
-        canActivate: [AuthguardGuard, RoleguardService, RolesGuardService],
-        data: { role: 'user_mgt_view' }
+        canActivate: [AuthguardGuard]        
       },
 
       {
@@ -103,11 +107,35 @@ const routes: Routes = [
 
       // { path: 'ppage',component: PartnersPageComponent,canActivate: [AuthguardGuard]},
       { path: 'clientdata', component: ClientDataComponent, canActivate: [AuthguardGuard] },
-      { path: 'assests-data', component: AssetsDatatableComponent, canActivate: [AuthguardGuard] },
-      { path: 'assests-detail/:id', component: AssetsDetailViewComponent, canActivate: [AuthguardGuard] },
+      
+      { 
+        path: 'assests-data',
+        component: AssetsDatatableComponent, 
+        canActivate: [AuthguardGuard,RoleguardService],
+        data: { role: 'asset_mgt_view' }
+      },
+
+      { 
+        path: 'assests-detail/:id',
+        component: AssetsDetailViewComponent, 
+        canActivate: [AuthguardGuard,RolesGuardService],
+        data: { role: 'asset_mgt_view' }
+      },
+      { 
+        path: 'compare', 
+        component: ComparePageComponent, 
+        canActivate: [AuthguardGuard,RolesGuardService],
+        data: { role: 'asset_mgt_view' }
+      },
+      { 
+        path: 'compare-graph', 
+        component: CompareLineChartComponent, 
+        canActivate: [AuthguardGuard,RolesGuardService],
+        data: { role: 'asset_mgt_view' }
+      },
+      
       { path: 'profile', component: ProfilePageComponent, canActivate: [AuthguardGuard] },
-      { path: 'dount', component: DonutChartComponent, canActivate: [AuthguardGuard] },
-      { path: 'compare', component: ComparePageComponent, canActivate: [AuthguardGuard] },
+      { path: 'dount', component: DonutChartComponent, canActivate: [AuthguardGuard] },      
       { path: 'realtime', component: RealTimeComponent, canActivate: [AuthguardGuard] },
       { path: 'graphOld', component: AssetsVisualizeComponent, canActivate: [AuthguardGuard] },
 
@@ -140,8 +168,7 @@ const routes: Routes = [
       { 
         path: 'setting',
         component: SettingComponent,
-        canActivate: [AuthguardGuard,RolesGuardService],
-        data: { role: 'user_mgt_view'}
+        canActivate: [AuthguardGuard]        
       },
 
       {
@@ -204,7 +231,7 @@ const routes: Routes = [
         path: 'topic-preview',
         component: TopicPreviewComponent,
         canActivate: [AuthguardGuard, RolesGuardService],
-        data: { role: 'topic_mgt_view' }
+        data: { role: 'topic_mgt_create' }
       },
 
       {
@@ -218,7 +245,7 @@ const routes: Routes = [
         path: 'crearte-firmware',
         component: CreateFirmwareComponent,
         canActivate: [AuthguardGuard, RolesGuardService],
-        data: { role: 'firmware_mgt_view' }
+        data: { role: 'firmware_mgt_create' }
       },
 
       {

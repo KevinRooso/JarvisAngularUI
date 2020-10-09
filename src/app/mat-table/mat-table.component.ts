@@ -41,6 +41,11 @@ export class MatTableComponent {
 
   filterString: string = "";
 
+  updateOrgRole = false;
+  message = {
+    editOrg: 'Update not allowed'
+  };
+
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild('closeTrace', { static: true }) closeTrace;
@@ -50,6 +55,7 @@ export class MatTableComponent {
   @Input('search') searchEnable: boolean = false;
   @Input('companyName') companyName:string;  
   @Output() outData = new EventEmitter();
+  
 
   constructor(private _httpClient: HttpClient,
     private _service: ServiceService, private router: Router) {
@@ -169,6 +175,18 @@ console.log( data.content);
   traceOverview(){
     this.closeTrace.nativeElement.click();
     this.router.navigate([`/trace-route/${this.traceImei}`],{ queryParams: {cname:this.companyName, selectedItem: this.traceOrg}} );
+  }
+
+  getRoleCheck(){
+    this.updateOrgRole = false;
+    this.message.editOrg = "Update not allowed";    
+
+    let rolesList = [];
+    rolesList = this._service.getUserRoles();
+    if(rolesList.includes('orginisation_mgt_update')){
+      this.updateOrgRole = true;
+      this.message.editOrg = "Edit Org";      
+    }
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceService } from '../service.service';
 
 @Component({
   selector: 'app-setting',
@@ -7,9 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingComponent implements OnInit {
 
-  constructor() { }
+  viewUserRole = false;
+
+  constructor(private service: ServiceService) { }
 
   ngOnInit() {
+    this.getRoleCheck();
+  }
+
+  getRoleCheck(){
+    this.service.getCurrentRolesList().subscribe(
+      res=> {
+        let rolesList = [];
+        res.body.forEach(i=> {
+          rolesList.push(i.name);
+        });
+        this.service.setUserRoles(rolesList);
+        
+        if(rolesList.includes('user_mgt_view')){
+          this.viewUserRole = true;
+        }else{
+          this.viewUserRole = false;
+        }
+      }
+    )
   }
 
 }

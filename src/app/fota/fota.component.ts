@@ -57,6 +57,9 @@ export class FotaComponent implements OnInit {
      , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'dashboard',"sortDisabled": true}
   ];
 
+  createFotaRole = false;
+  message = "Create";
+
   constructor(private router:Router, private router1: ActivatedRoute,
     private service: ServiceService) {      
     }
@@ -70,32 +73,9 @@ export class FotaComponent implements OnInit {
         this.grid_url = this.service.api_user_url2 + '/api/bms/fota/assets/' + params.selectedItem
         // this.getAssets(this.param1);
       }
-    );    
-  }
-
-  getAssets(orgId){
-    this.displayProgressSpinnerInBlock = true;
-    this.service.getAssetListForFota(orgId).subscribe(
-      res=> {
-        this.fotaData = [];
-        res.forEach((i, index)=>{
-          let obj = {
-            seq: index+1,
-            imei: i.imeiNo,
-            bin: i.bin,
-            tcu: i.tcu,
-            bms: i.bms,
-            cfg: i.bmsConfigurationVersion,
-            status: i.status
-          };
-          this.fotaData.push(obj);
-        });        
-        this.dataSource = new MatTableDataSource(this.fotaData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.displayProgressSpinnerInBlock = false;
-      }
     );
+    
+    this.getRoleCheck();
   }
 
   createBatch(){
@@ -112,37 +92,6 @@ export class FotaComponent implements OnInit {
     this.paramRecieved = true;
   }
 
-  // runImeiFota(){
-  //   console.log(this.imeiDetail);
-  //   console.log(this.paramObj);
-  //   const formData = new FormData();
-  //   formData.append('request',JSON.stringify(this.paramObj));
-  //   this.displayProgressSpinnerInBlock = true;
-  //   this.service.runFotaForSingleImei(this.param1,this.imeiDetail.imei,formData).subscribe(
-  //     res=> {
-  //       alert("Fota pushed");
-  //       this.getAssets(this.param1);
-  //       this.closePush.nativeElement.click();
-  //       this.paramRecieved = false;
-  //       this.displayProgressSpinnerInBlock = false;
-  //     },
-  //     err=> {
-  //       if(err.status == 400){
-  //         alert("First Create Topics of " + this.param2);
-  //         this.closePush.nativeElement.click();
-  //         this.paramRecieved = false;
-  //         this.displayProgressSpinnerInBlock = false;
-  //       }
-  //       else{
-  //         alert("Unable to Push Fota");
-  //         this.closePush.nativeElement.click();          
-  //         this.paramRecieved = false;
-  //         this.displayProgressSpinnerInBlock = false;
-  //       }        
-  //     }
-  //   );
-  // }
-
   getImeiStatus(row){
     this.router.navigate(['/fota-detail/log'],{ queryParams: {selectedItem: this.param1,cname: this.param2,imei: row.imei, bid: 0} });
   }
@@ -158,6 +107,26 @@ export class FotaComponent implements OnInit {
     }else{
       return false;
     }
+  }
+
+  getRoleCheck(){
+    this.service.getCurrentRolesList().subscribe(
+      res=> {
+        let rolesList = [];
+        res.body.forEach(i=> {
+          rolesList.push(i.name);
+        });
+        this.service.setUserRoles(rolesList);
+        
+        if(rolesList.includes('fota_mgt_create')){
+          this.createFotaRole = true;
+          this.message = "Create";
+        }else{
+          this.createFotaRole = false;
+          this.message = "View";
+        }
+      }
+    )
   }
 
 }

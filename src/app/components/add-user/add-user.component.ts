@@ -99,9 +99,14 @@ export class AddUserComponent implements OnInit {
         this.displayProgressSpinnerInBlock = false;
 
       },error=>{
-        if(error.status == 'FORBIDDEN'){
+        console.log(error);        
+        if(error.status == 403){
           alert("Not allowed");
-        }else{
+        }
+        if(error.error.errorMessage == 'Email already Exits'){
+          alert("Duplicate user not allowed");
+        }
+        else{
           alert("Not Save Please Try Again !!!!")
         }
         this.displayProgressSpinnerInBlock = false;                

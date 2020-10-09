@@ -47,7 +47,8 @@ export class TopicManagementComponent implements OnInit {
     topicname: 'NA'
   }];
   subscribeTopics: any[] = [];
-
+  
+  createTopicRole = false;
 
   constructor(private router: Router, private router1: ActivatedRoute,
     private service: ServiceService, private _formbuilder: FormBuilder) {
@@ -60,6 +61,7 @@ export class TopicManagementComponent implements OnInit {
   ngOnInit() {
     this.getAllClient();
     this.getTopics(1);
+    this.getRoleCheck();
   }
 
   getAllClient() {
@@ -106,6 +108,24 @@ export class TopicManagementComponent implements OnInit {
   changeTopic() {
     console.log(this.clientForm.controls['org'].value);
     this.getTopics(this.clientForm.controls['org'].value);
+  }
+
+  getRoleCheck(){
+    this.service.getCurrentRolesList().subscribe(
+      res=> {
+        let rolesList = [];
+        res.body.forEach(i=> {
+          rolesList.push(i.name);
+        });
+        this.service.setUserRoles(rolesList);
+        
+        if(rolesList.includes('topic_mgt_create')){
+          this.createTopicRole = true;
+        }else{
+          this.createTopicRole = false;
+        }
+      }
+    )
   }
 
 }

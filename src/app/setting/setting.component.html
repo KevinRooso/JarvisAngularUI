@@ -16,12 +16,12 @@
             <!-- <mat-icon class="example-tab-icon" style="padding-left: 70px;">security</mat-icon> -->
           </ng-template>
           <app-change-password></app-change-password></mat-tab>
-          <mat-tab label="Roles">
+          <mat-tab label="Roles" *ngIf="viewUserRole">
             <div class="mt-2">
             <app-role-list></app-role-list>
             </div>
           </mat-tab>
-          <mat-tab label="Users">
+          <mat-tab label="Users" *ngIf="viewUserRole">
             <div class="mt-2">
             <app-users-page></app-users-page>
             </div>

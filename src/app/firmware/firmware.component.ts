@@ -46,6 +46,8 @@ export class FirmwareComponent implements OnInit {
   grid_url: string;
   orgId: number;
 
+  createFirmwareRole = false;
+
   constructor(private router: Router, private router1: ActivatedRoute,
     private service: ServiceService, private _formbuilder: FormBuilder) {
     this.clientForm = this._formbuilder.group({
@@ -54,18 +56,11 @@ export class FirmwareComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.router1.queryParams.subscribe(
-    // params => {
-    // this.param1 = params.selectedItem;
-    // this.param2 = params.cname;
-
-    // this.getAssets(this.param1);
-    // }
-    // );
     this.orgId = 1;
     this.grid_url = this.service.api_user_url2 + `/api/bms/firmwares/${this.orgId}`;
     // this.getFirmware();
     this.getAllClient();
+    this.getRoleCheck();
   }
   getAllClient() {
     this.service.getOrganisationData().subscribe(
@@ -134,4 +129,23 @@ export class FirmwareComponent implements OnInit {
   generateFirmware(){
     this.router.navigate(['./crearte-firmware']);
   }
+
+  getRoleCheck(){
+    this.service.getCurrentRolesList().subscribe(
+      res=> {
+        let rolesList = [];
+        res.body.forEach(i=> {
+          rolesList.push(i.name);
+        });
+        this.service.setUserRoles(rolesList);
+        
+        if(rolesList.includes('firmware_mgt_create')){
+          this.createFirmwareRole = true;
+        }else{
+          this.createFirmwareRole = false;
+        }
+      }
+    )
+  }
+  
 }

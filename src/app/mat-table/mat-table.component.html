@@ -108,13 +108,15 @@
           </ng-template>
           </span>
           <ng-template #elseBlock>
-            <button
-              *ngIf="column.displayName == 'Action'"
+            <span *ngIf="column.displayName == 'Action'" [matTooltip]="message.editOrg">
+            <button              
               mat-icon-button
+              [disabled]="!updateOrgRole"
               (click)="getColumnValue(element.id, 'edit',element)"
             >
               <mat-icon>edit</mat-icon>
             </button>
+            </span>
             <button
               *ngIf="column.columnName == 'location'"
               mat-icon-button

@@ -118,6 +118,15 @@ export class CreateFirmwareComponent implements OnInit {
         this.displayProgressSpinnerInBlock = false;
         this.closeModal.nativeElement.click();
         this.router.navigate(['firmware']);
+      },
+      err=>{
+        if(err.status == 'FORBIDDEN'){
+          alert("Not allowed");
+        }else{
+          alert("Error in generating Firmware")
+        }
+        this.displayProgressSpinnerInBlock = false;
+        this.closeModal.nativeElement.click();
       }
     );
   }

@@ -85,17 +85,21 @@
           </span>
           <ng-template #elseBlock>
             <span *ngIf="column.purpose == 'dashboard'">
-              <button style="font-size: 10px;" [disabled]="element.status == 'Running'" class="btn btn-outline-dark mr-3" (click)="getImeiDetail(element)" data-toggle="modal" data-target="#imeiModal">
+              <span [matTooltip]="message.pushFota">
+              <button style="font-size: 10px;" [disabled]="element.status == 'Running' || !updateFotaRole" class="btn btn-outline-dark mr-3" (click)="getImeiDetail(element)" data-toggle="modal" data-target="#imeiModal">
                 PUSH FOTA
               </button>
+              </span>
               <button style="font-size: 10px;" class="btn btn-outline-dark" (click)="getImeiStatus(element)">
                 RESULTS
               </button>
             </span>
             <span *ngIf="column.purpose == 'batchList'">
-              <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="batchDetails(element)" data-toggle="modal" data-target="#detailsModal">
+              <span [matTooltip]="message.pushFota">
+              <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="batchDetails(element)" data-toggle="modal" data-target="#detailsModal" [disabled]="!pushRole">
                 PUSH
               </button>
+              </span>
               <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="logBatch(element)">
                 DETAILS
               </button>
@@ -204,7 +208,7 @@
                 </div>
              </div>
             </div>
-            <div class="row mt-3 m-2">
+            <div class="row mt-3 m-2" *ngIf="updateFotaRole">
               <div class="col-md-12">
                   <div class="card">
                     <div class="card-header">UPDATE FOTA</div>
@@ -216,10 +220,10 @@
             </div>
             <div class="row m-2 mt-5">
               <div class="col-sm-12 text-right">
-                <button class="float-right btn-size btn btn-dark ml-4 px-3" (click)="deleteBatch()">
+                <button *ngIf="deleteFotaRole" class="float-right btn-size btn btn-dark ml-4 px-3" (click)="deleteBatch()">
                   DELETE BATCH
                 </button>
-                <button class="float-right btn-size btn btn-dark px-4" [disabled]="!paramRecieved" (click)="runBatch()">
+                <button *ngIf="updateFotaRole" class="float-right btn-size btn btn-dark px-4" [disabled]="!paramRecieved" (click)="runBatch()">
                   RUN BATCH
                 </button>
               </div>

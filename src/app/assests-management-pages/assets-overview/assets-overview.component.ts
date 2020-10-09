@@ -96,6 +96,7 @@ export class AssetsOverviewComponent implements OnInit {
   value = 50;
   color = 'primary';
   displayProgressSpinnerInBlock: boolean = false;
+  createAssetRole = false;
 
   constructor(private router: Router, private service: ServiceService,private sanitizer: DomSanitizer, public dialog: MatDialog, public progressBar: MatProgressBarModule) {    
    }
@@ -133,6 +134,8 @@ export class AssetsOverviewComponent implements OnInit {
       moment(this.pdate).subtract(24 * 60 * 60, "seconds").format("YYYY-MM-DD HH:mm:ss"),
       moment(this.pdate).format("YYYY-MM-DD HH:mm:ss")
       );
+
+      this.getRoleCheck();
 
       // this.getBatteryValuesByImei();
 
@@ -292,5 +295,23 @@ export class AssetsOverviewComponent implements OnInit {
     }
     return obj;
 }
+
+  getRoleCheck(){
+    this.service.getCurrentRolesList().subscribe(
+      res=> {
+        let rolesList = [];
+        res.body.forEach(i=> {
+          rolesList.push(i.name);
+        });
+        this.service.setUserRoles(rolesList);
+        
+        if(rolesList.includes('asset_mgt_create')){
+          this.createAssetRole = true;
+        }else{
+          this.createAssetRole = false;
+        }
+      }
+    )
+  }
 
 }

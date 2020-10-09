@@ -11,6 +11,6 @@
     <!-- <mat-tab label="Specifications"><app-assets-specification></app-assets-specification></mat-tab>
     <mat-tab label="Identifications"><app-assets-identification></app-assets-identification></mat-tab> -->
     <!-- <mat-tab label="Sensors"><app-assets-sensors></app-assets-sensors></mat-tab> -->
-    <mat-tab label="Configurations"><app-assets-configuration></app-assets-configuration></mat-tab>
+    <mat-tab label="Configurations" *ngIf="createAssetRole"><app-assets-configuration></app-assets-configuration></mat-tab>
     <!-- <mat-tab label="Error Logs"><app-error-logs></app-error-logs></mat-tab> -->
 </mat-tab-group>

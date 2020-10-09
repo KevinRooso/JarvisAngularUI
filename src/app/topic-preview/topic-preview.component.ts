@@ -73,6 +73,16 @@ export class TopicPreviewComponent implements OnInit {
         this.displayProgressSpinnerInBlock = false;
         this.closeModal2.nativeElement.click();
         this.router.navigate(['/topic-detail']);        
+      },
+      err=>{
+        if(err.status == 'FORBIDDEN'){
+          alert("Not allowed");
+        }else{
+          alert("Error in generating Topics");
+        }
+        this.displayProgressSpinnerInBlock = false;
+        this.closeModal2.nativeElement.click();
+        this.router.navigate(['/topic-detail']); 
       }
     );
   }

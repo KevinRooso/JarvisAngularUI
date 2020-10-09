@@ -79,6 +79,10 @@ export class AssetsCardTemplateComponent implements OnInit {
         // alert("saved");
         //console.log("save",res);
         this.closeDialog();
+      },
+      err=>{
+        alert("Not allowed");
+        this.closeDialog();
       }
     )
   }

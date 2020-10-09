@@ -22,15 +22,18 @@
   <i class="material-icons">insert_chart_outlined</i>
 </button>
 
-<button
-mat-mini-fab
-color="primary"
-matTooltip="Template"
-id="temp-button"
-(click)="openDialog()"
->
-<i class="material-icons">assessment</i>
-</button>
+<span *ngIf="createAssetRole">
+ <button
+  mat-mini-fab
+  color="primary"
+  matTooltip="Template"
+  id="temp-button"
+  (click)="openDialog()"
+  >
+  <i class="material-icons">assessment</i>
+  </button>
+</span>
+
   <div class="row">
     <div class="col-md-12 col-lg-5">
       <div class="panel panel-default">

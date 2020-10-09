@@ -87,6 +87,13 @@ export class FotaMatTableComponent{
   color = 'primary';
   displayProgressSpinnerInBlock: boolean = false;
 
+  updateFotaRole = false;
+  message = {
+    pushFota: 'Push Not Allowed'    
+  };
+  deleteFotaRole = false;
+  pushRole = false;
+
   constructor(private _httpClient: HttpClient,
     private _service: ServiceService, private router: Router) {
 
@@ -123,6 +130,7 @@ export class FotaMatTableComponent{
   }
 
   ngAfterViewInit() {
+    this.getRoleCheck();
     this.exampleDatabase = new ExampleHttpDatabase(this._httpClient, this._service, this.router);
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -272,6 +280,17 @@ console.log( data.body.content);
         this.closePush.nativeElement.click();
         this.paramRecieved = false;
         this.ngAfterViewInit();        
+      },
+      err=>{
+        this.displayProgressSpinnerInBlock = false;
+        if(err.status == 'FORBIDDEN'){
+          alert("Not allowed");
+        }else{
+          alert("Error in Fota push");
+        }
+        this.closePush.nativeElement.click();
+        this.paramRecieved = false;
+        this.ngAfterViewInit();    
       }
     )
   }
@@ -291,7 +310,11 @@ console.log( data.body.content);
         this.ngAfterViewInit();
       },
       err => {
+        if(err.status == 'FORBIDDEN'){
+          alert("Not allowed");
+        }else{
         alert("Error in Batch Execution");
+        }
         this.closeDetail.nativeElement.click();
         this.displayProgressSpinnerInBlock = false;
       }
@@ -310,7 +333,11 @@ console.log( data.body.content);
       },
       err => {
         this.displayProgressSpinnerInBlock = false;
+        if(err.status == 'FORBIDDEN'){
+          alert("Not allowed");
+        }else{
         alert("Error in Deleting Batch");
+        }
         this.closeDetail.nativeElement.click();
       }
     )
@@ -319,6 +346,26 @@ console.log( data.body.content);
   statusDetails(row){
     this.statusDetail = row;
     console.log(this.statusDetail);
+  }
+
+  getRoleCheck(){
+    this.updateFotaRole = false;
+    this.deleteFotaRole = false;
+    this.pushRole = false;
+    this.message.pushFota = "Push not allowed";    
+
+    let rolesList = [];
+    rolesList = this._service.getUserRoles();
+    if(rolesList.includes('fota_mgt_update')){
+      this.updateFotaRole = true;      
+      this.message.pushFota = "";
+      this.pushRole = true;      
+    }
+    if(rolesList.includes('fota_mgt_delete')){
+      this.deleteFotaRole = true;
+      this.message.pushFota = "";  
+      this.pushRole = true;      
+    }
   }
 
 }

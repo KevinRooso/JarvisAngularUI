@@ -15,6 +15,8 @@ export class PartnersPageComponent implements OnInit {
   grid_url: string;
   gridRelaod: boolean;
 
+  createOrgRole = false;
+
   constructor(private _service: ServiceService, public dialog: MatDialog, ) {
 
   }
@@ -31,6 +33,22 @@ export class PartnersPageComponent implements OnInit {
       { 'columnName': 'createdName', 'displayName': 'Created By', "active": true, "hyperlink": false, "action": false ,"sortDisabled":true},
       { 'columnName': 'id', 'displayName': 'Action', "active": true, "hyperlink": true, "action": true,"sortDisabled":true }
       ];
+
+      this._service.getCurrentRolesList().subscribe(
+        res=> {
+          let rolesList = [];
+          res.body.forEach(i=> {
+            rolesList.push(i.name);
+          });
+          this._service.setUserRoles(rolesList);
+          
+          if(rolesList.includes('orginisation_mgt_create')){
+            this.createOrgRole = true;
+          }else{
+            this.createOrgRole = false;
+          }
+        }
+      )
   }
 
   openBox(event) {
