@@ -339,61 +339,75 @@
           <ul class="list-inline" id="menu">
             <li>
               <span *ngIf="statusDetail.executionStatus == 'Timeout' || statusDetail.executionStatus == 'Error';else startStatus">
-                <button mat-mini-fab matTooltip="Start" class="gray-color"></button>
+                <button mat-mini-fab class="gray-color"></button>
+                <span class="status-text"></span>
               </span>
               <ng-template #startStatus>
-                <button mat-mini-fab matTooltip="Start" class="yellow-color"></button>
-              </ng-template>                            
+                <button mat-mini-fab class="yellow-color"></button>
+                <span class="status-text">Start</span>
+              </ng-template>
             </li>
-            <li>              
+            <li>
               <span *ngIf="statusDetail.executionStatus == 'Waiting';else pendingStatus">
                 <button mat-mini-fab matTooltip="Pending" class="green-color"></button>
+                <span class="status-text">Pending</span>
               </span>
               <ng-template #pendingStatus>
                 <span *ngIf="statusDetail.executionStatus == 'Running' || statusDetail.executionStatus == 'Done'; else pendingGray">
-                  <button mat-mini-fab matTooltip="Pending" class="yellow-color"></button>
+                  <button mat-mini-fab class="yellow-color"></button>
+                  <span class="status-text">Pending</span>
                 </span>
                 <ng-template #pendingGray>
-                <button mat-mini-fab matTooltip="Pending" class="gray-color"></button>
+                <button mat-mini-fab class="gray-color"></button>
+                <span class="status-text">Pending</span>
                 </ng-template>
               </ng-template>
             </li>
             <li>
               <span *ngIf="statusDetail.executionStatus == 'Running';else runningStatus">
-                <button mat-mini-fab matTooltip="Running" class="green-color"></button>
+                <button mat-mini-fab class="green-color"></button>
+                <span class="status-text">Running</span>
               </span>
               <ng-template #runningStatus>
                 <span *ngIf="statusDetail.executionStatus == 'Done';else runningGray">
-                  <button mat-mini-fab matTooltip="Running" class="yellow-color"></button>
+                  <button mat-mini-fab class="yellow-color"></button>
+                  <span class="status-text">Running</span>
                 </span>
                 <ng-template #runningGray>
-                  <button mat-mini-fab matTooltip="Running" class="gray-color"></button>
-                </ng-template>                
+                  <button mat-mini-fab class="gray-color"></button>
+                  <span class="status-text">Running</span>
+                </ng-template>
               </ng-template>
             </li>
             <li>
               <span *ngIf="statusDetail.executionStatus == 'Done';else doneStatus">
-                <button mat-mini-fab matTooltip="Done" class="green-color"></button>
+                <button mat-mini-fab class="green-color"></button>
+                <span class="status-text">Done</span>
               </span>
               <ng-template #doneStatus>
-              <button mat-mini-fab matTooltip="Done" class="gray-color"></button>
+              <button mat-mini-fab class="gray-color"></button>
+              <span class="status-text">Done</span>
               </ng-template>
             </li>
             <li>
               <span *ngIf="statusDetail.executionStatus == 'Timeout';else timeoutStatus">
-                <button mat-mini-fab matTooltip="Expired" class="red-color"></button>
+                <button mat-mini-fab class="red-color"></button>
+                <span class="status-text">Expired</span>
               </span>
               <ng-template #timeoutStatus>
-                <button mat-mini-fab matTooltip="Expired" class="gray-color"></button>
+                <button mat-mini-fab class="gray-color"></button>
+                <span class="status-text">Expired</span>
               </ng-template>
             </li>
             <li>
               <span *ngIf="statusDetail.executionStatus == 'Error';else errorStatus">
-                <button mat-mini-fab matTooltip="Error" class="red-color"></button>
+                <button mat-mini-fab class="red-color"></button>
+                <span class="status-text">Error</span>
               </span>
               <ng-template #errorStatus>
-                <button mat-mini-fab matTooltip="Error" class="gray-color"></button>
-              </ng-template>              
+                <button mat-mini-fab class="gray-color"></button>
+                <span class="status-text">Error</span>
+              </ng-template>
             </li>
           </ul>
         </div>
@@ -479,7 +493,7 @@
                  </div>
              </div>
          </div>
-         </div>        
+         </div>
           <div class="row mt-3 m-2">
             <div class="col-md-12">
                 <div class="card">
@@ -489,7 +503,7 @@
                   </div>
                 </div>
             </div>
-          </div>          
+          </div>
           <div class="row mt-3 m-2">
             <div class="col-md-12 border-white">
             <div class="row">
@@ -558,7 +572,7 @@
                  </div>
              </div>
          </div>
-         </div>        
+         </div>
           <div class="row mt-3 m-2">
             <div class="col-md-12">
                 <div class="card">
@@ -568,7 +582,7 @@
                   </div>
                 </div>
             </div>
-          </div>          
+          </div>
           <div class="row mt-3 m-2">
             <div class="col-md-12 border-white">
             <div class="row">

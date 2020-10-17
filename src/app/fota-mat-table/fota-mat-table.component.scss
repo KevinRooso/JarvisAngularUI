@@ -456,7 +456,7 @@ table {
   //   width: 120px;
   // }
   ul#menu li {
-    display:inline;
+    display:inline-block;
     margin: 10px;
   }
 .green-color{
@@ -469,6 +469,10 @@ table {
   background-color:#e3ae02 !important;
 }
 
+.status-text{
+  display: list-item;
+    margin: 10px 5px;
+}
 .sq-relative-backdrop {
   position: fixed;
   height: 100%;
