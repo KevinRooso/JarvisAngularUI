@@ -62,6 +62,8 @@ export class FotaMatTableComponent{
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild('closePush', { static: true }) closePush;
   @ViewChild('closeDetail', { static: true }) closeDetail;
+  @ViewChild('closeCfg', { static: true }) closeCfg;
+  @ViewChild('closeCfgBatch', { static: true }) closeCfgBatch;
   
 
   @Input('dataUrl') dataUrl: string;
@@ -78,7 +80,9 @@ export class FotaMatTableComponent{
   modalBatch: any;
 
   firstChange = false;
-  statusDetail: any;
+  statusDetail: any = {
+    executionStatus: null
+  };
 
   //Loader
 
@@ -93,6 +97,12 @@ export class FotaMatTableComponent{
   };
   deleteFotaRole = false;
   pushRole = false;
+
+  //SysConfig variable
+  fotaId : any;
+  cfgDetail:any;
+  configObj: any;
+  configRecieved = false;
 
   constructor(private _httpClient: HttpClient,
     private _service: ServiceService, private router: Router) {
@@ -236,11 +246,21 @@ console.log( data.body.content);
     this.router.navigate(['/fota-detail/result'],{ queryParams: {selectedItem: this.companyName,cname: this.param2, bid: row.id} });
   }
 
+  getBatchConfig(row){
+    this.fotaId = row.id;
+    this.batchRow = row;
+  }
+
   //Fota Dashboard Datatable
 
   getImeiStatus(row){
     console.log(row);
     this.router.navigate(['/fota-detail/result'],{ queryParams: {selectedItem: this.companyName,cname: this.param2,imei: row.imeiNo, bid: 0} });
+  }
+
+  getImeiConfig(row){
+    this.fotaId = row.imeiNo;
+    this.imeiDetail = row;    
   }
 
   //FOTA Result 
@@ -260,6 +280,11 @@ console.log( data.body.content);
     this.paramObj = eventObj;
     console.log(this.paramObj);
     this.paramRecieved = true;
+  }
+
+  getConfigParam(eventObj){
+    this.configObj = eventObj;
+    this.configRecieved = true;
   }
 
   resetParamReceieved(){
@@ -295,6 +320,26 @@ console.log( data.body.content);
     )
   }
 
+  runImeiConfig(){
+    
+    this.displayProgressSpinnerInBlock = true;    
+    this._service.runConfigForSingleImei(this.companyName,this.imeiDetail.imeiNo,this.configObj).subscribe(
+      res=> {
+        this.closeCfg.nativeElement.click();
+        alert("Config Executed");        
+        this.configRecieved = false;
+        this.displayProgressSpinnerInBlock = false;        
+        this.ngAfterViewInit();                
+      },
+      err=>{        
+        this.closeCfg.nativeElement.click();
+        console.log(err);
+        alert("Error in Config Execution");
+        this.displayProgressSpinnerInBlock = false;
+      }
+    );
+  }
+
   runBatch(){
     console.log(this.batchRow);
     const formData = new FormData();
@@ -321,9 +366,28 @@ console.log( data.body.content);
     )
   }
 
-  deleteBatch(){
+  runBatchConfig(){
     this.displayProgressSpinnerInBlock = true;
-    this._service.deleteBatchById(this.batchRow.id).subscribe(
+    this._service.runConfigForBatch(this.batchRow.id,this.configObj).subscribe(
+      res=> {
+        this.closeCfgBatch.nativeElement.click();
+        alert("Config Executed");        
+        this.configRecieved = false;
+        this.displayProgressSpinnerInBlock = false;        
+        this.ngAfterViewInit();
+      },
+      err => {
+        this.closeCfgBatch.nativeElement.click();
+        alert("Error in Config Execution");
+        this.displayProgressSpinnerInBlock = false;
+      }
+    )
+  }
+
+  deleteBatch(row){
+    // console.log("ROW",row);
+    this.displayProgressSpinnerInBlock = true;
+    this._service.deleteBatchById(row.id).subscribe(
       res=> {        
         this.closeDetail.nativeElement.click();
         console.log(res);
@@ -343,7 +407,7 @@ console.log( data.body.content);
     )
   }
 
-  statusDetails(row){
+  statusDetails(row){    
     this.statusDetail = row;
     console.log(this.statusDetail);
   }
@@ -357,7 +421,7 @@ console.log( data.body.content);
     let rolesList = [];
     rolesList = this._service.getUserRoles();
     if(rolesList.includes('fota_mgt_update')){
-      this.updateFotaRole = true;      
+      this.updateFotaRole = true;
       this.message.pushFota = "";
       this.pushRole = true;      
     }

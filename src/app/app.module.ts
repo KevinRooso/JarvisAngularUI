@@ -132,6 +132,7 @@ import { EditRoleComponent } from './role-management/edit-role/edit-role.compone
 import { ShowPermissionComponent } from './role-management/show-permission/show-permission.component';
 import { AssignRoleComponent } from './role-management/assign-role/assign-role.component';
 import { ViewRolesComponent } from './role-management/view-roles/view-roles.component';
+import { ConfigChooseComponent } from './fota/config-choose/config-choose.component';
 
 
 // PlotlyModule.plotlyjs = PlotlyJS;
@@ -241,7 +242,9 @@ PlotlyViaCDNModule.plotlyVersion = '1.49.4';
 
     AssignRoleComponent,
 
-    ViewRolesComponent    
+    ViewRolesComponent,
+
+    ConfigChooseComponent    
   ],
   imports: [
     MatGridListModule,

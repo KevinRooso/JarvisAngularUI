@@ -420,6 +420,10 @@ export class ServiceService {
     return this.http.get<any>(this.api_user_url2 + `/api/bms/commands`);
   }
 
+  getSysCommands(): Observable<any> {
+    return this.http.get<any>(this.api_user_url2 + `/api/bms/command/SYSCONFIG`);
+  }
+
   runFotaSingleImei(request,orgId,imei): Observable<any> {
     return this.http.post<any>(this.api_user_url2 + `/api/bms/excute/single/${orgId}/${imei}`,request);
   }
@@ -434,6 +438,14 @@ export class ServiceService {
 
   deleteBatchById(bid): Observable<any> {
     return this.http.delete<any>(this.api_user_url2 + `/api/bms/delete/batch/${bid}`);
+  }
+
+  runConfigForSingleImei(orgId,imei,obj): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/excute/config/single/${orgId}/${imei}`,obj);
+  }
+
+  runConfigForBatch(batchId,obj): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/execute/config/batch/${batchId}`,obj);
   }
 
   // User Management

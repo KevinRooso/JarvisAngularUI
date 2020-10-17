@@ -1,0 +1,41 @@
+<form [formGroup]="configForm" class="form-font-2">
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">                              
+        <div class="form-row mt-2">        
+         <div class="col-md-3 col-form-label">
+            <label class="mt-3">Command</label>
+         </div>
+         <div class="col-md-9 col-form-label">
+            <mat-form-field appearance="fill">
+                <mat-label>Select Command</mat-label>
+                <mat-select formControlName="command" (selectionChange)="checkCommand($event)">
+                  <!-- <mat-option value="">--</mat-option> -->
+                  <mat-option *ngFor="let com of commands" [value]="com.id">
+                      {{com.displayName}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row mt-2" *ngIf="needsValue">
+            <div class="col-md-3 col-form-label">                
+             </div>
+            <div class="col-md-9 col-form-label">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter Value</mat-label>
+                    <input formControlName="cValue" matInput placeholder="Value">
+                </mat-form-field>            
+            </div>        
+        </div>      
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+     <button class="text-center btn btn-dark btn-size px-4" (click)="onSubmit()" [disabled]="configChosen">
+       CONFIRM
+     </button>
+     </div>
+</div>
+</form>

@@ -90,21 +90,30 @@
                 PUSH FOTA
               </button>
               </span>
-              <button style="font-size: 10px;" class="btn btn-outline-dark" (click)="getImeiStatus(element)">
+              <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="getImeiStatus(element)">
                 RESULTS
+              </button>
+              <button style="font-size: 10px;" (click)="getImeiConfig(element)" class="btn btn-outline-dark" data-toggle="modal" data-target="#configModal">
+                CONFIG
               </button>
             </span>
             <span *ngIf="column.purpose == 'batchList'">
               <span [matTooltip]="message.pushFota">
-              <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="batchDetails(element)" data-toggle="modal" data-target="#detailsModal" [disabled]="!pushRole">
+              <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="batchDetails(element)" data-toggle="modal" data-target="#detailsModal" [disabled]="!updateFotaRole">
                 PUSH
               </button>
               </span>
               <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="logBatch(element)">
                 DETAILS
               </button>
-              <button style="font-size: 10px;" class="btn btn-outline-dark" (click)="resultBatch(element)">
+              <button style="font-size: 10px;" class="btn btn-outline-dark mr-3" (click)="resultBatch(element)">
                 RESULTS
+              </button>
+              <button style="font-size: 10px;" (click)="getBatchConfig(element)" class="btn btn-outline-dark mr-3" data-toggle="modal" data-target="#configBatchModal">
+                CONFIG
+              </button>
+              <button style="font-size: 10px;" *ngIf="deleteFotaRole" class="btn btn-outline-dark" (click)="deleteBatch(element)">
+                DELETE
               </button>
             </span>
             <span *ngIf="column.purpose == 'executionList'">
@@ -220,9 +229,9 @@
             </div>
             <div class="row m-2 mt-5">
               <div class="col-sm-12 text-right">
-                <button *ngIf="deleteFotaRole" class="float-right btn-size btn btn-dark ml-4 px-3" (click)="deleteBatch()">
+                <!-- <button *ngIf="deleteFotaRole" class="float-right btn-size btn btn-dark ml-4 px-3" (click)="deleteBatch()">
                   DELETE BATCH
-                </button>
+                </button> -->
                 <button *ngIf="updateFotaRole" class="float-right btn-size btn btn-dark px-4" [disabled]="!paramRecieved" (click)="runBatch()">
                   RUN BATCH
                 </button>
@@ -329,22 +338,62 @@
         <div>
           <ul class="list-inline" id="menu">
             <li>
-              <button mat-mini-fab matTooltip="Start" class="green-color"></button>
+              <span *ngIf="statusDetail.executionStatus == 'Timeout' || statusDetail.executionStatus == 'Error';else startStatus">
+                <button mat-mini-fab matTooltip="Start" class="gray-color"></button>
+              </span>
+              <ng-template #startStatus>
+                <button mat-mini-fab matTooltip="Start" class="yellow-color"></button>
+              </ng-template>                            
+            </li>
+            <li>              
+              <span *ngIf="statusDetail.executionStatus == 'Waiting';else pendingStatus">
+                <button mat-mini-fab matTooltip="Pending" class="green-color"></button>
+              </span>
+              <ng-template #pendingStatus>
+                <span *ngIf="statusDetail.executionStatus == 'Running' || statusDetail.executionStatus == 'Done'; else pendingGray">
+                  <button mat-mini-fab matTooltip="Pending" class="yellow-color"></button>
+                </span>
+                <ng-template #pendingGray>
+                <button mat-mini-fab matTooltip="Pending" class="gray-color"></button>
+                </ng-template>
+              </ng-template>
             </li>
             <li>
-              <button mat-mini-fab matTooltip="Pending" class="yellow-color"></button>
+              <span *ngIf="statusDetail.executionStatus == 'Running';else runningStatus">
+                <button mat-mini-fab matTooltip="Running" class="green-color"></button>
+              </span>
+              <ng-template #runningStatus>
+                <span *ngIf="statusDetail.executionStatus == 'Done';else runningGray">
+                  <button mat-mini-fab matTooltip="Running" class="yellow-color"></button>
+                </span>
+                <ng-template #runningGray>
+                  <button mat-mini-fab matTooltip="Running" class="gray-color"></button>
+                </ng-template>                
+              </ng-template>
             </li>
             <li>
-              <button mat-mini-fab matTooltip="Running" class="gray-color"></button>
-            </li>
-            <li>
+              <span *ngIf="statusDetail.executionStatus == 'Done';else doneStatus">
+                <button mat-mini-fab matTooltip="Done" class="green-color"></button>
+              </span>
+              <ng-template #doneStatus>
               <button mat-mini-fab matTooltip="Done" class="gray-color"></button>
+              </ng-template>
             </li>
             <li>
-              <button mat-mini-fab matTooltip="Expired" class="gray-color"></button>
+              <span *ngIf="statusDetail.executionStatus == 'Timeout';else timeoutStatus">
+                <button mat-mini-fab matTooltip="Expired" class="red-color"></button>
+              </span>
+              <ng-template #timeoutStatus>
+                <button mat-mini-fab matTooltip="Expired" class="gray-color"></button>
+              </ng-template>
             </li>
             <li>
-              <button mat-mini-fab matTooltip="Error" class="gray-color"></button>
+              <span *ngIf="statusDetail.executionStatus == 'Error';else errorStatus">
+                <button mat-mini-fab matTooltip="Error" class="red-color"></button>
+              </span>
+              <ng-template #errorStatus>
+                <button mat-mini-fab matTooltip="Error" class="gray-color"></button>
+              </ng-template>              
             </li>
           </ul>
         </div>
@@ -374,6 +423,164 @@
             </div>
           </div>
         </section> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOTA CONFIG MODAL -->
+
+<div class="modal fade" id="configModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="top:60px">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <div class="heading-shadow py-3 px-4">
+          <h5 class="modal-title">CONFIG</h5>
+        </div>
+        <button type="button" #closeCfg class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-0 pt-5">
+        <div class="row m-2">
+          <div class="col-md-3">
+           <div class="card">
+               <div class="card-header">IMEI</div>
+               <div class="card-body">
+                 <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                 <span class="float-right">{{imeiDetail.imeiNo}}</span>
+               </div>
+           </div>
+          </div>
+           <div class="col-md-3">
+             <div class="card">
+                 <div class="card-header">TCU</div>
+                 <div class="card-body w-100">
+                   <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                   <span class="float-right">{{imeiDetail.tcu}}</span>
+                 </div>
+             </div>
+          </div>
+          <div class="col-md-3">
+             <div class="card">
+                 <div class="card-header">BMS</div>
+                 <div class="card-body">
+                    <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                    <span class="float-right">{{imeiDetail.bms}}</span>
+                 </div>
+             </div>
+          </div>
+          <div class="col-md-3">
+             <div class="card">
+                 <div class="card-header">CFG</div>
+                 <div class="card-body">
+                     <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                     <span class="float-right">{{imeiDetail.bmsConfigurationVersion}}</span>
+                 </div>
+             </div>
+         </div>
+         </div>        
+          <div class="row mt-3 m-2">
+            <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">SYSCONFIG</div>
+                  <div class="card-body">
+                  <app-config-choose [fotaId]="fotaId" (configInfo)="getConfigParam($event)"></app-config-choose>
+                  </div>
+                </div>
+            </div>
+          </div>          
+          <div class="row mt-3 m-2">
+            <div class="col-md-12 border-white">
+            <div class="row">
+              <div class="col-md-10"></div>
+              <div class="col-md-2">
+                <button class="btn-size btn btn-dark w-100" [disabled]="!configRecieved" (click)="runImeiConfig()">
+                  RUN
+                </button>
+              </div>
+            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOTA CONFIG MODAL FOR BATCH -->
+
+<div class="modal fade" id="configBatchModal" tabindex="-1" role="dialog" aria-labelledby="configBatchModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="top:60px">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <div class="heading-shadow py-3 px-4">
+          <h5 class="modal-title">CONFIG</h5>
+        </div>
+        <button type="button" #closeCfgBatch class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-0 pt-5">
+        <div class="row m-2">
+          <div class="col-md-3">
+           <div class="card">
+               <div class="card-header">Batch Id</div>
+               <div class="card-body">
+                 <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                 <span class="float-right">{{batchRow.id}}</span>
+               </div>
+           </div>
+          </div>
+           <div class="col-md-3">
+             <div class="card">
+                 <div class="card-header">Org Id</div>
+                 <div class="card-body w-100">
+                   <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                   <span class="float-right">{{batchRow.orgId}}</span>
+                 </div>
+             </div>
+          </div>
+          <div class="col-md-3">
+             <div class="card">
+                 <div class="card-header">Count</div>
+                 <div class="card-body">
+                    <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                    <span class="float-right">{{batchRow.count}}</span>
+                 </div>
+             </div>
+          </div>
+          <div class="col-md-3">
+             <div class="card">
+                 <div class="card-header">Status</div>
+                 <div class="card-body">
+                     <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                     <span class="float-right">{{batchRow.status}}</span>
+                 </div>
+             </div>
+         </div>
+         </div>        
+          <div class="row mt-3 m-2">
+            <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">SYSCONFIG</div>
+                  <div class="card-body">
+                  <app-config-choose [fotaId]="fotaId" (configInfo)="getConfigParam($event)"></app-config-choose>
+                  </div>
+                </div>
+            </div>
+          </div>          
+          <div class="row mt-3 m-2">
+            <div class="col-md-12 border-white">
+            <div class="row">
+              <div class="col-md-10"></div>
+              <div class="col-md-2">
+                <button class="btn-size btn btn-dark w-100" [disabled]="!configRecieved" (click)="runBatchConfig()">
+                  RUN
+                </button>
+              </div>
+            </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>

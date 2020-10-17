@@ -59,14 +59,14 @@ export class FirmwareComponent implements OnInit {
     this.orgId = 1;
     this.grid_url = this.service.api_user_url2 + `/api/bms/firmwares/${this.orgId}`;
     // this.getFirmware();
-    this.getAllClient();
+    this.getAllClient(1);
     this.getRoleCheck();
   }
-  getAllClient() {
+  getAllClient(id) {
     this.service.getOrganisationData().subscribe(
       res => {
         let arrObj = res.filter(i => i.id == 1);
-        this.clientForm.controls['org'].setValue(arrObj[0].id);
+        this.clientForm.controls['org'].setValue(id);
         this.clientList = res.sort((a, b) => a.id - b.id);
         console.log(this.clientList);
       }
