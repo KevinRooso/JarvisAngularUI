@@ -327,7 +327,7 @@
   <div class="modal-dialog" role="document" style="top: 20%;text-align: center;width: 36%;">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: none; padding: 0;">
-        <div class="py-3 px-4">
+        <div class="py-3 px-4 text-center">
           <h5 class="modal-title">STATUS</h5>
         </div>
         <button type="button" #closeStatus (click)="resetParamReceieved()" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
@@ -336,11 +336,12 @@
       </div>
       <div class="modal-body py-5">
         <div>
+        <p>Status Indication of IMEI - <b>{{statusDetail.imeiNumber}}</b> for component type - <b>{{statusDetail.componentType}}</b> command - <b>{{statusDetail.componentCommand}}</b></p>
           <ul class="list-inline" id="menu">
             <li>
               <span *ngIf="statusDetail.executionStatus == 'Timeout' || statusDetail.executionStatus == 'Error';else startStatus">
                 <button mat-mini-fab class="gray-color"></button>
-                <span class="status-text"></span>
+                <span class="status-text">Start</span>
               </span>
               <ng-template #startStatus>
                 <button mat-mini-fab class="yellow-color"></button>
