@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="example-table-container mb-1">
+  <div class="example-table-container mb-1" [ngClass]="{ 'margin-tble1': searchEnable1 }">
   <div style="display: inline-block;padding: 8px 0px;" *ngIf="searchEnable">
     <span style="font-size: 20px;font-weight: 400;">{{companyName | titlecase}} Assets Table</span>
   </div>
@@ -47,6 +47,25 @@
       </div>
       <!-- <label>Search:<input type="search" class="form-control" placeholder="Filter" (keyup)="applyFilter($event.target.value)"></label> -->
     </div>
+
+    <div class="float-right" style="margin-bottom: 10px;" *ngIf="searchEnable1">
+      <button *ngIf="createOrgRole" mat-raised-button color="primary" matTooltip="Add Partner" class="theme-btn mr-3" style="margin-top: 10px;" (click)="openDialog(null)">
+        Add Partner
+      </button>
+      <span class="panel">
+        <div class="xn-search">
+          <form role="form">
+            <input
+              type="text"
+              (keyup)="applyFilter($event.target.value)"
+              name="search"
+              placeholder="Enter Org"
+            />
+          </form>
+        </div>
+      </span>
+    </div>
+
     <table
       *ngIf="displayedColumns != null"
       mat-table

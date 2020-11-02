@@ -311,3 +311,17 @@ ul.panel-controls > li > a {
 //     display: block;
 //   }
 // }
+
+.toggle-wrap {
+  flex-wrap: wrap;
+  width: 100%;
+  border: 0px;
+}
+
+.btn-wrapflex{
+  flex: 0 1 10%;
+  box-sizing: border-box;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+}

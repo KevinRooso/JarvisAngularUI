@@ -9,24 +9,44 @@
     </div>
   </div>
 
-  <div class="example-table-container mb-1">
-  <div style="display: inline-block;padding: 8px 0px;" *ngIf="searchEnable">
+  <div class="example-table-container mb-1" [ngClass]="{'margin-tble': searchEnable || searchEnable1}">
+  <!-- <div style="display: inline-block;padding: 8px 0px;" *ngIf="searchEnable">
     <span style="font-size: 20px;font-weight: 400;">{{companyName}} Assets Table</span>
-  </div>
+  </div> -->
 
+  <div class="float-right" style="margin-bottom: 15px;" *ngIf="searchEnable">
+    <button mat-raised-button color="primary" matTooltip="Add Role" class="theme-btn mr-3" style="margin-top: 10px;" (click)="openDialog(null)">
+      Add Role      
+    </button>
     <div class="panel" *ngIf="searchEnable">
       <div class="xn-search">
         <form role="form">
           <input
-            type="text"
-            (keyup)="applyFilter($event.target.value)"
+            type="text"          
             name="search"
-            placeholder="Enter BIN"
+            placeholder="Enter Role"
           />
         </form>
-      </div>
-      <!-- <label>Search:<input type="search" class="form-control" placeholder="Filter" (keyup)="applyFilter($event.target.value)"></label> -->
+      </div>      
     </div>
+  </div>
+
+  <div class="float-right" style="margin-bottom: 15px;" *ngIf="searchEnable1">
+    <button mat-raised-button color="primary" matTooltip="Add User" class="theme-btn mr-3"  (click)="openUserDialog(null)" style="margin-top: 10px;">
+      Add User      
+    </button>
+    <div class="panel" *ngIf="searchEnable1">
+      <div class="xn-search">
+        <form role="form">
+          <input
+            type="text"          
+            name="search"
+            placeholder="Enter User"
+          />
+        </form>
+      </div>      
+    </div>
+  </div>
     <table
       *ngIf="displayedColumns != null"
       mat-table

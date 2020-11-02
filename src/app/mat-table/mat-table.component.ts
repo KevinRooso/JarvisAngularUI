@@ -42,6 +42,7 @@ export class MatTableComponent {
   filterString: string = "";
 
   updateOrgRole = false;
+  createOrgRole: boolean = false;
   message = {
     editOrg: 'Update not allowed'
   };
@@ -53,12 +54,13 @@ export class MatTableComponent {
   @Input('dataUrl') dataUrl: string;
   @Input('headerColumns') headerColumns: any[];
   @Input('search') searchEnable: boolean = false;
+  @Input('search1') searchEnable1: boolean = false;
   @Input('companyName') companyName:string;  
-  @Output() outData = new EventEmitter();
+  @Output() outData = new EventEmitter();  
   
 
   constructor(private _httpClient: HttpClient,
-    private _service: ServiceService, private router: Router) {
+    private _service: ServiceService, private router: Router, public dialog: MatDialog) {
 
     this.value = [];
 
@@ -84,6 +86,7 @@ export class MatTableComponent {
   }
 
   ngAfterViewInit() {
+    this.getRoleCheck();
     this.exampleDatabase = new ExampleHttpDatabase(this._httpClient, this._service, this.router);
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -179,6 +182,7 @@ console.log( data.content);
 
   getRoleCheck(){
     this.updateOrgRole = false;
+    this.createOrgRole = false;
     this.message.editOrg = "Update not allowed";    
 
     let rolesList = [];
@@ -187,6 +191,25 @@ console.log( data.content);
       this.updateOrgRole = true;
       this.message.editOrg = "Edit Org";      
     }
+    if(rolesList.includes('orginisation_mgt_create')){
+      this.createOrgRole = true;        
+    }
+  }
+
+  openDialog(id): void {
+    console.log(event);    
+    const dialogRef = this.dialog.open(AddOrganisationComponent, {
+      disableClose: true,
+      width: '400px',
+      height: '100vh',
+      position: { right: '0px', top: '0px' },
+      data: { "id": id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.ngAfterViewInit();      
+    });
   }
 
 }

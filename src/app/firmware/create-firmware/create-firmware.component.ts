@@ -75,8 +75,7 @@ export class CreateFirmwareComponent implements OnInit {
     );
   }
 
-  isFirmwareExist(){
-    debugger;
+  isFirmwareExist(){    
    this.submitted = true;
    if(this.fileValid){   
     if(this.createFirmwareGroup.valid){
@@ -110,7 +109,7 @@ export class CreateFirmwareComponent implements OnInit {
     formdata.append('file',this.fileUploaded);
     this.service.createFirmware(orgId,type,version,formdata).subscribe(
       res=> {
-        this._snackBar.open("Firmware Generated Successfully!!", "undo" , {
+        this._snackBar.open("Firmware Generated Successfully!!", "close" , {
           duration: 2000
         });
         console.log("created",res);

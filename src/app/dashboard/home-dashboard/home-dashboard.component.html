@@ -73,8 +73,8 @@
   </div>
   <div class="row mb-3">
     <div class="col-lg-12 col-sm-12">
-      <mat-button-toggle-group [(value)] = "selectedValue" color="primary" #group="matButtonToggleGroup" (change)="onValChange(cd.id)">
-        <mat-button-toggle  (click)="onValChange(cd.id)" *ngFor="let cd of cardCounter" 
+      <mat-button-toggle-group class="toggle-wrap" [(value)] = "selectedValue" color="primary" #group="matButtonToggleGroup" (change)="onValChange(cd.id)">
+        <mat-button-toggle class="btn-wrapflex"  (click)="onValChange(cd.id)" *ngFor="let cd of cardCounter" 
           aria-label="Text align left" style="font-weight: 600;" [value]="cd">
           {{ cd.org_name }}
         </mat-button-toggle>

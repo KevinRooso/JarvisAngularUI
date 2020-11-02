@@ -72,7 +72,8 @@ export class TopicPreviewComponent implements OnInit {
         alert("Topics Generated");
         this.displayProgressSpinnerInBlock = false;
         this.closeModal2.nativeElement.click();
-        this.router.navigate(['/topic-detail']);        
+        // this.router.navigate(['/topic-detail']);
+        this.router.navigate(['/topic-detail'], { queryParams: { cid: this.param1 }});
       },
       err=>{
         if(err.status == 'FORBIDDEN'){

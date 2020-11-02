@@ -69,6 +69,7 @@ export class FotaMatTableComponent{
   @Input('dataUrl') dataUrl: string;
   @Input('headerColumns') headerColumns: any[];
   @Input('search') searchEnable: boolean = false;
+  @Input('search1') searchEnable1: boolean = false;
   @Input('companyName') companyName:string;
   @Input('param2') param2?: string;
   @Input('bid') bid?: string;
@@ -326,7 +327,7 @@ console.log( data.body.content);
     this._service.runConfigForSingleImei(this.companyName,this.imeiDetail.imeiNo,this.configObj).subscribe(
       res=> {
         this.closeCfg.nativeElement.click();
-        alert("Config Executed");        
+        alert("SysConfig Executed");        
         this.configRecieved = false;
         this.displayProgressSpinnerInBlock = false;        
         this.ngAfterViewInit();                
@@ -334,7 +335,7 @@ console.log( data.body.content);
       err=>{        
         this.closeCfg.nativeElement.click();
         console.log(err);
-        alert("Error in Config Execution");
+        alert("Error in SysConfig Execution");
         this.displayProgressSpinnerInBlock = false;
       }
     );
@@ -371,14 +372,14 @@ console.log( data.body.content);
     this._service.runConfigForBatch(this.batchRow.id,this.configObj).subscribe(
       res=> {
         this.closeCfgBatch.nativeElement.click();
-        alert("Config Executed");        
+        alert("SysConfig Executed");        
         this.configRecieved = false;
         this.displayProgressSpinnerInBlock = false;        
         this.ngAfterViewInit();
       },
       err => {
         this.closeCfgBatch.nativeElement.click();
-        alert("Error in Config Execution");
+        alert("Error in SysConfig Execution");
         this.displayProgressSpinnerInBlock = false;
       }
     )
@@ -430,6 +431,10 @@ console.log( data.body.content);
       this.message.pushFota = "";  
       this.pushRole = true;      
     }
+  }
+
+  goToBatchPage(){    
+    this.router.navigate(['/fota-detail'],{ queryParams: {selectedItem: this.companyName,cname: this.param2} });    
   }
 
 }

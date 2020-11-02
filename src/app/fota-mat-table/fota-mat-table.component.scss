@@ -304,12 +304,15 @@ table {
   font-weight: 400;
 }
 
-// th.mat-header-cell,
-// td.mat-cell,
-// td.mat-footer-cell {
-//   padding: 1%;
-//   font-size: 12px;
-// }
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+  padding-left: 1%;  
+  padding-right: 1%;  
+  padding-top: 0.5%;  
+  padding-bottom: 0.5%; 
+  min-width: 98px; 
+}
 
 .assignee-button {
     box-shadow: 1px 1px whitesmoke;
@@ -424,6 +427,14 @@ table {
     }
   }
 
+  // @media (min-width: 1200px)
+  // {
+  //   .modal-dialog {
+  //     max-width: 1100px;
+  //     margin: 1.75rem auto;
+  //   }
+  // }
+
   // section {
   //   display: table;
   // }
@@ -476,4 +487,24 @@ table {
 .sq-relative-backdrop {
   position: fixed;
   height: 100%;
+}
+
+.margin-tble {
+  margin-top: -20px;
+}
+
+.margin-tble1 {
+  margin-top: -25px;
+}
+
+// th.mat-header-cell {
+//   width: 2%;
+// }
+
+.w-10 {
+  width: 10%;
+}
+
+.span-break {
+  word-break: break-all;
 }

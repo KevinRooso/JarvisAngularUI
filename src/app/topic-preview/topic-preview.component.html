@@ -52,7 +52,7 @@
                    <mat-label>EDIT CLIENT NAME</mat-label>
                    <input matInput placeholder="Client" formControlName="client">
                    <mat-error *ngIf="checkError('client', 'required')">(Client Name is required)</mat-error>
-                   <mat-error *ngIf="checkError('client', 'pattern')">(Client Name should be only lowercase text with no spaces or special characters)</mat-error>
+                   <mat-error *ngIf="checkError('client', 'pattern')">(Only alphabets allowed)</mat-error>
                  </mat-form-field>
                  </form>
                 </div>
@@ -63,7 +63,7 @@
                <div class="col-md-4">
                </div>
                <div class="col-md-7">
-                <button class="btn btn-dark w-25 btn-style" style="font-size: 15px;" (click)="isTopicSubmit()">
+                <button type="submit" class="btn btn-dark w-25 btn-style" style="font-size: 15px;" (click)="isTopicSubmit()">
                     CREATE TOPICS
                 </button>
                 <button #openConfirm [hidden]=true data-toggle="modal" data-target="#myModal"></button>

@@ -50,6 +50,8 @@ export class TopicManagementComponent implements OnInit {
   
   createTopicRole = false;
 
+  paramId = null;
+
   constructor(private router: Router, private router1: ActivatedRoute,
     private service: ServiceService, private _formbuilder: FormBuilder) {
 
@@ -59,18 +61,30 @@ export class TopicManagementComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllClient();
-    this.getTopics(1);
-    this.getRoleCheck();
+    this.router1.queryParams .subscribe(params => {
+      console.log(params.cid);
+      this.paramId = params.cid;
+      if(this.paramId != null){
+        this.getTopics(this.paramId);
+        this.getAllClient(this.paramId);
+        this.getRoleCheck();
+      }else{
+        this.getTopics(1);    
+        this.getAllClient(1);
+        this.getRoleCheck();
+      }
+    });
   }
 
-  getAllClient() {
+  getAllClient(id) {
     this.service.getOrganisationData().subscribe(
       res => {
         let arrObj = res.filter(i => i.id == 1);
-        this.clientForm.controls['org'].setValue(arrObj[0].id);
+        console.log(Number(id));
+        this.clientForm.controls['org'].setValue(Number(id));
         this.clientList = res.sort((a, b) => a.id - b.id);
         console.log(this.clientList);
+        console.log(this.clientForm.controls['org'].value);
       }
     );
   }

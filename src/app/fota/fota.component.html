@@ -8,20 +8,20 @@
 <app-progress-spinner color="accent" [mode]="mode" [value]="value" *ngIf="displayProgressSpinnerInBlock" [diameter]="50"
   class="center-aligned sq-relative-backdrop">
 </app-progress-spinner>
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-2">
     <section class="section-tours">
-      <div class="row my-3">
+      <!-- <div class="row my-3">
         <div class="col-md-3">
           <button class="btn btn-dark w-50" style="font-size: 15px;" (click)="createBatch()">
             {{message}} Batch
           </button>
         </div>
-      </div>
-<div class="mat-container mb-5">
+      </div> -->
+<div class="mat-container mt-4">
 <app-fota-mat-table
   [dataUrl]="grid_url"
   [headerColumns]="Columns"
-  [search]=false
+  [search1]=true
   (outData)="openBox($event)"
   [companyName]="param1"
   [param2]="param2"

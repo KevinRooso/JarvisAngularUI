@@ -46,6 +46,11 @@ export class FotaChooseComponent implements OnInit, OnChanges {
   bmsCommandArray:any;
   cfgCommandArray:any;
 
+  //Versions Array
+  tcuVersionArray:any;
+  bmsVersionArray:any;
+  cfgVersionArray:any;
+
   versionArray = ['1.01','1.03','1.04','1.08','1.10'];
 
   @Input() onlyImei?: boolean;
@@ -55,6 +60,12 @@ export class FotaChooseComponent implements OnInit, OnChanges {
   @Output() batchInfo = new EventEmitter();
   compArray: any[] = [];
   batchConfirm = false;
+
+  versionValue = {
+    first: null,
+    second: null,
+    third: null
+  };
 
   constructor(private _formBuilder: FormBuilder,private service: ServiceService,public snackBar: MatSnackBar) {
     //Setting subject false
@@ -88,7 +99,7 @@ export class FotaChooseComponent implements OnInit, OnChanges {
       this.bmsCommandArray = res.body.filter(i=> i.type == 'BMS');
       this.cfgCommandArray = res.body.filter(i=> i.type == 'CFG');
     });
-    
+    this.getVersions();
   }
 
   ngOnChanges() {
@@ -98,6 +109,7 @@ export class FotaChooseComponent implements OnInit, OnChanges {
       this.bmsCommandArray = res.body.filter(i=> i.type == 'BMS');
       this.cfgCommandArray = res.body.filter(i=> i.type == 'CFG');
     });
+    this.getVersions();
   }
 
   initialParameters(){
@@ -139,9 +151,13 @@ export class FotaChooseComponent implements OnInit, OnChanges {
   }
 
   getVersions(){
-    this.service.getAllBatchDetails().subscribe(res=>{
-      console.log('loaded',res);
-    });
+    this.service.getFirmwareVersions().subscribe(
+      res=> {        
+        this.tcuVersionArray = res.body.filter(i=>i.firmwareType == 'TCU');       
+        this.bmsVersionArray = res.body.filter(i=>i.firmwareType == 'BMS');
+        this.cfgVersionArray = res.body.filter(i=>i.firmwareType == 'CFG');
+      }
+    );
   }
 
   toggleCfg(event){
@@ -284,7 +300,7 @@ export class FotaChooseComponent implements OnInit, OnChanges {
     });
     if(this.validForm){
       console.log(this.validForm);
-      this.batchConfirm = true;
+      this.batchConfirm = true;      
       this.sendParams(obj);      
     }else{
       alert("Please Select Version and Command");

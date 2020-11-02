@@ -13,24 +13,46 @@
     </div>
   </div>
 
-  <div class="example-table-container" style="margin-bottom: 7rem;">
+  <div class="example-table-container" style="margin-bottom: 7rem;overflow-x: hidden;" [ngClass]="{ 'margin-tble': searchEnable}">
   <!-- <div style="display: inline-block;padding: 8px 0px;" *ngIf="searchEnable">
     <span style="font-size: 20px;font-weight: 400;">{{companyName}} Assets Table</span>
   </div> -->
+  <!-- (keyup)="applyFilter($event.target.value)"             -->
 
     <div class="panel" *ngIf="searchEnable">
       <div class="xn-search">
         <form role="form">
           <input
             type="text"
-            (keyup)="applyFilter($event.target.value)"
             name="search"
             placeholder="Enter BIN"
           />
         </form>
-      </div>
-      <!-- <label>Search:<input type="search" class="form-control" placeholder="Filter" (keyup)="applyFilter($event.target.value)"></label> -->
+      </div>      
     </div>
+
+    <div class="row mt-3 mb-4" *ngIf="searchEnable1">
+      <div class="col-md-3">
+        <button class="btn btn-dark w-50" style="font-size: 15px;margin-top: 8px;" (click)="goToBatchPage()">
+          Create Batch
+        </button>
+      </div>
+      <div class="col-md-6"></div>
+      <div class="col-md-3">
+        <div class="panel">
+          <div class="xn-search">
+            <form role="form">
+              <input
+                type="text"
+                name="search"
+                placeholder="Enter BIN"
+              />
+            </form>
+          </div>      
+        </div>      
+      </div>
+    </div>
+
     <table
       *ngIf="displayedColumns != null"
       mat-table
@@ -66,7 +88,7 @@
           mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          [disabled]="column.sortDisabled"
+          [disabled]="column.sortDisabled"          
         >
           {{ column.displayName }}
         </th>
@@ -94,7 +116,7 @@
                 RESULTS
               </button>
               <button style="font-size: 10px;" (click)="getImeiConfig(element)" class="btn btn-outline-dark" data-toggle="modal" data-target="#configModal">
-                CONFIG
+                SYSCONFIG
               </button>
             </span>
             <span *ngIf="column.purpose == 'batchList'">
@@ -110,7 +132,7 @@
                 RESULTS
               </button>
               <button style="font-size: 10px;" (click)="getBatchConfig(element)" class="btn btn-outline-dark mr-3" data-toggle="modal" data-target="#configBatchModal">
-                CONFIG
+                SYSCONFIG
               </button>
               <button style="font-size: 10px;" *ngIf="deleteFotaRole" class="btn btn-outline-dark" (click)="deleteBatch(element)">
                 DELETE
@@ -123,7 +145,7 @@
             </span>
             <span *ngIf="column.purpose == 'statusList'">
               <button style="font-size: 10px;" class="btn btn-outline-dark mr-4" (click)="statusDetails(element)" data-toggle="modal" data-target="#statusModal">
-                STATUS
+                INDICATOR
               </button>
             </span>
           </ng-template>
@@ -261,17 +283,31 @@
             <div class="card">
                 <div class="card-header">IMEI</div>
                 <div class="card-body">
-                  <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                  <span class="float-right">{{imeiDetail.imeiNo}}</span>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-7 px-1">
+                      <span class="float-right span-break">{{imeiDetail.imeiNo}}</span>
+                    </div>
+                  </div>
                 </div>
             </div>
            </div>
             <div class="col-md-3">
               <div class="card">
                   <div class="card-header">TCU</div>
-                  <div class="card-body w-100">
-                    <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                    <span class="float-right">{{imeiDetail.tcu}}</span>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <div class="col-md-7 px-1">
+                        <span class="float-right span-break">{{imeiDetail.tcu}}</span>
+                      </div>
+                    </div>
                   </div>
               </div>
            </div>
@@ -279,8 +315,15 @@
               <div class="card">
                   <div class="card-header">BMS</div>
                   <div class="card-body">
-                     <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                     <span class="float-right">{{imeiDetail.bms}}</span>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <div class="col-md-7 px-1">
+                        <span class="float-right span-break">{{imeiDetail.bms}}</span>
+                      </div>
+                    </div>
                   </div>
               </div>
            </div>
@@ -288,8 +331,15 @@
               <div class="card">
                   <div class="card-header">CFG</div>
                   <div class="card-body">
-                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                      <span class="float-right">{{imeiDetail.bmsConfigurationVersion}}</span>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <div class="col-md-7 px-1">
+                        <span class="float-right span-break">{{imeiDetail.bmsConfigurationVersion}}</span>
+                      </div>
+                    </div>                                            
                   </div>
               </div>
           </div>
@@ -339,23 +389,23 @@
         <p>Status Indication of IMEI - <b>{{statusDetail.imeiNumber}}</b> for component type - <b>{{statusDetail.componentType}}</b> command - <b>{{statusDetail.componentCommand}}</b></p>
           <ul class="list-inline" id="menu">
             <li>
-              <span *ngIf="statusDetail.executionStatus == 'Timeout' || statusDetail.executionStatus == 'Error';else startStatus">
-                <button mat-mini-fab class="gray-color"></button>
+              <span>
+                <button mat-mini-fab class="green-color"></button>
                 <span class="status-text">Start</span>
               </span>
-              <ng-template #startStatus>
-                <button mat-mini-fab class="yellow-color"></button>
+              <!-- <ng-template #startStatus>
+                <button mat-mini-fab class="green-color"></button>
                 <span class="status-text">Start</span>
-              </ng-template>
+              </ng-template> -->
             </li>
             <li>
               <span *ngIf="statusDetail.executionStatus == 'Waiting';else pendingStatus">
-                <button mat-mini-fab matTooltip="Pending" class="green-color"></button>
+                <button mat-mini-fab matTooltip="Pending" class="yellow-color"></button>
                 <span class="status-text">Pending</span>
               </span>
               <ng-template #pendingStatus>
-                <span *ngIf="statusDetail.executionStatus == 'Running' || statusDetail.executionStatus == 'Done'; else pendingGray">
-                  <button mat-mini-fab class="yellow-color"></button>
+                <span *ngIf="statusDetail.executionStatus == 'Running' || statusDetail.executionStatus == 'Done' || statusDetail.executionStatus == 'Timeout'; else pendingGray">
+                  <button mat-mini-fab class="green-color"></button>
                   <span class="status-text">Pending</span>
                 </span>
                 <ng-template #pendingGray>
@@ -366,12 +416,12 @@
             </li>
             <li>
               <span *ngIf="statusDetail.executionStatus == 'Running';else runningStatus">
-                <button mat-mini-fab class="green-color"></button>
+                <button mat-mini-fab class="yellow-color"></button>
                 <span class="status-text">Running</span>
               </span>
               <ng-template #runningStatus>
-                <span *ngIf="statusDetail.executionStatus == 'Done';else runningGray">
-                  <button mat-mini-fab class="yellow-color"></button>
+                <span *ngIf="statusDetail.executionStatus == 'Done' || statusDetail.executionStatus == 'Timeout';else runningGray">
+                  <button mat-mini-fab class="green-color"></button>
                   <span class="status-text">Running</span>
                 </span>
                 <ng-template #runningGray>
@@ -382,12 +432,18 @@
             </li>
             <li>
               <span *ngIf="statusDetail.executionStatus == 'Done';else doneStatus">
-                <button mat-mini-fab class="green-color"></button>
+                <button mat-mini-fab class="yellow-color"></button>
                 <span class="status-text">Done</span>
               </span>
               <ng-template #doneStatus>
-              <button mat-mini-fab class="gray-color"></button>
-              <span class="status-text">Done</span>
+              <span *ngIf="statusDetail.executionStatus == 'Timeout';else runningGray">
+                <button mat-mini-fab class="green-color"></button>
+                <span class="status-text">Done</span>
+              </span>
+              <ng-template #runningGray>
+                <button mat-mini-fab class="gray-color"></button>
+                <span class="status-text">Done</span>
+              </ng-template>
               </ng-template>
             </li>
             <li>
@@ -462,8 +518,15 @@
            <div class="card">
                <div class="card-header">IMEI</div>
                <div class="card-body">
-                 <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                 <span class="float-right">{{imeiDetail.imeiNo}}</span>
+                <div class="row">
+                  <div class="col-md-3">
+                    <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                  </div>
+                  <div class="col-md-1"></div>
+                  <div class="col-md-7 px-1">
+                    <span class="float-right span-break">{{imeiDetail.imeiNo}}</span>
+                  </div>
+                </div>
                </div>
            </div>
           </div>
@@ -471,8 +534,15 @@
              <div class="card">
                  <div class="card-header">TCU</div>
                  <div class="card-body w-100">
-                   <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                   <span class="float-right">{{imeiDetail.tcu}}</span>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-7 px-1">
+                      <span class="float-right span-break">{{imeiDetail.tcu}}</span>
+                    </div>
+                  </div>
                  </div>
              </div>
           </div>
@@ -480,8 +550,15 @@
              <div class="card">
                  <div class="card-header">BMS</div>
                  <div class="card-body">
-                    <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                    <span class="float-right">{{imeiDetail.bms}}</span>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-7 px-1">
+                      <span class="float-right span-break">{{imeiDetail.bms}}</span>
+                    </div>
+                  </div>
                  </div>
              </div>
           </div>
@@ -489,8 +566,15 @@
              <div class="card">
                  <div class="card-header">CFG</div>
                  <div class="card-body">
-                     <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
-                     <span class="float-right">{{imeiDetail.bmsConfigurationVersion}}</span>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <i class="fa fa-bar-chart bars" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-7 px-1">
+                      <span class="float-right span-break">{{imeiDetail.bmsConfigurationVersion}}</span>
+                    </div>
+                  </div>   
                  </div>
              </div>
          </div>

@@ -15,6 +15,8 @@ import { AddOrganisationComponent } from 'src/app/components/organisation/add-or
 import { Router } from '@angular/router';
 import { ShowPermissionComponent } from '../role-management/show-permission/show-permission.component';
 import { AssignRoleComponent } from '../role-management/assign-role/assign-role.component';
+import { AddRoleComponent } from '../role-management/add-role/add-role.component';
+import { AddUserComponent } from '../components/add-user/add-user.component';
 
 @Component({
   selector: 'app-role-mat-table',
@@ -55,6 +57,7 @@ export class RoleMatTableComponent implements OnInit {
   @Input('dataUrl') dataUrl: string;
   @Input('headerColumns') headerColumns: any[];
   @Input('search') searchEnable: boolean = false;
+  @Input('search1') searchEnable1: boolean = false;
   @Input('companyName') companyName:string;  
   @Output() outData = new EventEmitter();
 
@@ -211,6 +214,38 @@ console.log( data.body.content);
     if(rolesList.includes('user_mgt_view')){
       this.viewUserRole = true;      
     }
+  }
+
+  openDialog(id): void {
+    
+    const dialogRef = this.dialog.open(AddRoleComponent, {
+      disableClose: true,
+     width: '700px',
+      // height: '100vh',
+    position: { top: '50px' },
+      data: { "id": id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.ngAfterViewInit();
+    });
+  }
+
+  openUserDialog(id): void {
+        
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      disableClose: true,
+      width: '400px',
+      height: '100vh',
+      position: { right: '0px', top: '0px' },
+      data: { "id": id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.ngAfterViewInit();
+    });
   }
 
 }

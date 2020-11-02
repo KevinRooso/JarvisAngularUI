@@ -448,6 +448,10 @@ export class ServiceService {
     return this.http.post<any>(this.api_user_url2 + `/api/bms/execute/config/batch/${batchId}`,obj);
   }
 
+  getFirmwareVersions(): Observable<any>{
+    return this.http.get<any>(this.api_user_url2 + `/api/bms/firmwares`);
+  }
+
   // User Management
 
   getCurrentRolesList(): Observable<any> {

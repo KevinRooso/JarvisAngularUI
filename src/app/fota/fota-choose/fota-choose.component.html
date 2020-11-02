@@ -19,10 +19,9 @@
             <div class="col-md-9 col-form-label">
             <mat-form-field appearance="fill">
                 <mat-label>Select Version</mat-label>
-                <mat-select formControlName="version" [disabled]="!tcuChe">
-                  <mat-option>--</mat-option>
-                  <mat-option *ngFor="let ver of versionArray"  [value]="ver">
-                    {{ver}}
+                <mat-select formControlName="version" [disabled]="!tcuChe">                  
+                  <mat-option *ngFor="let ver of tcuVersionArray"  [value]="ver.firmwareVersion">
+                    {{ver.firmwareVersion}}
                   </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -54,10 +53,9 @@
             <div class="col-md-9 col-form-label">
             <mat-form-field appearance="fill">
                 <mat-label>Select Version</mat-label>
-                <mat-select formControlName="version" [disabled]="!bmsChe">
-                  <mat-option>--</mat-option>
-                  <mat-option *ngFor="let ver of versionArray"  [value]="ver">
-                    {{ver}}
+                <mat-select formControlName="version" [disabled]="!bmsChe">                  
+                  <mat-option *ngFor="let ver of bmsVersionArray"  [value]="ver.firmwareVersion">
+                    {{ver.firmwareVersion}} 
                   </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -70,8 +68,7 @@
           <div class="col-md-9 col-form-label">
           <mat-form-field appearance="fill">
               <mat-label>Select Command</mat-label>
-              <mat-select formControlName="command" [disabled]="!bmsChe">
-                <mat-option>--</mat-option>
+              <mat-select formControlName="command" [disabled]="!bmsChe">                
                 <mat-option *ngFor="let com of bmsCommandArray"  [value]="com.id">
                   {{com.displayName}}
                 </mat-option>
@@ -91,8 +88,8 @@
             <mat-form-field appearance="fill">
                 <mat-label>Select Version</mat-label>
                 <mat-select formControlName="version" [disabled]="!cfgChe">
-                  <mat-option *ngFor="let ver of versionArray"  [value]="ver">
-                    {{ver}}
+                  <mat-option *ngFor="let ver of cfgVersionArray"  [value]="ver.firmwareVersion">
+                    {{ver.firmwareVersion}}
                   </mat-option>
                 </mat-select>
             </mat-form-field>

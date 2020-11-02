@@ -305,7 +305,7 @@ export class AssetsOverviewComponent implements OnInit {
         });
         this.service.setUserRoles(rolesList);
         
-        if(rolesList.includes('asset_mgt_create')){
+        if(rolesList.includes('asset_mgt_create') && rolesList.includes('payload_mgt_view')){
           this.createAssetRole = true;
         }else{
           this.createAssetRole = false;

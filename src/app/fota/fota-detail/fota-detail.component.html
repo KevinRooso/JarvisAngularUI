@@ -182,11 +182,11 @@ class="center-aligned sq-relative-backdrop">
 
  -->
 
- <div class="mat-container mt-4">
+ <div class="mat-container mt-5">
   <app-fota-mat-table
     [dataUrl]="grid_url"
     [headerColumns]="Columns"
-    [search]=false
+    [search]=true
     (outData)="openBox($event)"
     [companyName]="param1"
     [param2]="param2"

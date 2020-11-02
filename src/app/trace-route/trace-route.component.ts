@@ -31,7 +31,7 @@ export class TraceRouteComponent implements OnInit {
     this.activatedroute.queryParams.subscribe(params => {
       this.param1 = params.cname;
       this.param2 = params.selectedItem;    
-      this.grid_url = this._service.api_user_url + '/asset/getAllActiveAssetByOrgWithFilter/' + this.param2
+      this.grid_url = this._service.api_user_url + '/api/trace/assets/' + this.param2
     });
   }
 

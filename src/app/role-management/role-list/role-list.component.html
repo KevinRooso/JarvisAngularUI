@@ -4,13 +4,13 @@
       <h2>Roles Table</h2>
     </div>
     <div class="text-right" *ngIf="createUserRole">
-      <button mat-raised-button color="primary" matTooltip="Add Role" class="theme-btn" (click)="openDialog(null)">
+      <!-- <button mat-raised-button color="primary" matTooltip="Add Role" class="theme-btn" (click)="openDialog(null)">
         Add Role      
-    </button>
+    </button> -->
     </div>
   </div>
 
   <div class="mat-container mb-5">
-    <app-role-mat-table *ngIf="gridRelaod" [dataUrl]="grid_url" [headerColumns]="Columns" (outData)="openBox($event)" ></app-role-mat-table>
+    <app-role-mat-table *ngIf="gridRelaod" [search]=true [dataUrl]="grid_url" [headerColumns]="Columns" (outData)="openBox($event)" ></app-role-mat-table>
   </div>
 

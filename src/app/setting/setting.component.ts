@@ -9,14 +9,20 @@ import { ServiceService } from '../service.service';
 export class SettingComponent implements OnInit {
 
   viewUserRole = false;
+  viewProfileRole = false;
+  updateProfileRole = false;
 
   constructor(private service: ServiceService) { }
 
   ngOnInit() {
     this.getRoleCheck();
+
   }
 
   getRoleCheck(){
+    this.viewProfileRole = false;
+    this.viewUserRole = false;
+    this.updateProfileRole = false;
     this.service.getCurrentRolesList().subscribe(
       res=> {
         let rolesList = [];
@@ -27,8 +33,12 @@ export class SettingComponent implements OnInit {
         
         if(rolesList.includes('user_mgt_view')){
           this.viewUserRole = true;
-        }else{
-          this.viewUserRole = false;
+        }
+        if(rolesList.includes('profile_settings_view')){
+          this.viewProfileRole = true;
+        }
+        if(rolesList.includes('profile_settings_update')){
+          this.updateProfileRole = true;
         }
       }
     )

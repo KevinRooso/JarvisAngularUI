@@ -39,7 +39,8 @@ export class BatchLogComponent implements OnInit {
     , { 'columnName': 'componentVersion', 'displayName': 'VERSION', "active": true, "hyperlink": false, "action": false }        
     , { 'columnName': 'nextRunOrder', 'displayName': 'NEXT RUN', "active": true, "hyperlink": false, "action": false }    
     , { 'columnName': 'createdDate', 'displayName': 'CREATED DATE', "active": true,"dateFormat":true,"hyperlink": false, "action": false }  
-    , { 'columnName': 'executionStatus', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": true , "purpose": 'statusList'}    
+    , { 'columnName': 'executionStatus', 'displayName': 'STATUS', "active": true, "hyperlink": false, "action": false}
+    , { 'columnName': 'status', 'displayName': 'INDICATOR', "active": true, "hyperlink": false, "action": true , "purpose": 'statusList',"sortDisabled": true}        
      , { 'columnName': 'action', 'displayName': 'ACTION', "active": true, "hyperlink": false, "action": true, "purpose": 'executionList',"sortDisabled": true}
   ];
 
