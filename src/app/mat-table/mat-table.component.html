@@ -114,7 +114,7 @@
               "
               *ngIf="column.hyperlink; else elseblock"
             >
-              <span class="link-tag"> {{ element[column.columnName] }} </span>
+            {{ element[column.columnName] }}
             </a>
             <ng-template #elseblock>
               <span *ngIf="!column.dateFormat">

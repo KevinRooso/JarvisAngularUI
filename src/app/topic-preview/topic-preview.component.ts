@@ -35,7 +35,7 @@ export class TopicPreviewComponent implements OnInit {
   constructor(private service: ServiceService,private router: Router,
     private router1: ActivatedRoute, private frmbuilder: FormBuilder, private _snackBar:  MatSnackBar) {
       this.topicForm = this.frmbuilder.group({
-        client: ['', [Validators.required,Validators.pattern('^[a-z]*$')]]
+        client: ['', [Validators.required,Validators.maxLength(25),Validators.pattern('^[a-z]*$')]]
       });
       
     }

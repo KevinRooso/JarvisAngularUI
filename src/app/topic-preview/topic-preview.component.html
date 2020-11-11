@@ -53,6 +53,7 @@
                    <input matInput placeholder="Client" formControlName="client">
                    <mat-error *ngIf="checkError('client', 'required')">(Client Name is required)</mat-error>
                    <mat-error *ngIf="checkError('client', 'pattern')">(Only alphabets allowed)</mat-error>
+                   <mat-error *ngIf="checkError('client', 'maxlength')">(Max 25 characters allowed)</mat-error>
                  </mat-form-field>
                  </form>
                 </div>

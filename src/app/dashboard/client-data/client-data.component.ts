@@ -7,6 +7,7 @@ import {
 import { HttpClient } from "@angular/common/http";
 import { ServiceService } from "src/app/service.service";
 import { ThrowStmt } from '@angular/compiler';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-client-data",
@@ -14,24 +15,38 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ["./client-data.component.scss"]
 })
 export class ClientDataComponent {
-  constructor(
-    private _httpClient: HttpClient,
-    private _service: ServiceService
-  ) {
-
-  }
+  
   orgid: number;
   orgData: OrgData[] = [];
+  myData: any[] = [];
+  todo: any[] = [];
+  done: any[] = [];
+  newtodo: any[] = [];
+
+  payloadData:any[] = [];
+  modalForm: FormGroup;
+  masterData: any[]= [];
+
+  constructor(
+    private _httpClient: HttpClient,
+    private _service: ServiceService,
+    private frmbuilder: FormBuilder
+  ) {}
+
   ngOnInit(): any {
 
+    this.modalForm = this.frmbuilder.group({
+      orgId: ['',[Validators.required]],
+      incomingTopic: ['',[Validators.required]],
+      outgoingTopic: ['',[Validators.required]]
+      // isActive: ['']
+    });    
+    
     this.getOrganisationData();
     this.getclientData();
   }
 
-  myData: sendData[] = [];
-  todo: Org[] = [];
-  done: Org[] = [];
-  newtodo: Org[] = [];
+
   drop(event: CdkDragDrop<string[]>) {
     this.myData = [];
     if (event.previousContainer === event.container) {
@@ -52,8 +67,9 @@ export class ClientDataComponent {
 
     for (var i = 0; i < this.done.length; i++) {
       var datas = {
-        name: this.done[i].name, orgId: this.orgid,
-        description: this.done[i].description, sequenceOrder: i + 1, masterId: this.done[i].id
+        columnName: this.done[i].columnName,
+        seqOrder: i + 1,
+        id: this.done[i].id
       };
       this.myData.push(datas);
     }
@@ -67,61 +83,94 @@ export class ClientDataComponent {
       });
     });
   }
+
   getclientData() {
     this._service.getclientData().subscribe(res => {
       console.log(res);
-      
-      res.result.forEach(element => {
 
-        this.todo.push(element);
-      });
+      this.newtodo = res.body;
+
+      this.todo = res.body;
     });
   }
+
   saveData() {
-    console.log(this.myData);
-    if (this.orgid == undefined) {
-      alert("please select the organisation");
-    }
-    else {
-      this._service.saveDataForClient(this.myData).subscribe(res => {
-        console.log("resposne");
-        console.log(res);
-      });
-    }
+    
+  if(this.myData.length != 0)
+  {
+   if(this.modalForm.valid)
+   { 
+    this.myData.map(i=>{
+      i.inTopic = this.modalForm.controls['incomingTopic'].value;
+      i.outTopic = this.modalForm.controls['outgoingTopic'].value;
+    });
+    
+    let orgId = this.modalForm.controls['orgId'].value;
 
+    console.log("DragDrop",this.myData);
 
+    this._service.savePayload(orgId,this.myData).subscribe(
+      _res=> {
+        console.log("payload saved", _res);
+        alert("Config Saved");
+      }
+    );
+    
+   }else{
+    alert("Please fill all the fields");
+   }
+
+  }else{
+    alert("Choose atleast one parameter for packet");
   }
-  getUpdatedData() {
-    var i = true;
-    var flag = false;
-    this._service.getUpdatedData(this.orgid)
-      .subscribe(res => {
-        console.log(res);
 
-        res.result.forEach(item => {
-          var datas = {
-            name: item.name, id: item.orgId,
-            description: item.description, masterId: item.id
-          };
-          this.done.push(datas);
+ }
 
-        })
-        console.log(this.done);
-        this.todo.forEach(elem => {
-          for (var j = 0; j < res.result.length; j++) {
-            if (elem.name == res.result[j].name) {
+  getPayloadByOrg(){
+    this._service.getclientData().subscribe(res => {
+      this.todo = res.body;
 
-              flag = true;
-              break;
+      this.getPayloadInfo();
+    });
+  }
+
+  getPayloadInfo(){
+    let orgId = this.modalForm.controls['orgId'].value;
+
+    this._service.getPayload(orgId).subscribe(
+      res=> {        
+      this.payloadData = res.body;
+
+      if(this.payloadData.length > 0)
+      {
+        this.done = [];
+        this.myData = [];
+
+        this.payloadData.map(i=>{
+          let obj = {
+            columnName: i.columnName,
+            seqOrder: i.sequenceOrder,
+            id: i.id
+          };          
+          this.done.push(i);
+          this.myData.push(obj);
+
+          this.modalForm.controls['incomingTopic'].setValue(i.incomintopic);
+          this.modalForm.controls['outgoingTopic'].setValue(i.outgoingTopic);
+        });
+        
+        this.done.sort(function(a,b){ return a.sequenceOrder - b.sequenceOrder});
+
+        this.payloadData.forEach(elem => {
+          for(var i = 0; i < this.todo.length ; i++){
+            if(elem.masterId == this.todo[i].id){
+              this.todo.splice(i,1);
             }
           }
-          if (!flag) {
-            this.newtodo.push(elem);
-          }
-          flag = false;
-        })
-        this.todo = this.newtodo;
-      });
+        });
+        
+      }                  
+   });
   }
 }
 export interface Org {

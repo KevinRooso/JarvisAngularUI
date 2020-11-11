@@ -1,29 +1,46 @@
-<section class="m-4">
-
-  <div class="row">
-    <div class="col-10">
-
-      <div class="text-left">
-        <label class="mr-4">Choose Organization : </label>
-        <mat-form-field>
-          <mat-label>Select</mat-label>
-          <mat-select [(value)]="orgid">
+<section class="m-5">
+<form [formGroup]="modalForm">
+  <div class="form-row">          
+        <label class="col-2 col-form-label">Choose Organization : </label>
+        <mat-form-field class="col-4" appearance="fill">
+          <mat-label>Select Org</mat-label>
+          <mat-select [value]="orgid" formControlName="orgId" (selectionChange)="getPayloadByOrg()">
             <mat-option *ngFor="let elem of orgData" [value]="elem.id">
               {{elem.orgName}}
             </mat-option>
           </mat-select>
-        </mat-form-field>
-      </div>
-
-    </div>
-    <div class="col-2 text-right"><button mat-raised-button color="primary" (click)="saveData()">Save</button></div>
+        </mat-form-field>    
+    <!-- <div class="col-2 text-right"><button mat-raised-button color="primary" (click)="saveData()">Save</button></div> -->
   </div>
 
-  <!-- <div class="container-fluid"> -->
-  <div class="row">
+  <div class="form-row mt-2">
+    <label class="col-2 col-form-label">Incoming Topic : </label>
+    <mat-form-field class="col-4" appearance="fill">
+      <mat-label>Incoming Topic</mat-label>
+      <input matInput formControlName="incomingTopic" />
+    </mat-form-field>
+  </div>
 
-    <div class="col-sm-6">
-      <h6>Client Payload List</h6>
+  <div class="form-row mt-2">
+    <label class="col-2 col-form-label">Outgoing Topic : </label>
+    <mat-form-field class="col-4" appearance="fill">
+      <mat-label>Outgoing Topic</mat-label>
+      <input matInput formControlName="outgoingTopic" />
+    </mat-form-field>
+  </div>
+
+  <!-- <div class="form-row mt-2">
+    <label class="col-2 col-form-label">Active : </label>
+    <div class="col-4">
+      <mat-slide-toggle formControlName="isActive"></mat-slide-toggle>
+    </div>    
+  </div> -->
+
+  <!-- <div class="container-fluid"> -->
+  <div class="form-row mt-4">
+
+    <div class="col-6">
+      <h6>Parameters List</h6>
       <mat-card class="drag_section">
 
 
@@ -36,9 +53,9 @@
     </div>
 
 
-    <div class="col-sm-6">
+    <div class="col-6">
 
-      <h6>Drag here for selection</h6>
+      <h6>Packet Parameters</h6>
       <mat-card class="drag_section">
 
 
@@ -54,6 +71,14 @@
       </mat-card>
     </div>
   </div>
-  <!-- </div> -->
 
+  <div class="form-row mt-4">
+    <div class="col-12">
+      <div class="text-center">
+        <button mat-raised-button color="primary" (click)="saveData()">Save Modal</button>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</form>
 </section>

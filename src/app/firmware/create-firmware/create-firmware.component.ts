@@ -24,6 +24,7 @@ export class CreateFirmwareComponent implements OnInit {
   submitted = false;
 
   fwareExists = false;
+  btnMsg:any = "Create";
 
   mode = 'indeterminate';
   value = 50;
@@ -86,8 +87,10 @@ export class CreateFirmwareComponent implements OnInit {
       res=>{
         if(res == true){
           this.fwareExists = true;
+          this.btnMsg = "Overwrite";
         }else{
           this.fwareExists = false;
+          this.btnMsg = "Create";
         }
         this.confirmButton.nativeElement.click();        
       }
@@ -109,11 +112,11 @@ export class CreateFirmwareComponent implements OnInit {
     formdata.append('file',this.fileUploaded);
     this.service.createFirmware(orgId,type,version,formdata).subscribe(
       res=> {
-        this._snackBar.open("Firmware Generated Successfully!!", "close" , {
-          duration: 2000
-        });
+        // this._snackBar.open("Firmware Generated Successfully!!", "close" , {
+        //   duration: 2000
+        // });
         console.log("created",res);
-        alert("Firmware Generated");
+        alert("Firmware Uploaded");
         this.displayProgressSpinnerInBlock = false;
         this.closeModal.nativeElement.click();
         this.router.navigate(['firmware']);

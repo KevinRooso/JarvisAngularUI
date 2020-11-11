@@ -246,7 +246,7 @@ export class ServiceService {
     return this.http.get<any>(this.api_user_url + '/organistaion/findAllOrg');
   }
   public getclientData(): Observable<any> {
-    return this.http.get<any>(this.api_user_url + '/payload/getMasterParameters');
+    return this.http.get<any>(this.api_user_url + '/payload/master');
   }
   public saveDataForClient(obj: Object): Observable<any> {
     return this.http.post<any>(this.api_user_url + '/payload/saveClientPayloadSequenceByOrg', obj)
@@ -452,6 +452,10 @@ export class ServiceService {
     return this.http.get<any>(this.api_user_url2 + `/api/bms/firmwares`);
   }
 
+  pushCustomFota(orgId,imei,obj): Observable<any> {
+    return this.http.post<any>(this.api_user_url2 + `/api/bms/excute/custom/${orgId}/${imei}`,obj);
+  }
+
   // User Management
 
   getCurrentRolesList(): Observable<any> {
@@ -494,6 +498,14 @@ export class ServiceService {
     return this.getCurrentRolesList().pipe(tap(res=>{
       return res;
     }));
+  }
+
+  savePayload(orgId,obj){
+    return this.http.post<any>(this.api_user_url +  `/payload/${orgId}`,obj);
+  }
+
+  getPayload(orgId){
+    return this.http.get<any>(this.api_user_url + `/payload/${orgId}`);
   }
 
   /*  */

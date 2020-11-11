@@ -1,8 +1,8 @@
 <div class="main-class">
   <div id="content">
-    <div id="main-content">
+    <div id="main-content" style="height: 900px;">
       <mat-tab-group>
-        <mat-tab label="Profile Settings" *ngIf="viewProfileRole">
+        <mat-tab label="Profile Settings">
           <ng-template mat-tab-label>
             Profile Settings
             <!-- <mat-icon class="example-tab-icon" style="padding-left:80px;">account_circle</mat-icon> -->
@@ -23,6 +23,11 @@
           <mat-tab label="Users" *ngIf="viewUserRole">
             <div class="mt-2">
             <app-users-page></app-users-page>
+            </div>
+          </mat-tab>
+          <mat-tab label="Modal Config">
+            <div class="mt-2">
+            <app-client-data></app-client-data>
             </div>
           </mat-tab>
         <!-- <mat-tab label="Wizards Settings"> <app-wizards></app-wizards></mat-tab> -->

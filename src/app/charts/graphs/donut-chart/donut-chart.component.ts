@@ -39,7 +39,12 @@ export class DonutChartComponent implements OnInit,OnChanges{
     //     align: 'center',
     //   }
     // ],
-      showlegend: false,
+      showlegend: true,
+      legend: {
+        x: 1,
+        xanchor: 'right',
+        y: 1
+      },
       margin: { t: 20, b: 20, l: 50, r: 50 },
 
     };
@@ -53,7 +58,12 @@ export class DonutChartComponent implements OnInit,OnChanges{
       height:this.custHeight,
       //title: 'Active Batteries',
      // font: { family: 'Roboto, "Helvetica Neue", sans-serif' },
-      showlegend: false,
+      showlegend: true,
+      legend: {
+        x: 1,
+        xanchor: 'right',
+        y: 1
+      },
       margin: { t: 10, b: 10, l: 10, r: 10 },
       grid: {rows : 1, columns: this.cols},
       // annotations: [
@@ -87,19 +97,7 @@ export class DonutChartComponent implements OnInit,OnChanges{
   cols : any;
 
 
-  public data: any[] =[
-    /* {
-      values: [16, 15, 12, 6, 5, 4, 40],
-      labels: ['Ola', 'Bounce', 'European Union', 'Russian Federation', 'Brazil', 'India', 'Rest of World' ],
-     // domain: {column: 2},
-      name: 'Battery',
-      hoverinfo: 'label+percent+name',
-      hole: .5,
-      type: 'pie'
-
-
-    } */
-  ];
+  public data: any[] =[];
 
   public layout: any = {
     autosize: true,
@@ -122,7 +120,12 @@ export class DonutChartComponent implements OnInit,OnChanges{
   //     text: 'Raaj',
   //   }
   // ],
-    showlegend: false,
+    showlegend: true,
+    legend: {
+      x: 1,
+      xanchor: 'right',
+      y: 1
+    },
     margin: { t: 0, b: 0, l: 0, r: 0 }
   };
 
@@ -156,6 +159,7 @@ getDonutHovertemplate(res:any){
         labels: ['Alive', 'Not Alive'],
         hole: .5,
         textposition: 'inside',
+        insidetextorientation: 'horizontal',
         title:{
           text: item.org_name,        
           font:{          
@@ -190,6 +194,7 @@ getDonutHovertemplate(res:any){
           labels: ['Alive', 'Not Alive'],
           hole: .5,
           textposition: 'inside',
+          insidetextorientation: 'horizontal',
           title:{
             text: item.org_name,
             font:{          
@@ -223,7 +228,8 @@ getDonutHovertemplate(res:any){
         values: [item.active_asset,item.total_asset-item.active_asset],
         labels: ['Alive', 'Not Alive'],
         hole: .5,
-        textposition: 'inside',
+        insidetextorientation: 'horizontal',
+        textposition: 'inside',        
         title:{
           text: item.org_name,
           font:{          
