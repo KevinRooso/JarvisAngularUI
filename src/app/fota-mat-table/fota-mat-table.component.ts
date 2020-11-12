@@ -64,8 +64,8 @@ export class FotaMatTableComponent{
   @ViewChild('closeDetail', { static: true }) closeDetail;
   @ViewChild('closeCfg', { static: true }) closeCfg;
   @ViewChild('closeCfgBatch', { static: true }) closeCfgBatch;
+  @ViewChild('closeCust', { static: true }) closeCust;
   
-
   @Input('dataUrl') dataUrl: string;
   @Input('headerColumns') headerColumns: any[];
   @Input('search') searchEnable: boolean = false;
@@ -104,6 +104,10 @@ export class FotaMatTableComponent{
   cfgDetail:any;
   configObj: any;
   configRecieved = false;
+
+  //Custom variable  
+  customObj:any;
+  customRecieved = false;
 
   constructor(private _httpClient: HttpClient,
     private _service: ServiceService, private router: Router) {
@@ -288,10 +292,25 @@ console.log( data.body.content);
     this.configRecieved = true;
   }
 
+  getCustomParam(eventObj){
+    this.customObj = eventObj;
+    this.customRecieved = true;    
+  }
+
   resetParamReceieved(){
     this.paramRecieved = false;
     this.modalImei = null;
     this.modalBatch = null;    
+  }
+
+  resetConfigReceived(){
+    this.configRecieved = false;
+    this.fotaId = null;
+  }
+
+  resetCustomRecieved(){
+    this.customRecieved = false;
+    this.fotaId = null;
   }
 
   runImeiFota(){   
@@ -381,6 +400,22 @@ console.log( data.body.content);
         this.closeCfgBatch.nativeElement.click();
         alert("Error in SysConfig Execution");
         this.displayProgressSpinnerInBlock = false;
+      }
+    )
+  }
+
+  runCustomFota(){    
+    this._service.pushCustomFota(this.companyName,this.imeiDetail.imeiNo,this.customObj).subscribe(
+      res=> {
+        this.closeCust.nativeElement.click();
+        alert("Custom Command Pushed");
+        this.customRecieved = false;        
+        this.ngAfterViewInit();
+      },
+      err=> {
+        this.customRecieved = false;
+        this.closeCust.nativeElement.click();
+        alert("Error in SysConfig Execution");        
       }
     )
   }

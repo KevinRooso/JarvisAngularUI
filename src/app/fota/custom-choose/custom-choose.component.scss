@@ -1,0 +1,43 @@
+.card-input-element {
+    display: none;
+}
+
+.card-input-element:checked + .example-ripple-container {
+    box-shadow: 0 0 2px 2px #1e201f;
+}
+
+.example-ripple-container {
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.form-font-1 {
+    font-size:15.5px;
+    font-weight: 400;
+}
+
+.form-font-2 {
+    font-size:11.5px;
+    font-weight: 400;
+}
+
+// .cdk-global-overlay-wrapper, .cdk-overlay-container {
+//      z-index: 99999!important;
+//      position: absolute; }
+label{
+  font-size:11px;
+  text-transform: uppercase;
+}

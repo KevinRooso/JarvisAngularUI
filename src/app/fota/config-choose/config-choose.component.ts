@@ -30,7 +30,7 @@ export class ConfigChooseComponent implements OnInit {
 
   ngOnChanges(){
     this.configChosen = false;
-    this.configForm.reset({command:'',value:''});
+    this.configForm.reset({command:'',cValue:''});
   }
 
   getCommands(){
